@@ -1,12 +1,6 @@
 import { drawBuble } from "./drawBuble";
 import type { TFuncGetColor } from "./getFunctionGetColorByDelta";
 
-// Текущая структура готова
-// Функция draw будет рисовать все на основе текущих данных
-// Нужно реализовать:
-// - рисовку image (Размер, положение и тд)
-// - рисовку title
-
 const isDebug = false;
 
 export class DrawableDataBubble {
