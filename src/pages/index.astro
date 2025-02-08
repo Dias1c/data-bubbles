@@ -26,7 +26,7 @@
 
     font-family: Inter, Roboto, "Helvetica Neue", "Arial Nova", "Nimbus Sans",
       Arial, sans-serif;
-    background-color: #474747;
+    background-color: #151515;
   }
 </style>
 
@@ -34,6 +34,7 @@
   import {
     DrawableDataBubble,
     getFunctionGetColorByDelta,
+    DrawerDataBubbles,
   } from "../entities/drawer";
   import { isCoordinatesInCircle } from "../shared/lib/math/isCoordinatesInCircle";
 
@@ -86,56 +87,19 @@
       },
       {
         label: "Carl",
-        value: 300,
+        value: 350,
         src: "/favicon.svg",
       },
     ];
 
-    const dataBubbles = data.map((d) => {
-      const img = new Image();
-      img.src = d.src;
+    const drawer = new DrawerDataBubbles({ canvas, scale });
+    drawer.data = data;
 
-      const r = d.value;
-
-      const dataBubble = new DrawableDataBubble({
-        x: Math.random() * (canvas.width - r * 2) + r,
-        y: Math.random() * (canvas.height - r * 2) + r,
-        r: r,
-        image: img,
-        label: d.label,
-        value: `${d.value}`,
-        fontFamily: "Arial",
-        getColor: getFunctionGetColorByDelta({ delta: Math.random() * 2 - 1 }),
-      });
-
-      return {
-        ...d,
-        dataBubble,
-      };
-    });
-
-    const draw = () => {
-      ctx.beginPath();
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fill();
-
-      dataBubbles.forEach(({ dataBubble }) => {
-        const { x, y, r } = dataBubble;
-        let selected =
-          !!mouseX &&
-          !!mouseY &&
-          isCoordinatesInCircle({ x: mouseX, y: mouseY, cR: r, cX: x, cY: y });
-
-        dataBubble.draw({ ctx, selected });
-      });
-    };
-
-    draw();
-    setInterval(draw, 1 / 60);
+    setInterval(() => drawer.draw(), 1000 / 60);
 
     window.addEventListener("resize", () => {
       fitCanvasSize();
-      draw();
+      drawer.draw();
     });
   }
 
