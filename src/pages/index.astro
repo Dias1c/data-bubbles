@@ -35,7 +35,6 @@
     DrawableDataBubble,
     getFunctionGetColorByDelta,
   } from "../entities/drawer";
-  import img_favicon from "../../public/favicon.svg";
 
   const scale = 2;
 
@@ -63,7 +62,7 @@
     }
 
     const img = new Image();
-    img.src = img_favicon.src;
+    img.src = "/favicon.svg";
 
     const dataBubble = new DrawableDataBubble({
       x: 500,
