@@ -29,3 +29,75 @@
     background-color: #474747;
   }
 </style>
+
+<script>
+  import {
+    DrawableDataBubble,
+    getFunctionGetColorByDelta,
+  } from "../entities/drawer";
+  import img_favicon from "../../public/favicon.svg";
+
+  const scale = 2;
+
+  function main() {
+    const canvas = document.getElementById("canvas");
+    if (!(canvas instanceof HTMLCanvasElement)) {
+      console.error("canvas not found");
+      return;
+    }
+    if (!canvas.getContext) {
+      console.error("canvas is not supported");
+      return;
+    }
+
+    const fitCanvasSize = () => {
+      canvas.width = window.innerWidth * scale;
+      canvas.height = window.innerHeight * scale;
+    };
+
+    fitCanvasSize();
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) {
+      return;
+    }
+
+    const img = new Image();
+    img.src = img_favicon.src;
+
+    const dataBubble = new DrawableDataBubble({
+      x: 500,
+      y: 500,
+      r: 500,
+      image: img,
+      label: "Astro",
+      value: "+2500",
+      fontFamily: "Arial",
+      getColor: getFunctionGetColorByDelta({ delta: 1 }),
+    });
+
+    const draw = () => {
+      ctx.beginPath();
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fill();
+
+      const r = Math.random() * 500;
+
+      dataBubble.r = r;
+      dataBubble.x = Math.random() * (canvas.width - r * 2) + r;
+      dataBubble.y = Math.random() * (canvas.height - r * 2) + r;
+      dataBubble.draw({ ctx });
+
+      // window.requestAnimationFrame(draw);
+    };
+
+    draw();
+
+    window.addEventListener("resize", () => {
+      fitCanvasSize();
+      draw();
+    });
+  }
+
+  main();
+</script>
