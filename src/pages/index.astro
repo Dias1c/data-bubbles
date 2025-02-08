@@ -35,6 +35,7 @@
     DrawableDataBubble,
     getFunctionGetColorByDelta,
   } from "../entities/drawer";
+  import { isCoordinatesInCircle } from "../shared/lib/math/isCoordinatesInCircle";
 
   const scale = 2;
 
@@ -49,6 +50,22 @@
       return;
     }
 
+    const ctx = canvas.getContext("2d");
+    if (!ctx) {
+      return;
+    }
+
+    let mouseX: number | null = null;
+    let mouseY: number | null = null;
+    canvas.addEventListener("mousemove", (e) => {
+      mouseX = e.x * scale;
+      mouseY = e.y * scale;
+    });
+    canvas.addEventListener("mouseleave", () => {
+      mouseX = null;
+      mouseY = null;
+    });
+
     const fitCanvasSize = () => {
       canvas.width = window.innerWidth * scale;
       canvas.height = window.innerHeight * scale;
@@ -56,23 +73,45 @@
 
     fitCanvasSize();
 
-    const ctx = canvas.getContext("2d");
-    if (!ctx) {
-      return;
-    }
+    const data = [
+      {
+        label: "Alice",
+        value: 100,
+        src: "/favicon.svg",
+      },
+      {
+        label: "Bob",
+        value: 200,
+        src: "/favicon.svg",
+      },
+      {
+        label: "Carl",
+        value: 300,
+        src: "/favicon.svg",
+      },
+    ];
 
-    const img = new Image();
-    img.src = "/favicon.svg";
+    const dataBubbles = data.map((d) => {
+      const img = new Image();
+      img.src = d.src;
 
-    const dataBubble = new DrawableDataBubble({
-      x: 500,
-      y: 500,
-      r: 500,
-      image: img,
-      label: "Astro",
-      value: "+2500",
-      fontFamily: "Arial",
-      getColor: getFunctionGetColorByDelta({ delta: 1 }),
+      const r = d.value;
+
+      const dataBubble = new DrawableDataBubble({
+        x: Math.random() * (canvas.width - r * 2) + r,
+        y: Math.random() * (canvas.height - r * 2) + r,
+        r: r,
+        image: img,
+        label: d.label,
+        value: `${d.value}`,
+        fontFamily: "Arial",
+        getColor: getFunctionGetColorByDelta({ delta: Math.random() * 2 - 1 }),
+      });
+
+      return {
+        ...d,
+        dataBubble,
+      };
     });
 
     const draw = () => {
@@ -80,17 +119,19 @@
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.fill();
 
-      const r = Math.random() * 500;
+      dataBubbles.forEach(({ dataBubble }) => {
+        const { x, y, r } = dataBubble;
+        let selected =
+          !!mouseX &&
+          !!mouseY &&
+          isCoordinatesInCircle({ x: mouseX, y: mouseY, cR: r, cX: x, cY: y });
 
-      dataBubble.r = r;
-      dataBubble.x = Math.random() * (canvas.width - r * 2) + r;
-      dataBubble.y = Math.random() * (canvas.height - r * 2) + r;
-      dataBubble.draw({ ctx });
-
-      // window.requestAnimationFrame(draw);
+        dataBubble.draw({ ctx, selected });
+      });
     };
 
     draw();
+    setInterval(draw, 1 / 60);
 
     window.addEventListener("resize", () => {
       fitCanvasSize();
