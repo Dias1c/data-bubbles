@@ -37,7 +37,7 @@
   } from "../entities/drawer";
   import { isCoordinatesInCircle } from "../shared/lib/math/isCoordinatesInCircle";
 
-  const scale = 2;
+  const scale = window?.devicePixelRatio ?? 1;
 
   function main() {
     const canvas = document.getElementById("canvas");
