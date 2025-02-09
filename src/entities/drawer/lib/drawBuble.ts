@@ -33,6 +33,10 @@ export function drawBuble({
   getColor: TFuncGetColor;
   selected?: boolean;
 }): Error | void {
+  if (r <= 0) {
+    return;
+  }
+
   ctx.beginPath();
   ctx.fillStyle = getColor({ opacity: 0.05 });
   ctx.arc(x, y, r, 0, Math.PI * 2);
