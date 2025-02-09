@@ -16,6 +16,9 @@ type TDrawingData = {
   drawer: DrawableDataBubble;
 };
 
+// TODO: Calculate Sizing
+// TODO: Optimization
+
 export class DrawerDataBubbles {
   canvas: HTMLCanvasElement;
   scale: number;
@@ -43,9 +46,10 @@ export class DrawerDataBubbles {
 
     // TODO: Recognize Bubbles To Delete
     const maxSize = Math.min(canvas.width, canvas.height);
+
     v.forEach((data) => {
       // Calculate Radius
-      const radius = maxSize * 0.5 * (data.value / dataValuesSum);
+      const radius = maxSize * 1 * (data.value / dataValuesSum);
 
       let image: HTMLImageElement | undefined;
       if (data.src) {
@@ -162,6 +166,32 @@ export class DrawerDataBubbles {
       }
       drawer.r += deltaR;
 
+      // Collisions
+      for (const [key2, bubble2] of bublesMap) {
+        if (key == key2) continue;
+
+        const { drawer: drawer2 } = bubble2;
+
+        let dx = drawer2.x - drawer.x;
+        let dy = drawer2.y - drawer.y;
+        let distance = Math.sqrt(dx * dx + dy * dy);
+        let minDistance = drawer.r + drawer2.r;
+
+        let angle = Math.atan2(dy, dx);
+        let overlap = minDistance - distance;
+
+        if (distance < minDistance) {
+          bubble.directionX -= (Math.cos(angle) * (overlap / 2)) / 1000;
+          bubble.directionY -= (Math.sin(angle) * (overlap / 2)) / 1000;
+          bubble2.directionX += (Math.cos(angle) * (overlap / 2)) / 1000;
+          bubble2.directionY += (Math.sin(angle) * (overlap / 2)) / 1000;
+        }
+      }
+
+      bubble.directionX -= bubble.directionX * 0.001;
+      bubble.directionY -= bubble.directionY * 0.001;
+
+      // Calculate Coordinates
       if (drawer.x - drawer.r < 0) {
         drawer.x = drawer.r;
         bubble.directionX *= -1;
@@ -169,7 +199,6 @@ export class DrawerDataBubbles {
         drawer.x = canvas.width - drawer.r;
         bubble.directionX *= -1;
       }
-
       if (drawer.y - drawer.r < 0) {
         drawer.y = drawer.r;
         bubble.directionY *= -1;
@@ -177,7 +206,6 @@ export class DrawerDataBubbles {
         drawer.y = canvas.height - drawer.r;
         bubble.directionY *= -1;
       }
-
       drawer.x += bubble.directionX;
       drawer.y += bubble.directionY;
 
