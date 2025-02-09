@@ -31,12 +31,7 @@
 </style>
 
 <script>
-  import {
-    DrawableDataBubble,
-    getFunctionGetColorByDelta,
-    DrawerDataBubbles,
-  } from "../entities/drawer";
-  import { isCoordinatesInCircle } from "../shared/lib/math/isCoordinatesInCircle";
+  import { DrawerDataBubbles } from "../entities/drawer";
 
   const scale = window?.devicePixelRatio ?? 1;
 
@@ -77,17 +72,17 @@
     const data = [
       {
         label: "Alice",
-        value: 100,
+        value: 500,
         src: "/favicon.svg",
       },
       {
         label: "Bob",
-        value: 200,
+        value: 500,
         src: "/favicon.svg",
       },
       {
         label: "Carl",
-        value: 350,
+        value: 500,
         src: "/favicon.svg",
       },
     ];
@@ -95,10 +90,30 @@
     const drawer = new DrawerDataBubbles({ canvas, scale });
     drawer.data = data;
 
-    setInterval(() => drawer.draw(), 1000 / 60);
+    setInterval(() => drawer.draw(), 1000);
+
+    window.addEventListener("click", () => {
+      data.unshift({
+        value: Math.round(Math.random() * 500),
+        label: `${data.length}`,
+        src: "/favicon.svg",
+      });
+      drawer.data = data.map((v, i) => {
+        if (i == drawer.data.length - 1) {
+          return v;
+        }
+        return {
+          ...v,
+          value: Math.round(Math.random() * 500),
+        };
+      });
+      console.log(drawer.data);
+    });
 
     window.addEventListener("resize", () => {
+      // TODO: Debounce?
       fitCanvasSize();
+      drawer.recalculateBubbleSizes();
       drawer.draw();
     });
   }
