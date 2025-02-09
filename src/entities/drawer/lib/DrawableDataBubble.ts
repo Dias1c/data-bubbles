@@ -49,7 +49,10 @@ export class DrawableDataBubble {
     ctx: CanvasRenderingContext2D;
     selected?: boolean;
   }) {
-    const { x, y, r, getColor, label } = this;
+    const { x, y, r, getColor } = this;
+    if (r <= 0) {
+      return;
+    }
 
     drawBuble({ ctx, selected, x, y, r, getColor });
 
@@ -60,7 +63,7 @@ export class DrawableDataBubble {
 
   private drawImage({ ctx }: { ctx: CanvasRenderingContext2D }) {
     const { image, x, y, r } = this;
-    if (!image) {
+    if (!image || r <= 0) {
       return;
     }
 
@@ -80,7 +83,7 @@ export class DrawableDataBubble {
 
   private drawLabel({ ctx }: { ctx: CanvasRenderingContext2D }) {
     const { label, fontFamily, x, y, r } = this;
-    if (!label) {
+    if (!label || r <= 0) {
       return;
     }
 
@@ -103,7 +106,7 @@ export class DrawableDataBubble {
 
   private drawValue({ ctx }: { ctx: CanvasRenderingContext2D }) {
     const { value, fontFamily, x, y, r } = this;
-    if (!value) {
+    if (!value || r <= 0) {
       return;
     }
 
