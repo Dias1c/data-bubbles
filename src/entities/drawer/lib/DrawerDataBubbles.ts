@@ -44,12 +44,11 @@ export class DrawerDataBubbles {
       value.currentData = undefined;
     }
 
-    // TODO: Recognize Bubbles To Delete
     const maxSize = Math.min(canvas.width, canvas.height);
 
     v.forEach((data) => {
       // Calculate Radius
-      const radius = maxSize * 1 * (data.value / dataValuesSum);
+      const radius = maxSize * 0.5 * (data.value / dataValuesSum);
 
       let image: HTMLImageElement | undefined;
       if (data.src) {
