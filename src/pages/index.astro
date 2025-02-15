@@ -92,22 +92,35 @@
 
     setInterval(() => drawer.draw(), 1000 / 60);
 
-    window.addEventListener("click", () => {
-      data.unshift({
-        value: Math.round(Math.random() * 500),
-        label: `${data.length}`,
-        src: "/favicon.svg",
+    canvas.addEventListener("click", () => {
+      const url = canvas.toDataURL("image/png");
+      const img = document.createElement("img");
+      img.src = url;
+      img.style.position = "absolute";
+      img.style.zIndex = "1";
+      img.style.top = "50%";
+      img.style.left = "50%";
+      img.style.transform = "translate(-50%, -50%)";
+      // img.style.width = `${img.width / scale}px`;
+      // img.style.height = `${img.height / scale}px`;
+      img.addEventListener("load", () => {
+        console.dir(img);
+        img.width = img.width / scale;
+        // img.height = img.height / scale;
       });
-      drawer.data = data.map((v, i) => {
-        if (i == drawer.data.length - 1) {
-          return v;
-        }
-        return {
-          ...v,
-          value: Math.round(Math.random() * 500),
-        };
+
+      img.style.background = "#000";
+
+      document.body.appendChild(img);
+
+      img.addEventListener("click", (e) => {
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "data-bubbles.png";
+        a.click();
+        a.remove();
+        img.remove();
       });
-      console.log(drawer.data);
     });
 
     window.addEventListener("resize", () => {

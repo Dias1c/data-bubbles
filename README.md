@@ -4,7 +4,8 @@
 
 - [ ] Export to IMG
 
-  - [ ] Base Exporting
+  - [ ] Define data in bubbles
+  - [x] Base Image Exporting
   - [ ] Export with QR
 
 - [ ] Define structure based on features (`{ label, data: []}`)
