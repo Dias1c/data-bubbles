@@ -90,7 +90,7 @@
     const drawer = new DrawerDataBubbles({ canvas, scale });
     drawer.data = data;
 
-    setInterval(() => drawer.draw(), 1000);
+    setInterval(() => drawer.draw(), 1000 / 60);
 
     window.addEventListener("click", () => {
       data.unshift({
