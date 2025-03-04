@@ -1,0 +1,12 @@
+.divider_vertical {
+  padding: 4px;
+  height: 100%;
+
+  &::before {
+    content: '';
+    display: block;
+    height: 100%;
+    width: 1px;
+    background-color: var(--color-divider);
+  }
+}
