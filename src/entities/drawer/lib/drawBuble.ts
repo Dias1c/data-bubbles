@@ -38,17 +38,11 @@ export function drawBuble({
   }
 
   ctx.beginPath();
-  ctx.fillStyle = getColor({ opacity: 0.05 });
+  ctx.fillStyle = getColor({ opacity: 0.2 });
   ctx.arc(x, y, r, 0, Math.PI * 2);
   ctx.fill();
-
-  let max = r * 0.1;
-  for (let i = 1; i < max; i += 1) {
-    const opacity = (1 - i / max) / (r * 0.1);
-    ctx.strokeStyle = getColor({ opacity });
-    ctx.arc(x, y, r - i, 0, Math.PI * 2);
-    ctx.stroke();
-  }
+  ctx.strokeStyle = getColor({ opacity: 1 });
+  ctx.stroke();
   ctx.closePath();
 
   if (selected) {
