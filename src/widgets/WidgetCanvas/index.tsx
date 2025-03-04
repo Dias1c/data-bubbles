@@ -19,6 +19,24 @@ const data = [
   },
 ];
 
+const data2 = [
+  {
+    label: "Alice",
+    value: 500,
+    src: "/favicon.png",
+  },
+  {
+    label: "Bob",
+    value: 250,
+    src: "/favicon.png",
+  },
+  {
+    label: "Carl",
+    value: 1000,
+    src: "/favicon.png",
+  },
+];
+
 // TODO: Use Imperative Handler
 export const WidgetCanvas = ({}) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -57,6 +75,7 @@ export const WidgetCanvas = ({}) => {
 
     const drawer = new DrawerDataBubbles({ canvas, scale });
     drawer.data = data;
+    drawer.data = data2;
 
     const interval = setInterval(() => drawer.draw(), 1000 / 60);
     window.addEventListener("resize", onResize);
