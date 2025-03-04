@@ -6,6 +6,8 @@
   --color-fg-deafult: #F0F6FC;
   --color-divider: #3D444D;
   --color-primary: #1F6FEB;
+
+  --transition-default-ms: 0.2s;
 }
 
 * {
