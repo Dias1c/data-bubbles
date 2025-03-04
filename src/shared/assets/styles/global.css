@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+:root {
+  --color-bg-default: #0D1116;
+  --color-bg-contrast: #010409;
+  --color-fg-deafult: #F0F6FC;
+  --color-divider: #3D444D;
+  --color-primary: #1F6FEB;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+
+  font-family: Inter, Roboto, "Helvetica Neue", "Arial Nova", "Nimbus Sans",
+    Arial, sans-serif;
+  background-color: var(--color-bg-default);
+  color: var(--color-fg-deafult);
+
+  display: flex;
+  flex-direction: column;
+}
+
+img,
+a {
+  display: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 500;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+/*  */
+
+.heading1 {}
+
+.heading2 {}
+
+/* OTHER */
+
+section {
+  height: 100%;
+  width: 100%;
+  flex: 1;
+  overflow: auto;
+}
