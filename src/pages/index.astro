@@ -1,8 +1,9 @@
 ---
 import "../shared/assets/styles/global.css";
 
-import { Header } from "../shared/components/headers/Header";
-import { WidgetCanvas } from "../widgets/WidgetCanvas";
+import { Header } from "@/shared/components/headers/Header";
+import { Subheader } from "@/shared/components/headers/Subheader";
+import { WidgetCanvas } from "@/widgets/WidgetCanvas";
 ---
 
 <!doctype html>
@@ -16,6 +17,10 @@ import { WidgetCanvas } from "../widgets/WidgetCanvas";
   </head>
   <body>
     <Header />
+    <Subheader
+      title="Sousou no Frieren"
+      subtitle="Принимать вызовы — значит инвестировать в себя"
+    />
     <section>
       <WidgetCanvas client:load />
     </section>
