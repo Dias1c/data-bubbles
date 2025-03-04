@@ -1,135 +1,23 @@
+---
+import "../shared/assets/styles/global.css";
+
+import { Header } from "../shared/components/headers/Header";
+import { WidgetCanvas } from "../widgets/WidgetCanvas";
+---
+
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.png" />
     <meta name="generator" content={Astro.generator} />
     <title>Data Bubbles</title>
   </head>
   <body>
-    <canvas
-      id="canvas"
-      style="position: absolute; width: 100vw; height: 100vh; top: 0; left: 0; z-index: 1;"
-    >
-      ?
-    </canvas>
+    <Header />
+    <section>
+      <WidgetCanvas client:load />
+    </section>
   </body>
 </html>
-
-<style>
-  html,
-  body {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-
-    font-family: Inter, Roboto, "Helvetica Neue", "Arial Nova", "Nimbus Sans",
-      Arial, sans-serif;
-    background-color: #151515;
-  }
-</style>
-
-<script>
-  import { DrawerDataBubbles } from "../entities/drawer";
-
-  const scale = window?.devicePixelRatio ?? 1;
-
-  function main() {
-    const canvas = document.getElementById("canvas");
-    if (!(canvas instanceof HTMLCanvasElement)) {
-      console.error("canvas not found");
-      return;
-    }
-    if (!canvas.getContext) {
-      console.error("canvas is not supported");
-      return;
-    }
-
-    const ctx = canvas.getContext("2d");
-    if (!ctx) {
-      return;
-    }
-
-    let mouseX: number | null = null;
-    let mouseY: number | null = null;
-    canvas.addEventListener("mousemove", (e) => {
-      mouseX = e.x * scale;
-      mouseY = e.y * scale;
-    });
-    canvas.addEventListener("mouseleave", () => {
-      mouseX = null;
-      mouseY = null;
-    });
-
-    const fitCanvasSize = () => {
-      canvas.width = window.innerWidth * scale;
-      canvas.height = window.innerHeight * scale;
-    };
-
-    fitCanvasSize();
-
-    const data = [
-      {
-        label: "Alice",
-        value: 500,
-        src: "/favicon.svg",
-      },
-      {
-        label: "Bob",
-        value: 500,
-        src: "/favicon.svg",
-      },
-      {
-        label: "Carl",
-        value: 500,
-        src: "/favicon.svg",
-      },
-    ];
-
-    const drawer = new DrawerDataBubbles({ canvas, scale });
-    drawer.data = data;
-
-    setInterval(() => drawer.draw(), 1000 / 60);
-
-    canvas.addEventListener("click", () => {
-      const url = canvas.toDataURL("image/png");
-      const img = document.createElement("img");
-      img.src = url;
-      img.style.position = "absolute";
-      img.style.zIndex = "1";
-      img.style.top = "50%";
-      img.style.left = "50%";
-      img.style.transform = "translate(-50%, -50%)";
-      // img.style.width = `${img.width / scale}px`;
-      // img.style.height = `${img.height / scale}px`;
-      img.addEventListener("load", () => {
-        console.dir(img);
-        img.width = img.width / scale;
-        // img.height = img.height / scale;
-      });
-
-      img.style.background = "#000";
-
-      document.body.appendChild(img);
-
-      img.addEventListener("click", (e) => {
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "data-bubbles.png";
-        a.click();
-        a.remove();
-        img.remove();
-      });
-    });
-
-    window.addEventListener("resize", () => {
-      // TODO: Debounce?
-      fitCanvasSize();
-      drawer.recalculateBubbleSizes();
-      drawer.draw();
-    });
-  }
-
-  main();
-</script>
