@@ -2,8 +2,11 @@ import img_github from "@/shared/assets/logotypes/github.com-long-white.svg";
 import styles from "./styles.module.css";
 
 import { Tabs } from "@/shared/components/tabs/Tabs";
+import { useState } from "react";
 
 export const WidgetHeader = () => {
+  const [selected, setSelected] = useState("view");
+
   return (
     <header className={styles.header}>
       <div className={styles.header__logo_block} title="Author: Dias1c">
@@ -26,7 +29,10 @@ export const WidgetHeader = () => {
             disabled: true,
           },
         ]}
-        selected="view"
+        selected={selected}
+        onSelect={({ value }) => {
+          setSelected(value);
+        }}
       />
 
       <div className={styles.header__social}>
