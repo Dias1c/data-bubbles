@@ -23,6 +23,7 @@ export class DrawerDataBubbles {
   canvas: HTMLCanvasElement;
   scale: number;
   ctx: CanvasRenderingContext2D;
+  private animationInterval: number | undefined;
 
   dataValuesSum: number = 0;
 
@@ -123,6 +124,11 @@ export class DrawerDataBubbles {
     this.ctx = ctx;
   }
 
+  setCanvasSize({ width, height }: { width: number; height: number }) {
+    this.canvas.width = width * this.scale;
+    this.canvas.height = height * this.scale;
+  }
+
   recalculateBubbleSizes() {
     const { canvas, bublesMap, dataValuesSum } = this;
     const maxSize = Math.min(canvas.width, canvas.height);
@@ -210,5 +216,17 @@ export class DrawerDataBubbles {
 
       bubble.drawer.draw({ ctx });
     }
+  }
+
+  /**
+   * @todo Оптимизация, requestFrameAnimation
+   */
+  startAnimation() {
+    this.stopAnimation();
+    this.animationInterval = setInterval(() => this.draw(), 1000 / 60);
+  }
+
+  stopAnimation() {
+    clearInterval(this.animationInterval);
   }
 }
