@@ -1,5 +1,5 @@
+import { Button } from "@/shared/components/buttons/Button";
 import { type ComponentProps } from "react";
-import { Button } from "../../buttons/Button";
 import styles from "./styles.module.css";
 
 export const Tab = ({

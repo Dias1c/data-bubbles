@@ -1,9 +1,9 @@
 import { CanvasDataBubbles, useDrawerDataBubbles } from "@/entities/drawer";
 import { Subheader } from "@/shared/components/headers/Subheader";
 import { Tabs, useTabs } from "@/shared/components/tabs/Tabs";
+import { WidgetHeader } from "@/widgets/WidgetHeader";
+import { WidgetSectionShare } from "@/widgets/WidgetSectionShare";
 import { useEffect } from "react";
-import { WidgetHeader } from "../WidgetHeader";
-import { WidgetSectionShare } from "../WidgetSectionShare";
 
 type TTabValue = "view" | "share" | "settings";
 
