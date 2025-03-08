@@ -38,11 +38,9 @@ const data2 = [
 ];
 
 export const useDrawerDataBubbles = () => {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const drawerRef = useRef<DrawerDataBubbles | null>(null);
 
   const setCanvas = (canvas: HTMLCanvasElement) => {
-    canvasRef.current = canvas;
     if (!drawerRef.current) {
       const scale = window?.devicePixelRatio ?? 1;
 
