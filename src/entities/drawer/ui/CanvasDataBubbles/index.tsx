@@ -40,6 +40,7 @@ export const CanvasDataBubbles = ({
         style={{
           width: "100%",
           height: "100%",
+          display: "block",
         }}
         ref={(ref) => {
           if (ref) setCanvas(ref);
