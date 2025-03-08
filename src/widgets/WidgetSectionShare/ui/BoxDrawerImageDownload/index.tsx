@@ -1,5 +1,6 @@
 import type { DrawerDataBubbles } from "@/entities/drawer";
 import { download } from "@/shared/lib/files/download";
+import { getFileExtensionByMimeType } from "@/shared/lib/files/getFileExtensionByMimeType";
 import { useEffect, useState } from "react";
 import styles from "./styles.module.css";
 
@@ -41,7 +42,11 @@ export const BoxDrawerImageDownload = ({
       title="Download Image"
       onClick={() => {
         if (!url) return;
-        download({ url, name: name ?? "data-bubbles.png" });
+        download({
+          url,
+          name:
+            name ?? `data-bubbles${getFileExtensionByMimeType({ mimeType })}`,
+        });
       }}
     >
       <img
