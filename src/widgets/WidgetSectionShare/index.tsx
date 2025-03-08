@@ -13,6 +13,7 @@ export const WidgetSectionShare = ({
       <BlockPartition label="Download Image">
         <BoxDrawerImageDownload drawer={drawer} mimeType={"image/png"} />
       </BlockPartition>
+      <BlockPartition label="Share">TODO</BlockPartition>
     </section>
   );
 };
