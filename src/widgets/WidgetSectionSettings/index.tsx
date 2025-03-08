@@ -1,4 +1,8 @@
-import { CanvasDataBubbles, useDrawerDataBubbles } from "@/entities/drawer";
+import {
+  CanvasDataBubbles,
+  DrawerDataBubbles,
+  useDrawerDataBubbles,
+} from "@/entities/drawer";
 import styles from "./styles.module.css";
 import { useEffect } from "react";
 import { DividerVertical } from "@/shared/components/dividers/DividerVertical";
@@ -6,7 +10,11 @@ import { BlockPartition } from "@/shared/components/blocks/BlockPartition";
 import { Typography } from "@/shared/components/typography/Typography";
 import { Button } from "@/shared/components/buttons/Button";
 
-export const WidgetSectionSettings = () => {
+export const WidgetSectionSettings = ({
+  drawer,
+}: {
+  drawer: DrawerDataBubbles;
+}) => {
   const dataBubbles = useDrawerDataBubbles();
 
   useEffect(() => {

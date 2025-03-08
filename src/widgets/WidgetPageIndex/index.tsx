@@ -60,7 +60,7 @@ export const WidgetPageIndex = () => {
         <WidgetSectionShare drawer={drawerRef.current} />
       )}
       {selected == "settings" && !!drawerRef.current && (
-        <WidgetSectionSettings />
+        <WidgetSectionSettings drawer={drawerRef.current} />
       )}
     </>
   );
