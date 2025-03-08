@@ -45,21 +45,12 @@ h6 {
   margin: 0;
 }
 
-p {
-  margin: 0;
+h3 {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 24px;
 }
 
-/*  */
-
-.heading1 {}
-
-.heading2 {}
-
-/* OTHER */
-
-section {
-  height: 100%;
-  width: 100%;
-  flex: 1;
-  overflow: auto;
+p {
+  margin: 0;
 }
