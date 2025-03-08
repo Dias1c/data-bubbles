@@ -4,6 +4,9 @@
 
   min-height: 40px;
   border-bottom: 1px solid var(--color-divider);
+
+  min-width: 0;
+  overflow: auto;
 }
 
 .header__logo_block {
