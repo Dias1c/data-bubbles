@@ -3,12 +3,11 @@ import {
   DrawerDataBubbles,
   useDrawerDataBubbles,
 } from "@/entities/drawer";
-import styles from "./styles.module.css";
-import { useEffect } from "react";
-import { DividerVertical } from "@/shared/components/dividers/DividerVertical";
 import { BlockPartition } from "@/shared/components/blocks/BlockPartition";
-import { Typography } from "@/shared/components/typography/Typography";
 import { Button } from "@/shared/components/buttons/Button";
+import { Subheader } from "@/shared/components/headers/Subheader";
+import { useEffect } from "react";
+import styles from "./styles.module.css";
 
 export const WidgetSectionSettings = ({
   drawer,
@@ -29,6 +28,7 @@ export const WidgetSectionSettings = ({
   return (
     <section className={styles.section}>
       <section className={styles.section_canvas}>
+        <Subheader title="TODO" subtitle="TODO" />
         <CanvasDataBubbles {...dataBubbles} />
       </section>
       <section className={styles.section_controllers}>
