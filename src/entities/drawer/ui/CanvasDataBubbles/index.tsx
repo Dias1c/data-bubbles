@@ -29,16 +29,24 @@ export const CanvasDataBubbles = ({
   }, []);
 
   return (
-    <canvas
+    <section
       style={{
-        width: "100%",
+        flex: 1,
         height: "100%",
-      }}
-      ref={(ref) => {
-        if (ref) setCanvas(ref);
+        overflow: "auto",
       }}
     >
-      Canvas is not supporting in your browser
-    </canvas>
+      <canvas
+        style={{
+          width: "100%",
+          height: "100%",
+        }}
+        ref={(ref) => {
+          if (ref) setCanvas(ref);
+        }}
+      >
+        Canvas is not supporting in your browser
+      </canvas>
+    </section>
   );
 };
