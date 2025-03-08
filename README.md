@@ -2,7 +2,7 @@
 
 ## DoD MVP
 
-- [ ] Export to IMG
+- [x] Export to IMG
 
   - [ ] Define data in bubbles
   - [x] Base Image Exporting
@@ -12,7 +12,7 @@
 - [ ] Import JSON
 - [ ] Export JSON
 - [ ] Export to Link
-- [ ] Define Design
+- [x] Define Design
 - [ ] Editor
 - [ ] Timeline of bubbles
 - [ ] Timeline range?
