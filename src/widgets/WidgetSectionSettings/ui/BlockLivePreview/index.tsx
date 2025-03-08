@@ -6,7 +6,7 @@ import { Subheader } from "@/shared/components/headers/Subheader";
 import { useEffect } from "react";
 import styles from "./styles.module.css";
 
-export const BlockLiveView = (
+export const BlockLivePreview = (
   dataBubbles: ReturnType<typeof useDrawerDataBubbles>
 ) => {
   useEffect(() => {

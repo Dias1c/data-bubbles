@@ -4,7 +4,7 @@ import { Button } from "@/shared/components/buttons/Button";
 import { FieldCheckbox } from "@/shared/components/input_fields/FieldCheckbox";
 import { useStateMemorized } from "@/shared/hooks/useStateMemorized";
 import styles from "./styles.module.css";
-import { BlockLiveView } from "./ui/BlockLiveView";
+import { BlockLivePreview } from "./ui/BlockLivePreview";
 
 export const WidgetSectionSettings = ({
   drawer,
@@ -13,7 +13,7 @@ export const WidgetSectionSettings = ({
 }) => {
   const [view, setView] = useStateMemorized({
     defaultValue: true,
-    name: "tabs:settings:live_view",
+    name: "tabs:settings:preview",
     expiration: { days: 30 },
   });
 
@@ -21,7 +21,7 @@ export const WidgetSectionSettings = ({
 
   return (
     <section className={styles.section}>
-      {view && <BlockLiveView {...dataBubbles} />}
+      {view && <BlockLivePreview {...dataBubbles} />}
       <section
         className={styles.section_controllers}
         style={{
@@ -30,14 +30,12 @@ export const WidgetSectionSettings = ({
       >
         <div className={styles.section_controllers_system}>
           <FieldCheckbox
-            label="Live view"
+            label="Live Preview"
             checked={view}
             onChange={(e) => setView(e.target.checked)}
           />
           <div className={styles.section_controllers_system_buttons}>
-            <Button variant="outlined" loading>
-              TODO:Export JSON
-            </Button>
+            <Button variant="outlined">TODO:Export JSON</Button>
             <Button variant="outlined">TODO:Import JSON</Button>
           </div>
         </div>
