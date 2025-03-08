@@ -3,6 +3,7 @@ import { Tabs, useTabs } from "@/shared/components/tabs/Tabs";
 import { WidgetHeader } from "@/widgets/WidgetHeader";
 import { WidgetSectionShare } from "@/widgets/WidgetSectionShare";
 import { useEffect } from "react";
+import { WidgetSectionSettings } from "../WidgetSectionSettings";
 import { WidgetSectoinView } from "../WidgetSectionView";
 
 type TTabValue = "view" | "share" | "settings";
@@ -58,7 +59,9 @@ export const WidgetPageIndex = () => {
       {selected == "share" && !!drawerRef.current && (
         <WidgetSectionShare drawer={drawerRef.current} />
       )}
-      {selected == "settings" && !!drawerRef.current && <>Settings</>}
+      {selected == "settings" && !!drawerRef.current && (
+        <WidgetSectionSettings />
+      )}
     </>
   );
 };
