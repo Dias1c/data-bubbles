@@ -4,9 +4,6 @@ import { getFileExtensionByMimeType } from "@/shared/lib/files/getFileExtensionB
 import { useEffect, useState } from "react";
 import styles from "./styles.module.css";
 
-// TODO
-// const isMobile =
-
 export const BoxDrawerImageDownload = ({
   drawer,
   name,
@@ -18,6 +15,7 @@ export const BoxDrawerImageDownload = ({
 }) => {
   const [url, setUrl] = useState<string>();
   const [loaded, setLoaded] = useState(false);
+  const [error, setError] = useState<string | undefined>();
 
   useEffect(() => {
     const url = drawer.canvas.toDataURL(mimeType);
@@ -26,6 +24,7 @@ export const BoxDrawerImageDownload = ({
     return () => {
       setUrl(undefined);
       setLoaded(false);
+      setError(undefined);
     };
   }, [mimeType]);
 
@@ -41,7 +40,7 @@ export const BoxDrawerImageDownload = ({
       }
       title="Download Image"
       onClick={() => {
-        if (!url) return;
+        if (!url || !loaded) return;
         download({
           url,
           name:
@@ -54,6 +53,7 @@ export const BoxDrawerImageDownload = ({
         alt="Data Bubbles"
         className={styles.block_image__img}
         onLoad={() => setLoaded(true)}
+        onError={() => setError("Something went wrong")}
         style={
           !loaded
             ? {
@@ -63,7 +63,10 @@ export const BoxDrawerImageDownload = ({
         }
       />
       <div className={styles.block_image__top_layer}>
-        <p className={styles.block_image__top_layer__text}>Click to download</p>
+        <p className={styles.block_image__top_layer__text}>
+          {!!error && error}
+          {loaded && !error && "Click to download"}
+        </p>
       </div>
     </div>
   );
