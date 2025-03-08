@@ -1,14 +1,10 @@
-import {
-  CanvasDataBubbles,
-  DrawerDataBubbles,
-  useDrawerDataBubbles,
-} from "@/entities/drawer";
+import { DrawerDataBubbles, useDrawerDataBubbles } from "@/entities/drawer";
 import { BlockPartition } from "@/shared/components/blocks/BlockPartition";
 import { Button } from "@/shared/components/buttons/Button";
-import { Subheader } from "@/shared/components/headers/Subheader";
 import { FieldCheckbox } from "@/shared/components/input_fields/FieldCheckbox";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styles from "./styles.module.css";
+import { BlockLiveView } from "./ui/BlockLiveView";
 
 export const WidgetSectionSettings = ({
   drawer,
@@ -19,23 +15,9 @@ export const WidgetSectionSettings = ({
   const [view, setView] = useState(true);
   const dataBubbles = useDrawerDataBubbles();
 
-  useEffect(() => {
-    const drawer = dataBubbles.drawerRef.current;
-    if (!drawer || !view) return;
-    drawer.startAnimation();
-    return () => {
-      drawer.stopAnimation();
-    };
-  }, [view]);
-
   return (
     <section className={styles.section}>
-      {view && (
-        <section className={styles.section_canvas}>
-          <Subheader title="TODO" subtitle="TODO" />
-          <CanvasDataBubbles {...dataBubbles} />
-        </section>
-      )}
+      {view && <BlockLiveView {...dataBubbles} />}
       <section
         className={styles.section_controllers}
         style={{
@@ -44,7 +26,7 @@ export const WidgetSectionSettings = ({
       >
         <div>
           <FieldCheckbox
-            label="View"
+            label="Live view"
             checked={view}
             onChange={(e) => setView(e.target.checked)}
           />
