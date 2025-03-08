@@ -13,7 +13,7 @@ export const WidgetSectionSettings = ({
 }) => {
   const [view, setView] = useStateMemorized({
     defaultValue: true,
-    name: "tab:settings:live_view",
+    name: "tabs:settings:live_view",
     expiration: { days: 30 },
   });
 
