@@ -2,7 +2,7 @@ import { DrawerDataBubbles, useDrawerDataBubbles } from "@/entities/drawer";
 import { BlockPartition } from "@/shared/components/blocks/BlockPartition";
 import { Button } from "@/shared/components/buttons/Button";
 import { FieldCheckbox } from "@/shared/components/input_fields/FieldCheckbox";
-import { useState } from "react";
+import { useStateMemorized } from "@/shared/hooks/useStateMemorized";
 import styles from "./styles.module.css";
 import { BlockLiveView } from "./ui/BlockLiveView";
 
@@ -11,8 +11,12 @@ export const WidgetSectionSettings = ({
 }: {
   drawer: DrawerDataBubbles;
 }) => {
-  // TODO: save to localstorage
-  const [view, setView] = useState(true);
+  const [view, setView] = useStateMemorized({
+    defaultValue: true,
+    name: "tab:settings:live_view",
+    expiration: { days: 30 },
+  });
+
   const dataBubbles = useDrawerDataBubbles();
 
   return (
