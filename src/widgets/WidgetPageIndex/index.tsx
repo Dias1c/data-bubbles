@@ -1,9 +1,9 @@
-import { CanvasDataBubbles, useDrawerDataBubbles } from "@/entities/drawer";
-import { Subheader } from "@/shared/components/headers/Subheader";
+import { useDrawerDataBubbles } from "@/entities/drawer";
 import { Tabs, useTabs } from "@/shared/components/tabs/Tabs";
 import { WidgetHeader } from "@/widgets/WidgetHeader";
 import { WidgetSectionShare } from "@/widgets/WidgetSectionShare";
 import { useEffect } from "react";
+import { WidgetSectoinView } from "../WidgetSectionView";
 
 type TTabValue = "view" | "share" | "settings";
 
@@ -50,18 +50,11 @@ export const WidgetPageIndex = () => {
           />
         }
       />
-      <Subheader
-        title="Sousou no Frieren"
-        subtitle="Принимать вызовы — значит инвестировать в себя"
+      <WidgetSectoinView
+        hidden={selected != "view"}
+        drawerRef={drawerRef}
+        setCanvas={setCanvas}
       />
-      <section
-        style={{
-          // display: selected == "view" ? "flex" : "none",
-          opacity: selected == "view" ? "1" : "0.5",
-        }}
-      >
-        <CanvasDataBubbles drawerRef={drawerRef} setCanvas={setCanvas} />
-      </section>
       {selected == "share" && !!drawerRef.current && (
         <WidgetSectionShare drawer={drawerRef.current} />
       )}
