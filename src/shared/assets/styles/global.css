@@ -54,3 +54,12 @@ h3 {
 p {
   margin: 0;
 }
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
