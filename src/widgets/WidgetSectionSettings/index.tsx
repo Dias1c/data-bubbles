@@ -24,16 +24,18 @@ export const WidgetSectionSettings = ({
           width: view ? undefined : "100%",
         }}
       >
-        <div>
+        <div className={styles.section_controllers_system}>
           <FieldCheckbox
             label="Live view"
             checked={view}
             onChange={(e) => setView(e.target.checked)}
           />
-          <Button variant="outlined" loading>
-            TODO:Export JSON
-          </Button>
-          <Button variant="outlined">TODO:Import JSON</Button>
+          <div className={styles.section_controllers_system_buttons}>
+            <Button variant="outlined" loading>
+              TODO:Export JSON
+            </Button>
+            <Button variant="outlined">TODO:Import JSON</Button>
+          </div>
         </div>
         <BlockPartition label="Settings">
           <a href="https://github.com/Dias1c/data-bubbles" target="_blank">

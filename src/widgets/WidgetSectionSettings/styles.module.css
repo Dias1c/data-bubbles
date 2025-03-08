@@ -30,3 +30,17 @@
     min-width: auto;
   }
 }
+
+.section_controllers_system {
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+  align-items: center;
+
+  flex-wrap: wrap;
+}
+
+.section_controllers_system_buttons {
+  display: flex;
+  gap: 4px;
+}
