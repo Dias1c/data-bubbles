@@ -20,15 +20,36 @@ type TDrawingData = {
 // TODO: Optimization
 
 export class DrawerDataBubbles {
-  canvas: HTMLCanvasElement;
+  private _canvas!: HTMLCanvasElement;
+  public get canvas() {
+    return this._canvas;
+  }
+  public set canvas(v: HTMLCanvasElement) {
+    this._canvas = v;
+    if (!v.getContext) {
+      throw new Error("Canvas is not supported");
+    }
+
+    const ctx = v.getContext("2d");
+    if (!ctx) {
+      throw new Error("Canvas context 2d is null");
+    }
+    this._ctx = ctx;
+  }
+
+  private _ctx!: CanvasRenderingContext2D;
+  public get ctx() {
+    return this._ctx;
+  }
+
   scale: number;
-  ctx: CanvasRenderingContext2D;
   private animationInterval: number | undefined;
 
   dataValuesSum: number = 0;
 
   bublesMap: Map<string, TDrawingData> = new Map();
-  _data: TDataElement[] = [];
+
+  private _data: TDataElement[] = [];
   public get data(): TDataElement[] {
     return this._data;
   }
@@ -86,7 +107,7 @@ export class DrawerDataBubbles {
         const prevVal = bubble.prevData?.value ?? 0;
         const curVal = bubble.currentData?.value ?? 0;
         let delta = ((curVal / prevVal) * 100 - 100) / 100;
-        console.log(curVal, prevVal, delta);
+        // console.log(curVal, prevVal, delta);
         if (!Number.isFinite(delta)) {
           delta = -1;
         }
@@ -113,15 +134,6 @@ export class DrawerDataBubbles {
   constructor({ canvas, scale }: { canvas: HTMLCanvasElement; scale: number }) {
     this.scale = scale;
     this.canvas = canvas;
-    if (!canvas.getContext) {
-      throw new Error("Canvas is not supported");
-    }
-
-    const ctx = canvas.getContext("2d");
-    if (!ctx) {
-      throw new Error("Canvas context 2d is null");
-    }
-    this.ctx = ctx;
   }
 
   setCanvasSize({ width, height }: { width: number; height: number }) {
