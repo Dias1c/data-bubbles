@@ -1,4 +1,4 @@
-import type { DrawerDataBubbles } from "@/entities/drawer";
+import type { DrawerDataBubbles } from "@/entities/data-bubbles";
 import { BlockPartition } from "@/shared/components/blocks/BlockPartition";
 import styles from "./styles.module.css";
 import { BoxDrawerImageDownload } from "./ui/BoxDrawerImageDownload";

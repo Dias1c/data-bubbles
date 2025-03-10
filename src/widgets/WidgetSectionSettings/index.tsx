@@ -1,4 +1,7 @@
-import { DrawerDataBubbles, useDrawerDataBubbles } from "@/entities/drawer";
+import {
+  DrawerDataBubbles,
+  useDrawerDataBubbles,
+} from "@/entities/data-bubbles";
 import { BlockPartition } from "@/shared/components/blocks/BlockPartition";
 import { Button } from "@/shared/components/buttons/Button";
 import { FieldCheckbox } from "@/shared/components/input_fields/FieldCheckbox";

@@ -1,4 +1,4 @@
-import { useDrawerDataBubbles } from "@/entities/drawer";
+import { useDrawerDataBubbles } from "@/entities/data-bubbles";
 import { Tabs, useTabs } from "@/shared/components/tabs/Tabs";
 import { WidgetHeader } from "@/widgets/WidgetHeader";
 import { WidgetSectionShare } from "@/widgets/WidgetSectionShare";

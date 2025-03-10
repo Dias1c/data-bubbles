@@ -1,4 +1,7 @@
-import { CanvasDataBubbles, useDrawerDataBubbles } from "@/entities/drawer";
+import {
+  CanvasDataBubbles,
+  useDrawerDataBubbles,
+} from "@/entities/data-bubbles";
 import { Subheader } from "@/shared/components/headers/Subheader";
 import styles from "./styles.module.css";
 

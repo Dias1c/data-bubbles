@@ -1,7 +1,7 @@
 import {
   CanvasDataBubbles,
   type useDrawerDataBubbles,
-} from "@/entities/drawer";
+} from "@/entities/data-bubbles";
 import { Subheader } from "@/shared/components/headers/Subheader";
 import { useEffect } from "react";
 import styles from "./styles.module.css";
