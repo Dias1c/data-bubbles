@@ -10,6 +10,7 @@ import { useStateMemorized } from "@/shared/hooks/useStateMemorized";
 import { useState } from "react";
 import styles from "./styles.module.css";
 import { BlockLivePreview } from "./ui/BlockLivePreview";
+import { ButtonDownloadJson } from "./ui/ButtonDownloadJson";
 
 export const WidgetSectionSettings = ({
   drawer,
@@ -55,7 +56,12 @@ export const WidgetSectionSettings = ({
             onChange={(e) => setView(e.target.checked)}
           />
           <div className={styles.section_controllers_system_buttons}>
-            <Button variant="outlined">TODO:Export JSON</Button>
+            <ButtonDownloadJson
+              data={dataBubbles.data}
+              filename={dataBubbles.data.title ?? "data-bubbles"}
+            >
+              Export JSON
+            </ButtonDownloadJson>
             <Button variant="outlined">TODO:Import JSON</Button>
           </div>
         </div>
