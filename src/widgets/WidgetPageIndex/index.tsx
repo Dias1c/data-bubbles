@@ -1,4 +1,7 @@
-import { useDrawerDataBubbles } from "@/entities/data-bubbles";
+import {
+  exampleDataBubblesValue,
+  useDataBubbles,
+} from "@/entities/data-bubbles";
 import { Tabs, useTabs } from "@/shared/components/tabs/Tabs";
 import { WidgetHeader } from "@/widgets/WidgetHeader";
 import { WidgetSectionShare } from "@/widgets/WidgetSectionShare";
@@ -9,7 +12,9 @@ import { WidgetSectoinView } from "../WidgetSectionView";
 type TTabValue = "view" | "share" | "settings";
 
 export const WidgetPageIndex = () => {
-  const { drawerRef, setCanvas } = useDrawerDataBubbles();
+  const { drawerRef, setCanvas, data, activeData } = useDataBubbles({
+    defaultValue: exampleDataBubblesValue,
+  });
   const { select, selected } = useTabs<TTabValue>({
     defaultSelected: "view",
     actionSelect: {
@@ -52,6 +57,8 @@ export const WidgetPageIndex = () => {
         }
       />
       <WidgetSectoinView
+        title={activeData.title}
+        subtitle={activeData.state?.title}
         hidden={selected != "view"}
         drawerRef={drawerRef}
         setCanvas={setCanvas}
@@ -60,7 +67,7 @@ export const WidgetPageIndex = () => {
         <WidgetSectionShare drawer={drawerRef.current} />
       )}
       {selected == "settings" && !!drawerRef.current && (
-        <WidgetSectionSettings drawer={drawerRef.current} />
+        <WidgetSectionSettings drawer={drawerRef.current} defaultData={data} />
       )}
     </>
   );

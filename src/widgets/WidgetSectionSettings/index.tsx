@@ -1,18 +1,22 @@
 import {
   DrawerDataBubbles,
-  useDrawerDataBubbles,
+  useDataBubbles,
+  type IData,
 } from "@/entities/data-bubbles";
 import { BlockPartition } from "@/shared/components/blocks/BlockPartition";
 import { Button } from "@/shared/components/buttons/Button";
 import { FieldCheckbox } from "@/shared/components/input_fields/FieldCheckbox";
 import { useStateMemorized } from "@/shared/hooks/useStateMemorized";
+import { useMemo } from "react";
 import styles from "./styles.module.css";
 import { BlockLivePreview } from "./ui/BlockLivePreview";
 
 export const WidgetSectionSettings = ({
   drawer,
+  defaultData,
 }: {
   drawer: DrawerDataBubbles;
+  defaultData: IData;
 }) => {
   const [view, setView] = useStateMemorized({
     defaultValue: true,
@@ -20,11 +24,24 @@ export const WidgetSectionSettings = ({
     expiration: { days: 30 },
   });
 
-  const dataBubbles = useDrawerDataBubbles();
+  const dataBubbles = useDataBubbles({
+    defaultValue: defaultData,
+  });
+
+  const defaultDataText = useMemo(() => {
+    return JSON.stringify(defaultData, undefined, "  ");
+  }, [defaultData]);
 
   return (
     <section className={styles.section}>
-      {view && <BlockLivePreview {...dataBubbles} />}
+      {view && (
+        <BlockLivePreview
+          title={dataBubbles.activeData.title}
+          subtitle={dataBubbles.activeData.state?.title}
+          setCanvas={dataBubbles.setCanvas}
+          drawerRef={dataBubbles.drawerRef}
+        />
+      )}
       <section
         className={styles.section_controllers}
         style={{
@@ -46,7 +63,7 @@ export const WidgetSectionSettings = ({
           <a href="https://github.com/Dias1c/data-bubbles" target="_blank">
             Documentation
           </a>
-          <textarea>TODO</textarea>
+          <textarea defaultValue={defaultDataText}></textarea>
         </BlockPartition>
       </section>
     </section>

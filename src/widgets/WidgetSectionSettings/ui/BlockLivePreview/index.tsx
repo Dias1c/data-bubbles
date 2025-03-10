@@ -6,11 +6,17 @@ import { Subheader } from "@/shared/components/headers/Subheader";
 import { useEffect } from "react";
 import styles from "./styles.module.css";
 
-export const BlockLivePreview = (
-  dataBubbles: ReturnType<typeof useDrawerDataBubbles>
-) => {
+export const BlockLivePreview = ({
+  drawerRef,
+  setCanvas,
+  title,
+  subtitle,
+}: {
+  title?: string;
+  subtitle?: string;
+} & ReturnType<typeof useDrawerDataBubbles>) => {
   useEffect(() => {
-    const drawer = dataBubbles.drawerRef.current;
+    const drawer = drawerRef.current;
     if (!drawer) return;
     drawer.startAnimation();
     return () => {
@@ -20,8 +26,8 @@ export const BlockLivePreview = (
 
   return (
     <section className={styles.section_canvas}>
-      <Subheader title="TODO" subtitle="TODO" />
-      <CanvasDataBubbles {...dataBubbles} />
+      <Subheader title={title} subtitle={subtitle} />
+      <CanvasDataBubbles drawerRef={drawerRef} setCanvas={setCanvas} />
     </section>
   );
 };
