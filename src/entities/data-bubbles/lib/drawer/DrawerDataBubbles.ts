@@ -1,15 +1,10 @@
+import type { IDataStateBubble } from "../../types";
 import { DrawableDataBubble } from "./DrawableDataBubble";
 import { getFunctionGetColorByDelta } from "./getFunctionGetColorByDelta";
 
-type TDataElement = {
-  src?: string;
-  label: string;
-  value: number;
-};
-
 type TDrawingData = {
-  prevData?: TDataElement;
-  currentData?: TDataElement;
+  prevData?: IDataStateBubble;
+  currentData?: IDataStateBubble;
   directionX: number;
   directionY: number;
   targetR: number;
@@ -49,11 +44,11 @@ export class DrawerDataBubbles {
 
   bublesMap: Map<string, TDrawingData> = new Map();
 
-  private _data: TDataElement[] = [];
-  public get data(): TDataElement[] {
+  private _data: IDataStateBubble[] = [];
+  public get data(): IDataStateBubble[] {
     return this._data;
   }
-  public set data(v: TDataElement[]) {
+  public set data(v: IDataStateBubble[]) {
     this._data = v;
     this.dataValuesSum = v.reduce((p, c) => {
       return p + c.value;
@@ -73,20 +68,20 @@ export class DrawerDataBubbles {
       const radius = maxSize * 0.5 * (data.value / dataValuesSum);
 
       let image: HTMLImageElement | undefined;
-      if (data.src) {
+      if (data.img_src) {
         image = new Image();
-        image.src = data.src;
+        image.src = data.img_src;
       }
 
-      let bubble = bublesMap.get(data.label);
+      let bubble = bublesMap.get(data.name);
       if (!bubble) {
         const drawer = new DrawableDataBubble({
           x: Math.random() * (canvas.width - radius * 2) + radius,
           y: Math.random() * (canvas.height - radius * 2) + radius,
           r: 0,
           image: image,
-          label: data.label,
-          value: `${data.value}`,
+          label: data.name,
+          value: data.display_value ?? `${data.value}`,
           fontFamily: "Arial",
           getColor: getFunctionGetColorByDelta({
             delta: 1,
@@ -120,7 +115,7 @@ export class DrawerDataBubbles {
         bubble.targetR = radius;
       }
 
-      bublesMap.set(data.label, bubble);
+      bublesMap.set(data.name, bubble);
     });
 
     for (const [, value] of bublesMap) {
