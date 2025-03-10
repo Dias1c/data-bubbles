@@ -4,6 +4,7 @@ import {
   type IData,
 } from "@/entities/data-bubbles";
 import { BlockPartition } from "@/shared/components/blocks/BlockPartition";
+import { Button } from "@/shared/components/buttons/Button";
 import { FieldCheckbox } from "@/shared/components/input_fields/FieldCheckbox";
 import { useStateMemorized } from "@/shared/hooks/useStateMemorized";
 import { useState } from "react";
@@ -11,7 +12,6 @@ import styles from "./styles.module.css";
 import { BlockLivePreview } from "./ui/BlockLivePreview";
 import { ButtonExportJson } from "./ui/ButtonExportJson";
 import { ButtonImportJson } from "./ui/ButtonImportJson";
-import { Button } from "@/shared/components/buttons/Button";
 
 export const WidgetSectionSettings = ({
   drawer,
@@ -91,6 +91,18 @@ export const WidgetSectionSettings = ({
             }}
           ></textarea>
           {error}
+          <div>
+            <Button
+              disabled={!!error}
+              onClick={() => {
+                setValue((v) => {
+                  return JSON.stringify(JSON.parse(v), undefined, "  ");
+                });
+              }}
+            >
+              Format
+            </Button>
+          </div>
         </BlockPartition>
       </section>
     </section>
