@@ -7,7 +7,7 @@ import { BlockPartition } from "@/shared/components/blocks/BlockPartition";
 import { Button } from "@/shared/components/buttons/Button";
 import { FieldCheckbox } from "@/shared/components/input_fields/FieldCheckbox";
 import { useStateMemorized } from "@/shared/hooks/useStateMemorized";
-import { useMemo } from "react";
+import { useState } from "react";
 import styles from "./styles.module.css";
 import { BlockLivePreview } from "./ui/BlockLivePreview";
 
@@ -18,6 +18,10 @@ export const WidgetSectionSettings = ({
   drawer: DrawerDataBubbles;
   defaultData: IData;
 }) => {
+  const [value, setValue] = useState(
+    JSON.stringify(defaultData, undefined, "  ")
+  );
+  const [error, setError] = useState<string>();
   const [view, setView] = useStateMemorized({
     defaultValue: true,
     name: "tabs:settings:preview",
@@ -27,10 +31,6 @@ export const WidgetSectionSettings = ({
   const dataBubbles = useDataBubbles({
     defaultValue: defaultData,
   });
-
-  const defaultDataText = useMemo(() => {
-    return JSON.stringify(defaultData, undefined, "  ");
-  }, [defaultData]);
 
   return (
     <section className={styles.section}>
@@ -63,7 +63,25 @@ export const WidgetSectionSettings = ({
           <a href="https://github.com/Dias1c/data-bubbles" target="_blank">
             Documentation
           </a>
-          <textarea defaultValue={defaultDataText}></textarea>
+          <textarea
+            className={styles.textarea}
+            value={value}
+            onChange={(e) => {
+              const text = e?.target?.value ?? "";
+              setValue(text);
+              try {
+                const data = JSON.parse(text);
+                console.log("data", data);
+                dataBubbles.setData(data);
+                setError("");
+              } catch (error) {
+                if (error instanceof Error) {
+                  setError(error?.message ?? "");
+                }
+              }
+            }}
+          ></textarea>
+          {error}
         </BlockPartition>
       </section>
     </section>

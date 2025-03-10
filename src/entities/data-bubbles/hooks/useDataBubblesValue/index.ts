@@ -14,6 +14,10 @@ export const useDataBubblesValue = ({
     setState(defaultValue?.states?.[0] ?? {});
   }, [defaultValue]);
 
+  useEffect(() => {
+    setState(data?.states?.[0] ?? {});
+  }, [data]);
+
   const activeData = useMemo(() => {
     return {
       title: data?.title,

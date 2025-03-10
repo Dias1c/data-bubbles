@@ -4,7 +4,9 @@ import { useDataBubblesValue } from "../useDataBubblesValue";
 import { useDrawerDataBubbles } from "../useDrawerDataBubbles";
 
 export const useDataBubbles = ({ defaultValue }: { defaultValue: IData }) => {
-  const { data, state, activeData } = useDataBubblesValue({ defaultValue });
+  const { data, state, activeData, setData } = useDataBubblesValue({
+    defaultValue,
+  });
   const ddb = useDrawerDataBubbles();
 
   useEffect(() => {
@@ -13,5 +15,5 @@ export const useDataBubbles = ({ defaultValue }: { defaultValue: IData }) => {
     drawer.data = state?.bubbles ?? [];
   }, [state]);
 
-  return { ...ddb, data, activeData };
+  return { ...ddb, data, activeData, setData };
 };
