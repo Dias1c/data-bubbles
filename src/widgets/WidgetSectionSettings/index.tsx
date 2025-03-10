@@ -4,13 +4,14 @@ import {
   type IData,
 } from "@/entities/data-bubbles";
 import { BlockPartition } from "@/shared/components/blocks/BlockPartition";
-import { Button } from "@/shared/components/buttons/Button";
 import { FieldCheckbox } from "@/shared/components/input_fields/FieldCheckbox";
 import { useStateMemorized } from "@/shared/hooks/useStateMemorized";
 import { useState } from "react";
 import styles from "./styles.module.css";
 import { BlockLivePreview } from "./ui/BlockLivePreview";
-import { ButtonDownloadJson } from "./ui/ButtonDownloadJson";
+import { ButtonExportJson } from "./ui/ButtonExportJson";
+import { ButtonImportJson } from "./ui/ButtonImportJson";
+import { Button } from "@/shared/components/buttons/Button";
 
 export const WidgetSectionSettings = ({
   drawer,
@@ -56,13 +57,15 @@ export const WidgetSectionSettings = ({
             onChange={(e) => setView(e.target.checked)}
           />
           <div className={styles.section_controllers_system_buttons}>
-            <ButtonDownloadJson
+            <ButtonExportJson
               data={dataBubbles.data}
               filename={dataBubbles.data.title ?? "data-bubbles"}
             >
               Export JSON
-            </ButtonDownloadJson>
-            <Button variant="outlined">TODO:Import JSON</Button>
+            </ButtonExportJson>
+            <ButtonImportJson onSuccess={({ json }) => setValue(json)}>
+              Import JSON
+            </ButtonImportJson>
           </div>
         </div>
         <BlockPartition label="Settings">

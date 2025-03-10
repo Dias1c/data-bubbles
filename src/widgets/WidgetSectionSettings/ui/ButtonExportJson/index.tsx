@@ -2,7 +2,7 @@ import type { IData } from "@/entities/data-bubbles";
 import { Button } from "@/shared/components/buttons/Button";
 import { useState, type ReactNode } from "react";
 
-export const ButtonDownloadJson = ({
+export const ButtonExportJson = ({
   data,
   filename,
   children,
