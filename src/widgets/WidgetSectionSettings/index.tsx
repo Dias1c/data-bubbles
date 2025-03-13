@@ -48,6 +48,7 @@ export const WidgetSectionSettings = ({
         className={styles.section_controllers}
         style={{
           width: view ? undefined : "100%",
+          maxWidth: !!view ? "320px" : undefined,
         }}
       >
         <div className={styles.section_controllers_system}>
@@ -68,7 +69,7 @@ export const WidgetSectionSettings = ({
             </ButtonImportJson>
           </div>
         </div>
-        <BlockPartition label="Settings">
+        <BlockPartition label="Settings" fullHeight>
           <a href="https://github.com/Dias1c/data-bubbles" target="_blank">
             Documentation
           </a>
@@ -90,7 +91,11 @@ export const WidgetSectionSettings = ({
               }
             }}
           ></textarea>
-          {error}
+          {!!error && (
+            <span className={styles.text_error} title={error}>
+              {error}
+            </span>
+          )}
           <div>
             <Button
               disabled={!!error}
