@@ -1,19 +1,26 @@
 import type { ReactNode } from "react";
+import { DividerHorizontal } from "../../dividers/DividerHorizontal";
 import { Typography } from "../../typography/Typography";
 import styles from "./styles.module.css";
-import { DividerHorizontal } from "../../dividers/DividerHorizontal";
 
 export const BlockPartition = ({
   label,
   children,
   maxWidth,
+  fullHeight,
 }: {
   label: string;
   children: ReactNode;
   maxWidth?: string;
+  fullHeight?: boolean;
 }) => {
   return (
-    <section className={styles.block} style={{ maxWidth: maxWidth }}>
+    <section
+      className={`${styles.block} ${
+        !!fullHeight ? styles.block_fullheight : ""
+      }`}
+      style={{ maxWidth: maxWidth }}
+    >
       <Typography variant="h3">{label}</Typography>
       <DividerHorizontal />
       {children}
