@@ -9,14 +9,21 @@ export const useDataBubblesValue = ({
   const [data, setData] = useState<IData>(defaultValue);
   const [state, setState] = useState<IDataState>();
 
-  useEffect(() => {
-    setData(defaultValue);
-    setState(defaultValue?.states?.[0] ?? {});
-  }, [defaultValue]);
+  const memo = useMemo(() => {
+    let data = defaultValue;
+    return {
+      set: (v: IData) => {
+        data = v;
+        setData(v);
+        setState(data?.states?.[0] ?? {});
+      },
+      get: () => data,
+    };
+  }, []);
 
   useEffect(() => {
-    setState(data?.states?.[0] ?? {});
-  }, [data]);
+    memo.set(defaultValue);
+  }, []);
 
   const activeData = useMemo(() => {
     return {
@@ -25,5 +32,5 @@ export const useDataBubblesValue = ({
     };
   }, [data, state]);
 
-  return { data, state, activeData, setData, setState };
+  return { activeData, setData: memo.set, getData: memo.get };
 };

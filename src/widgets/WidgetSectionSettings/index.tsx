@@ -7,19 +7,20 @@ import { BlockPartition } from "@/shared/components/blocks/BlockPartition";
 import { Button } from "@/shared/components/buttons/Button";
 import { FieldCheckbox } from "@/shared/components/input_fields/FieldCheckbox";
 import { useStateMemorized } from "@/shared/hooks/useStateMemorized";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./styles.module.css";
 import { BlockLivePreview } from "./ui/BlockLivePreview";
 import { ButtonExportJson } from "./ui/ButtonExportJson";
 import { ButtonImportJson } from "./ui/ButtonImportJson";
 
 export const WidgetSectionSettings = ({
-  drawer,
+  setData,
   defaultData,
 }: {
-  drawer: DrawerDataBubbles;
+  setData: (value: IData) => void;
   defaultData: IData;
 }) => {
+  const [count, setCount] = useState(0);
   const [value, setValue] = useState(
     JSON.stringify(defaultData, undefined, "  ")
   );
@@ -33,6 +34,12 @@ export const WidgetSectionSettings = ({
   const dataBubbles = useDataBubbles({
     defaultValue: defaultData,
   });
+
+  useEffect(() => {
+    return () => {
+      setData(dataBubbles.getData());
+    };
+  }, []);
 
   return (
     <section className={styles.section}>
@@ -59,8 +66,8 @@ export const WidgetSectionSettings = ({
           />
           <div className={styles.section_controllers_system_buttons}>
             <ButtonExportJson
-              data={dataBubbles.data}
-              filename={dataBubbles.data.title ?? "data-bubbles"}
+              data={dataBubbles.getData()}
+              filename={dataBubbles.getData().title ?? "data-bubbles"}
             >
               Export JSON
             </ButtonExportJson>
@@ -81,7 +88,6 @@ export const WidgetSectionSettings = ({
               setValue(text);
               try {
                 const data = JSON.parse(text);
-                console.log("data", data);
                 dataBubbles.setData(data);
                 setError("");
               } catch (error) {

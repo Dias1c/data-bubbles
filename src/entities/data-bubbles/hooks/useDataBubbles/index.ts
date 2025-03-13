@@ -4,16 +4,19 @@ import { useDataBubblesValue } from "../useDataBubblesValue";
 import { useDrawerDataBubbles } from "../useDrawerDataBubbles";
 
 export const useDataBubbles = ({ defaultValue }: { defaultValue: IData }) => {
-  const { data, state, activeData, setData } = useDataBubblesValue({
+  const dbv = useDataBubblesValue({
     defaultValue,
   });
   const ddb = useDrawerDataBubbles();
 
+  const {
+    activeData: { state },
+  } = dbv;
   useEffect(() => {
     const drawer = ddb.drawerRef.current;
     if (!drawer) return;
     drawer.data = state?.bubbles ?? [];
   }, [state]);
 
-  return { ...ddb, data, activeData, setData };
+  return { ...ddb, ...dbv };
 };

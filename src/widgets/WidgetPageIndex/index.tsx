@@ -12,9 +12,11 @@ import { WidgetSectoinView } from "../WidgetSectionView";
 type TTabValue = "view" | "share" | "settings";
 
 export const WidgetPageIndex = () => {
-  const { drawerRef, setCanvas, data, activeData } = useDataBubbles({
-    defaultValue: exampleDataBubblesValue,
-  });
+  const { drawerRef, setCanvas, activeData, setData, getData } = useDataBubbles(
+    {
+      defaultValue: exampleDataBubblesValue,
+    }
+  );
   const { select, selected } = useTabs<TTabValue>({
     defaultSelected: "view",
     actionSelect: {
@@ -67,7 +69,7 @@ export const WidgetPageIndex = () => {
         <WidgetSectionShare drawer={drawerRef.current} />
       )}
       {selected == "settings" && !!drawerRef.current && (
-        <WidgetSectionSettings drawer={drawerRef.current} defaultData={data} />
+        <WidgetSectionSettings setData={setData} defaultData={getData()} />
       )}
     </>
   );
