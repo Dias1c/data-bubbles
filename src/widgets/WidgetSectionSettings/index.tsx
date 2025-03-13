@@ -97,11 +97,9 @@ export const WidgetSectionSettings = ({
             }}
           ></textarea>
           {!!error && (
-            <div>
-              <span className={styles.text_error} title={error}>
-                {error}
-              </span>
-            </div>
+            <span className={styles.text_error} title={error}>
+              {error}
+            </span>
           )}
           <div>
             <Button

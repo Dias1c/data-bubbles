@@ -18,7 +18,7 @@
 
 .section_controllers {
   min-height: 200px;
-  min-width: 320px;
+  min-width: 380px;
 
   display: flex;
   flex-direction: column;
@@ -52,7 +52,7 @@
   border: none;
   resize: none;
   background-color: var(--color-bg-placeholder);
-  min-height: 320px;
+  min-height: 380px;
   color: var(--color-fg-default);
 }
 
@@ -63,6 +63,6 @@
 
 @media (min-width: 761px) {
   .text_error {
-    max-width: 320px;
+    max-width: 380px;
   }
 }
