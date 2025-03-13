@@ -40,10 +40,12 @@ export const ButtonImportJson = ({
           position: "fixed",
           top: 0,
           left: 0,
+          width: 0,
+          height: 0,
         }}
         onError={() => setLoading(false)}
-        onChange={async (e) => {
-          const files = e.target.files;
+        onClick={async (e) => {
+          const files = e.currentTarget.files;
           if (!files?.length) {
             setLoading(false);
             return;
