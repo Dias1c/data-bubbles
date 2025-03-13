@@ -55,7 +55,6 @@ export const WidgetSectionSettings = ({
         className={styles.section_controllers}
         style={{
           width: view ? undefined : "100%",
-          maxWidth: !!view ? "320px" : undefined,
         }}
       >
         <div className={styles.section_controllers_system}>
@@ -98,9 +97,11 @@ export const WidgetSectionSettings = ({
             }}
           ></textarea>
           {!!error && (
-            <span className={styles.text_error} title={error}>
-              {error}
-            </span>
+            <div>
+              <span className={styles.text_error} title={error}>
+                {error}
+              </span>
+            </div>
           )}
           <div>
             <Button

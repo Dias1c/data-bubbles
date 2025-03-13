@@ -60,3 +60,9 @@
   color: red;
   font-size: 12px;
 }
+
+@media (min-width: 761px) {
+  .text_error {
+    max-width: 320px;
+  }
+}
