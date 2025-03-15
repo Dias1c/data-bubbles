@@ -6,23 +6,26 @@ import { useTabs } from "./useTabs";
 export function useUrlTabs<T extends string>({
   actionSelect,
   defaultSelected,
+  canBeSelected,
   name,
-}: { name: string } & Parameters<typeof useTabs<T>>[0]) {
+}: {
+  name: string;
+  canBeSelected?: (props: { value?: T }) => boolean;
+} & Parameters<typeof useTabs<T>>[0]) {
   const tabs = useTabs<T>({
     actionSelect,
   });
 
   useEffect(() => {
-    const activeTab = new URL(window.location.href).searchParams.get(name);
-    if (activeTab) {
-      tabs.select({
-        value: (activeTab as T) || defaultSelected,
-      });
-    } else if (defaultSelected) {
-      tabs.select({
-        value: defaultSelected,
-      });
+    let activeTab = new URL(window.location.href).searchParams.get(name) as
+      | T
+      | undefined;
+    if (canBeSelected && !canBeSelected({ value: activeTab })) {
+      activeTab = defaultSelected;
     }
+    tabs.select({
+      value: activeTab ?? defaultSelected,
+    });
   }, [name]);
 
   useHandleUrlHistoryNavigation(({ url }) => {
