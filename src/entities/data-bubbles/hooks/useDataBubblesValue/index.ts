@@ -4,13 +4,13 @@ import type { IData, IDataState } from "../../types";
 export const useDataBubblesValue = ({
   defaultValue,
 }: {
-  defaultValue: IData;
+  defaultValue?: IData;
 }) => {
-  const [data, setData] = useState<IData>(defaultValue);
+  const [data, setData] = useState<IData>(defaultValue ?? {});
   const [state, setState] = useState<IDataState>();
 
   const memo = useMemo(() => {
-    let data = defaultValue;
+    let data = defaultValue ?? {};
     return {
       set: (v: IData) => {
         data = v;
@@ -22,7 +22,7 @@ export const useDataBubblesValue = ({
   }, []);
 
   useEffect(() => {
-    memo.set(defaultValue);
+    memo.set(defaultValue ?? {});
   }, []);
 
   const activeData = useMemo(() => {
