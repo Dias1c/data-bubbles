@@ -23,16 +23,16 @@ export const usePageIndexTabs = ({
 
     return [
       {
-        label: "View",
+        label: "📺 View",
         value: "view",
       },
       {
-        label: "Share",
+        label: "🚀 Share",
         value: "share",
         hidden: hiddenTabsSet.has("share"),
       },
       {
-        label: "Settings",
+        label: "⚙️ Settings",
         value: "settings",
         hidden: hiddenTabsSet.has("settings"),
       },
