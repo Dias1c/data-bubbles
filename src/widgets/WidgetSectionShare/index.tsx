@@ -8,6 +8,7 @@ import { useAppShareUrl } from "./hooks/useAppShareUrl";
 import styles from "./styles.module.css";
 import { BlockShareIframe } from "./ui/BlockShareIframe";
 import { BlockShareLink } from "./ui/BlockShareLink";
+import { BlockShareQrCode } from "./ui/BlockShareQrCode";
 import { BoxDrawerImageDownload } from "./ui/BoxDrawerImageDownload";
 
 const maxWidth = "420px";
@@ -35,6 +36,13 @@ export const WidgetSectionShare = ({
       <BlockPartition label="Download Image" maxWidth={maxWidth}>
         <BoxDrawerImageDownload drawer={drawer} mimeType={"image/png"} />
       </BlockPartition>
+
+      <BlockPartition label="Share" maxWidth={maxWidth}>
+        <BlockShareLink value={href} />
+        <BlockShareQrCode value={href} />
+        <BlockShareIframe value={href} />
+      </BlockPartition>
+
       {!!visibleTabs.length && (
         <BlockPartition label="Settings" maxWidth={maxWidth}>
           <Typography>Available Tabs</Typography>
@@ -56,12 +64,6 @@ export const WidgetSectionShare = ({
           })}
         </BlockPartition>
       )}
-      <BlockPartition label="Share" maxWidth={maxWidth}>
-        <BlockShareLink value={href} />
-        {/* <Typography>QR</Typography>
-        <Typography>Iframe</Typography> */}
-        <BlockShareIframe value={href} />
-      </BlockPartition>
     </section>
   );
 };
