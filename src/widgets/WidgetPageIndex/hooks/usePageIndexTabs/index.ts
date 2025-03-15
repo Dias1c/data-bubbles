@@ -4,6 +4,17 @@ import { useMemo } from "react";
 
 type TTabValue = "view" | "share" | "settings";
 
+const getHiddenTabsSet = () => {
+  const url = new URL(window.location.href);
+  const hiddenTabsSet = new Set<TTabValue>();
+  const hiddenTabsArr = PageIndexShare.getHiddenTabs(url.searchParams);
+  hiddenTabsArr?.forEach((tab) => {
+    hiddenTabsSet.add(tab as TTabValue);
+  });
+
+  return hiddenTabsSet;
+};
+
 export const usePageIndexTabs = ({
   actionSelect,
 }: Pick<Parameters<typeof useUrlTabs<TTabValue>>[0], "actionSelect">) => {
@@ -11,15 +22,14 @@ export const usePageIndexTabs = ({
     name: "activeTab",
     defaultSelected: "view",
     actionSelect,
+    canBeSelectedOnInit: ({ value }) => {
+      const hiddenTabsSet = getHiddenTabsSet();
+      return !hiddenTabsSet.has(value);
+    },
   });
 
   const tabs = useMemo((): ITabsElement<TTabValue>[] => {
-    const url = new URL(window.location.href);
-    const hiddenTabsSet = new Set();
-    const hiddenTabsArr = PageIndexShare.getHiddenTabs(url.searchParams);
-    hiddenTabsArr?.forEach((tab) => {
-      hiddenTabsSet.add(tab);
-    });
+    const hiddenTabsSet = getHiddenTabsSet();
 
     return [
       {

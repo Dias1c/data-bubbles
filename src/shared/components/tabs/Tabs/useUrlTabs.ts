@@ -6,11 +6,11 @@ import { useTabs } from "./useTabs";
 export function useUrlTabs<T extends string>({
   actionSelect,
   defaultSelected,
-  canBeSelected,
+  canBeSelectedOnInit,
   name,
 }: {
   name: string;
-  canBeSelected?: (props: { value?: T }) => boolean;
+  canBeSelectedOnInit?: (props: { value: T }) => boolean;
 } & Parameters<typeof useTabs<T>>[0]) {
   const tabs = useTabs<T>({
     actionSelect,
@@ -20,7 +20,11 @@ export function useUrlTabs<T extends string>({
     let activeTab = new URL(window.location.href).searchParams.get(name) as
       | T
       | undefined;
-    if (canBeSelected && !canBeSelected({ value: activeTab })) {
+    if (
+      activeTab &&
+      canBeSelectedOnInit &&
+      !canBeSelectedOnInit({ value: activeTab })
+    ) {
       activeTab = defaultSelected;
     }
     tabs.select({
