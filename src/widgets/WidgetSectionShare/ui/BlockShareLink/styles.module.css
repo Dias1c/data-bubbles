@@ -1,0 +1,20 @@
+.section_link {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.section_link__link {
+  background-color: var(--color-bg-placeholder);
+  padding: 8px 4px;
+  border-radius: 4px;
+  display: block;
+  overflow: auto;
+  white-space: nowrap;
+  font-size: 14px;
+}
+
+.section_link__buttons {
+  display: flex;
+  gap: 4px;
+}

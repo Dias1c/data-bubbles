@@ -4,7 +4,7 @@ import {
   useDataBubbles,
   type IData,
 } from "@/entities/data-bubbles";
-import { Tabs, useUrlTabs } from "@/shared/components/tabs/Tabs";
+import { Tabs } from "@/shared/components/tabs/Tabs";
 import { useHandleUrlHistoryNavigation } from "@/shared/hooks/useHandleUrlHistoryNavigation";
 import { historyReplaceState } from "@/shared/lib/window/historyChangeState";
 import { WidgetHeader } from "@/widgets/WidgetHeader";
@@ -12,8 +12,7 @@ import { WidgetSectionShare } from "@/widgets/WidgetSectionShare";
 import { useEffect } from "react";
 import { WidgetSectionSettings } from "../WidgetSectionSettings";
 import { WidgetSectoinView } from "../WidgetSectionView";
-
-type TTabValue = "view" | "share" | "settings";
+import { usePageIndexTabs } from "./hooks";
 
 const getDataBubblesDefaultValue = (): IData => {
   const data = getDataBubblesValueFromUrl({ name: "data" });
@@ -24,12 +23,10 @@ const getDataBubblesDefaultValue = (): IData => {
 };
 
 export const WidgetPageIndex = () => {
-  const { drawerRef, setCanvas, activeData, setData, getData } = useDataBubbles(
-    {}
-  );
-  const { select, selected } = useUrlTabs<TTabValue>({
-    name: "activeTab",
-    defaultSelected: "view",
+  const { drawerRef, setCanvas, activeData, setData, getData } =
+    useDataBubbles();
+
+  const { select, selected, tabs } = usePageIndexTabs({
     actionSelect: {
       onSuccess: ({ value }) => {
         drawerRef.current?.stopAnimation();
@@ -63,24 +60,7 @@ export const WidgetPageIndex = () => {
     <>
       <WidgetHeader
         childrenCenter={
-          <Tabs<TTabValue>
-            values={[
-              {
-                label: "View",
-                value: "view",
-              },
-              {
-                label: "Share",
-                value: "share",
-              },
-              {
-                label: "Settings",
-                value: "settings",
-              },
-            ]}
-            selected={selected}
-            onSelect={select}
-          />
+          <Tabs values={tabs} selected={selected} onSelect={select} />
         }
       />
       <WidgetSectoinView
@@ -91,7 +71,11 @@ export const WidgetPageIndex = () => {
         setCanvas={setCanvas}
       />
       {selected == "share" && !!drawerRef.current && (
-        <WidgetSectionShare drawer={drawerRef.current} />
+        <WidgetSectionShare
+          drawer={drawerRef.current}
+          getData={getData}
+          tabs={tabs.filter((v) => v.value != "view")}
+        />
       )}
       {selected == "settings" && !!drawerRef.current && (
         <WidgetSectionSettings setData={setData} defaultData={getData()} />
