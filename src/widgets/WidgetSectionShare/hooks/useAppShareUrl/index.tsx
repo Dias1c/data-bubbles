@@ -37,8 +37,6 @@ export const useAppShareUrl = ({
         })
     );
 
-    console.log("params", ...url.searchParams.entries());
-
     return url.toString();
   }, [JSON.stringify(data), hiddenTabs]);
 
