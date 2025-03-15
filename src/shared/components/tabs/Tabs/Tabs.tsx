@@ -26,6 +26,7 @@ export interface ITabsElement<T extends string> {
   label: string;
   value: T;
   disabled?: boolean;
+  hidden?: boolean;
 }
 
 export const Tabs = <T extends string>({
@@ -40,6 +41,7 @@ export const Tabs = <T extends string>({
   return (
     <section className={styles.tabs}>
       {values.map((v) => {
+        if (v.hidden) return;
         return (
           <Tab
             key={v.value}
