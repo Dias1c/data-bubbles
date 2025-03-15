@@ -48,10 +48,26 @@ export const BlockShareQrCode = ({ value }: { value: string }) => {
             width: "100%",
             height: "100%",
           }}
-          fgColor={inversed ? "white" : "var(--color-bg-default, #000)"}
-          bgColor={inversed ? "var(--color-bg-default, #000)" : "white"}
+          fgColor={inversed ? "var(--color-bg-default, #000)" : "white"}
+          bgColor={inversed ? "white" : "var(--color-bg-default, #000)"}
         />
       </div>
+      {inversed && (
+        <span
+          style={{
+            fontSize: "14px",
+          }}
+        >
+          <span
+            style={{
+              color: "orange",
+            }}
+          >
+            Caution:
+          </span>{" "}
+          In inversed state qr can be unreadable
+        </span>
+      )}
       <div>
         <Button onClick={() => setInversed(!inversed)}>🔄 Inverse</Button>
       </div>
