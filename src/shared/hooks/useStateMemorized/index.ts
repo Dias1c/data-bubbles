@@ -1,3 +1,4 @@
+import { isWindowInIframe } from "@/shared/lib/window/isWindowInIframe";
 import { hls } from "@diaskappassov/hungry-local-storage";
 import { useState } from "react";
 
@@ -12,6 +13,10 @@ function getOrSetDefaultValue<T>({
   expiration?: Parameters<typeof hls.set>[2];
   disableAutoExtension?: boolean;
 }): T {
+  if (isWindowInIframe()) {
+    return defaultValue;
+  }
+
   const result = hls.get(name);
   if (result === null) {
     hls.set(name, defaultValue, expiration);
@@ -41,7 +46,9 @@ export function useStateMemorized<T>({
   );
 
   const setStateProcessed = (value: T) => {
-    hls.set(name, value, expiration);
+    if (!isWindowInIframe()) {
+      hls.set(name, value, expiration);
+    }
     setState(value);
   };
 
