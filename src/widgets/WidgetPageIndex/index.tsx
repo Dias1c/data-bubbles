@@ -1,9 +1,9 @@
 import {
   exampleDataBubblesValue,
-  getDataBubblesValueFromUrl,
   useDataBubbles,
   type IData,
 } from "@/entities/data-bubbles";
+import { PageIndexShare } from "@/features/page-index-share";
 import { Tabs } from "@/shared/components/tabs/Tabs";
 import { useHandleUrlHistoryNavigation } from "@/shared/hooks/useHandleUrlHistoryNavigation";
 import { historyReplaceState } from "@/shared/lib/window/historyChangeState";
@@ -15,7 +15,8 @@ import { WidgetSectoinView } from "../WidgetSectionView";
 import { usePageIndexTabs } from "./hooks";
 
 const getDataBubblesDefaultValue = (): IData => {
-  const data = getDataBubblesValueFromUrl({ name: "data" });
+  const url = new URL(window.location.href);
+  const data = PageIndexShare.getData(url.searchParams);
   if (data) {
     return data;
   }
@@ -38,8 +39,8 @@ export const WidgetPageIndex = () => {
     },
   });
 
-  useHandleUrlHistoryNavigation(() => {
-    const data = getDataBubblesValueFromUrl({ name: "data" });
+  useHandleUrlHistoryNavigation(({ url }) => {
+    const data = PageIndexShare.getData(url.searchParams);
     if (data) setData(data);
   });
 
@@ -51,7 +52,7 @@ export const WidgetPageIndex = () => {
   useEffect(() => {
     historyReplaceState({
       update: ({ url }) => {
-        url.searchParams.set("data", JSON.stringify(getData()));
+        PageIndexShare.setData(url.searchParams, getData());
       },
     });
   }, [JSON.stringify(getData())]);

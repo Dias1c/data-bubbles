@@ -1,4 +1,5 @@
 import type { IData } from "@/entities/data-bubbles";
+import * as compressJSON from "compress-json";
 
 /**
  * @todo Generation of PageIndexShare methods
@@ -9,7 +10,8 @@ export class PageIndexShare {
   static getData(sp: URLSearchParams): IData | undefined {
     const value = sp.get(this.nameData);
     if (value) {
-      return JSON.parse(value);
+      const compressed = JSON.parse(value);
+      return compressJSON.decompress(compressed);
     }
   }
 
@@ -18,7 +20,9 @@ export class PageIndexShare {
       sp.delete(this.nameData);
       return;
     }
-    sp.set(this.nameData, JSON.stringify(value));
+
+    const compressed = compressJSON.compress(value);
+    sp.set(this.nameData, JSON.stringify(compressed));
   }
 
   static nameHiddenTabs = "hiddenTabs";
