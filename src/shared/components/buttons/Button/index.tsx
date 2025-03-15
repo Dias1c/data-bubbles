@@ -1,7 +1,7 @@
 import type React from "react";
 import type { ReactNode } from "react";
-import styles from "./styles.module.css";
 import { LoadingCircleSvg } from "../../loading/LoadingCircleSvg";
+import styles from "./styles.module.css";
 
 export type TButtonVariant = "outlined" | "text";
 
@@ -16,15 +16,18 @@ export const Button = ({
   children,
   onClick,
   loading,
+  ref,
 }: {
   variant?: TButtonVariant;
   disabled?: boolean;
   children?: ReactNode;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   loading?: boolean;
+  ref?: React.Ref<HTMLButtonElement>;
 }) => {
   return (
     <button
+      ref={ref}
       className={variantClassNames[variant]}
       disabled={disabled || loading}
       onClick={onClick}
