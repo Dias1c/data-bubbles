@@ -20,7 +20,6 @@ export const WidgetSectionSettings = ({
   setData: (value: IData) => void;
   defaultData: IData;
 }) => {
-  const [count, setCount] = useState(0);
   const [value, setValue] = useState(
     JSON.stringify(defaultData, undefined, "  ")
   );
