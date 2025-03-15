@@ -4,16 +4,16 @@
 
 - [x] Export to IMG
 
-  - [ ] Define data in bubbles
+  - [x] Define data in bubbles
   - [x] Base Image Exporting
-  - [ ] Export with QR
+  - [x] Export with QR
 
-- [ ] Define structure based on features (`{ label, data: []}`)
-- [ ] Import JSON
-- [ ] Export JSON
-- [ ] Export to Link
+- [x] Define structure based on features (`{ label, data: []}`)
+- [x] Import JSON
+- [x] Export JSON
+- [x] Export to Link
 - [x] Define Design
-- [ ] Editor
+- [x] Editor
 - [ ] Timeline of bubbles
 - [ ] Timeline range?
 
