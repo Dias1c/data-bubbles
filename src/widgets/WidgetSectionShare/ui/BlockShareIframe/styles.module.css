@@ -13,6 +13,7 @@
   resize: none;
   background-color: var(--color-bg-placeholder);
   color: var(--color-fg-default);
+  margin: 0;
 }
 
 .section_iframe__buttons {
