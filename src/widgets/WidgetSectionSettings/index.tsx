@@ -67,16 +67,16 @@ export const WidgetSectionSettings = ({
               data={dataBubbles.getData()}
               filename={dataBubbles.getData().title ?? "data-bubbles"}
             >
-              Export JSON
+              📤 Export JSON
             </ButtonExportJson>
             <ButtonImportJson onSuccess={({ json }) => setValue(json)}>
-              Import JSON
+              📥 Import JSON
             </ButtonImportJson>
           </div>
         </div>
         <BlockPartition label="Settings" fullHeight>
           <a href="https://github.com/Dias1c/data-bubbles" target="_blank">
-            Documentation
+            📌 Documentation
           </a>
           <textarea
             className={styles.textarea}
@@ -109,7 +109,7 @@ export const WidgetSectionSettings = ({
                 });
               }}
             >
-              Format
+              👌 Format
             </Button>
           </div>
         </BlockPartition>
