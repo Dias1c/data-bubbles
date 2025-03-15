@@ -1,11 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import type { IData, IDataState } from "../../types";
 
-export const useDataBubblesValue = ({
-  defaultValue,
-}: {
-  defaultValue?: IData;
-}) => {
+export const useDataBubblesValue = (props?: { defaultValue?: IData }) => {
+  const { defaultValue } = props ?? {};
+
   const [data, setData] = useState<IData>(defaultValue ?? {});
   const [state, setState] = useState<IDataState>();
 
