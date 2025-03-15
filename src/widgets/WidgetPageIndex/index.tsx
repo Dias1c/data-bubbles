@@ -1,8 +1,12 @@
 import {
   exampleDataBubblesValue,
+  getDataBubblesValueFromUrl,
   useDataBubbles,
+  type IData,
 } from "@/entities/data-bubbles";
-import { Tabs, useTabs } from "@/shared/components/tabs/Tabs";
+import { Tabs, useUrlTabs } from "@/shared/components/tabs/Tabs";
+import { useHandleUrlHistoryNavigation } from "@/shared/hooks/useHandleUrlHistoryNavigation";
+import { historyReplaceState } from "@/shared/lib/window/historyChangeState";
 import { WidgetHeader } from "@/widgets/WidgetHeader";
 import { WidgetSectionShare } from "@/widgets/WidgetSectionShare";
 import { useEffect } from "react";
@@ -11,13 +15,20 @@ import { WidgetSectoinView } from "../WidgetSectionView";
 
 type TTabValue = "view" | "share" | "settings";
 
+const getDataBubblesDefaultValue = (): IData => {
+  const data = getDataBubblesValueFromUrl({ name: "data" });
+  if (data) {
+    return data;
+  }
+  return exampleDataBubblesValue;
+};
+
 export const WidgetPageIndex = () => {
   const { drawerRef, setCanvas, activeData, setData, getData } = useDataBubbles(
-    {
-      defaultValue: exampleDataBubblesValue,
-    }
+    {}
   );
-  const { select, selected } = useTabs<TTabValue>({
+  const { select, selected } = useUrlTabs<TTabValue>({
+    name: "activeTab",
     defaultSelected: "view",
     actionSelect: {
       onSuccess: ({ value }) => {
@@ -30,9 +41,23 @@ export const WidgetPageIndex = () => {
     },
   });
 
+  useHandleUrlHistoryNavigation(() => {
+    const data = getDataBubblesValueFromUrl({ name: "data" });
+    if (data) setData(data);
+  });
+
   useEffect(() => {
+    setData(getDataBubblesDefaultValue());
     drawerRef.current?.startAnimation();
   }, []);
+
+  useEffect(() => {
+    historyReplaceState({
+      update: ({ url }) => {
+        url.searchParams.set("data", JSON.stringify(getData()));
+      },
+    });
+  }, [JSON.stringify(getData())]);
 
   return (
     <>
