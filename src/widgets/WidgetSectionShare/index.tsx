@@ -6,8 +6,9 @@ import { Typography } from "@/shared/components/typography/Typography";
 import { useMemo } from "react";
 import { useAppShareUrl } from "./hooks/useAppShareUrl";
 import styles from "./styles.module.css";
-import { BoxDrawerImageDownload } from "./ui/BoxDrawerImageDownload";
+import { BlockShareIframe } from "./ui/BlockShareIframe";
 import { BlockShareLink } from "./ui/BlockShareLink";
+import { BoxDrawerImageDownload } from "./ui/BoxDrawerImageDownload";
 
 const maxWidth = "420px";
 
@@ -59,6 +60,7 @@ export const WidgetSectionShare = ({
         <BlockShareLink value={href} />
         {/* <Typography>QR</Typography>
         <Typography>Iframe</Typography> */}
+        <BlockShareIframe value={href} />
       </BlockPartition>
     </section>
   );
