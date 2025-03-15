@@ -28,8 +28,10 @@
 
   transition: var(--transition-default-ms);
 
+  opacity: 0;
+
   &:hover {
-    opacity: 0;
+    opacity: 1;
   }
 }
 

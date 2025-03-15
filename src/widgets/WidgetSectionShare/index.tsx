@@ -1,8 +1,10 @@
 import type { DrawerDataBubbles, IData } from "@/entities/data-bubbles";
 import { BlockPartition } from "@/shared/components/blocks/BlockPartition";
+import { Button } from "@/shared/components/buttons/Button";
 import { FieldCheckbox } from "@/shared/components/input_fields/FieldCheckbox";
 import { type ITabsElement } from "@/shared/components/tabs/Tabs";
 import { Typography } from "@/shared/components/typography/Typography";
+import { download } from "@/shared/lib/files/download";
 import { useMemo } from "react";
 import { useAppShareUrl } from "./hooks/useAppShareUrl";
 import styles from "./styles.module.css";
@@ -35,6 +37,16 @@ export const WidgetSectionShare = ({
     <section className={styles.section}>
       <BlockPartition label="Download Image" maxWidth={maxWidth}>
         <BoxDrawerImageDownload drawer={drawer} mimeType={"image/png"} />
+        <div>
+          <Button
+            onClick={() => {
+              const url = drawer.canvas.toDataURL("image/png");
+              download({ url, name: "data-bubbles" });
+            }}
+          >
+            📥 Download
+          </Button>
+        </div>
       </BlockPartition>
 
       <BlockPartition label="Share" maxWidth={maxWidth}>

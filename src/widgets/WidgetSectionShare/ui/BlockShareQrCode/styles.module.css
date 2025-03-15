@@ -1,0 +1,27 @@
+.section_qr__block_qr {
+  position: relative;
+  aspect-ratio: 1 / 1;
+}
+
+.section_qr__block_qr__block {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+
+  cursor: pointer;
+  transition: var(--transition-default-ms);
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 1;
+  }
+}

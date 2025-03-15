@@ -4,6 +4,8 @@ import { download } from "@/shared/lib/files/download";
 import { useRef } from "react";
 import QRCode from "react-qr-code";
 
+import styles from "./styles.module.css";
+
 export const BlockShareQrCode = ({ value }: { value: string }) => {
   const ref = useRef<SVGElement>(null);
 
@@ -16,23 +18,9 @@ export const BlockShareQrCode = ({ value }: { value: string }) => {
       }}
     >
       <Typography>QR Code</Typography>
-      <div
-        style={{
-          aspectRatio: "1 / 1",
-        }}
-      >
-        <QRCode
-          ref={ref as any}
-          value={value}
-          style={{
-            width: "100%",
-            height: "100%",
-          }}
-          fgColor="var(--color-bg-default, #000)"
-        />
-      </div>
-      <div>
-        <Button
+      <div className={styles.section_qr__block_qr}>
+        <div
+          className={styles.section_qr__block_qr__block}
           onClick={() => {
             const qr = ref.current;
             if (!qr) return;
@@ -46,8 +34,17 @@ export const BlockShareQrCode = ({ value }: { value: string }) => {
             download({ url, name: "data-bubbles-qr" });
           }}
         >
-          📥 Download
-        </Button>
+          <p>📥 Click to Download</p>
+        </div>
+        <QRCode
+          ref={ref as any}
+          value={value}
+          style={{
+            width: "100%",
+            height: "100%",
+          }}
+          fgColor="var(--color-bg-default, #000)"
+        />
       </div>
     </section>
   );

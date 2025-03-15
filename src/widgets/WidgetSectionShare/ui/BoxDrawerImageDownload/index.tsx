@@ -43,8 +43,7 @@ export const BoxDrawerImageDownload = ({
         if (!url || !loaded) return;
         download({
           url,
-          name:
-            name ?? `data-bubbles${getFileExtensionByMimeType({ mimeType })}`,
+          name: name ?? `data-bubbles`,
         });
       }}
     >
@@ -65,7 +64,7 @@ export const BoxDrawerImageDownload = ({
       <div className={styles.block_image__top_layer}>
         <p className={styles.block_image__top_layer__text}>
           {!!error && error}
-          {loaded && !error && "Click to download"}
+          {loaded && !error && "📥 Click to Download"}
         </p>
       </div>
     </div>
