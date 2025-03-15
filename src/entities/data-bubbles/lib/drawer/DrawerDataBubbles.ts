@@ -70,6 +70,7 @@ export class DrawerDataBubbles {
       let image: HTMLImageElement | undefined;
       if (data.img_src) {
         image = new Image();
+        image.setAttribute("crossorigin", "anonymous");
         image.src = data.img_src;
       }
 
