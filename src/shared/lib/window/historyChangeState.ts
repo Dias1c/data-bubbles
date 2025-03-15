@@ -2,11 +2,11 @@ export const historyReplaceState = ({
   update,
   data,
 }: {
-  update: (url: URL) => void;
+  update: (props: { url: URL }) => void;
   data?: any;
 }) => {
   let url = new URL(window.location.href);
-  update(url);
+  update({ url });
   window.history.replaceState(data, "", url);
 };
 
@@ -14,10 +14,10 @@ export const historyPushState = ({
   update,
   data,
 }: {
-  update: (url: URL) => void;
+  update: (props: { url: URL }) => void;
   data?: any;
 }) => {
   let url = new URL(window.location.href);
-  update(url);
+  update({ url });
   window.history.pushState(data, "", url);
 };
