@@ -1,5 +1,6 @@
 import { Button } from "@/shared/components/buttons/Button";
 import { Typography } from "@/shared/components/typography/Typography";
+import { useStateMemorized } from "@/shared/hooks/useStateMemorized";
 import { download } from "@/shared/lib/files/download";
 import { useRef } from "react";
 import QRCode from "react-qr-code";
@@ -8,6 +9,10 @@ import styles from "./styles.module.css";
 
 export const BlockShareQrCode = ({ value }: { value: string }) => {
   const ref = useRef<SVGElement>(null);
+  const [inversed, setInversed] = useStateMemorized({
+    name: "tabs:share:qrcode:inversed",
+    defaultValue: false,
+  });
 
   return (
     <section
@@ -43,8 +48,12 @@ export const BlockShareQrCode = ({ value }: { value: string }) => {
             width: "100%",
             height: "100%",
           }}
-          fgColor="var(--color-bg-default, #000)"
+          fgColor={inversed ? "white" : "var(--color-bg-default, #000)"}
+          bgColor={inversed ? "var(--color-bg-default, #000)" : "white"}
         />
+      </div>
+      <div>
+        <Button onClick={() => setInversed(!inversed)}>🔄 Inverse</Button>
       </div>
     </section>
   );
