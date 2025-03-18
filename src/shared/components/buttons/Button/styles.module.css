@@ -44,3 +44,9 @@
     outline: 1px solid var(--color-primary);
   }
 }
+
+@media (max-width: 600px) {
+  .button {
+    padding: 6px 12px;
+  }
+}
