@@ -29,3 +29,14 @@
     height: 2px;
   }
 }
+
+.tab__variant_border_top {
+  padding-top: 6px;
+  padding-bottom: 0;
+
+  &::after {
+    bottom: auto;
+    top: 0;
+    left: 0;
+  }
+}
