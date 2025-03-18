@@ -14,4 +14,6 @@ export default defineConfig({
       allowedHosts: true,
     },
   },
+  site: "https://dias1c.github.io",
+  base: "data-bubbles",
 });
