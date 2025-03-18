@@ -15,5 +15,4 @@ export default defineConfig({
     },
   },
   site: "https://dias1c.github.io",
-  base: "data-bubbles",
 });
