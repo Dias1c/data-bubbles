@@ -5,7 +5,9 @@ import {
 } from "@/entities/data-bubbles";
 import { PageIndexShare } from "@/features/page-index-share";
 import { Tabs } from "@/shared/components/tabs/Tabs";
+import { CONFIG } from "@/shared/config";
 import { useHandleUrlHistoryNavigation } from "@/shared/hooks/useHandleUrlHistoryNavigation";
+import { useMatchMedia } from "@/shared/hooks/useMatchMedia";
 import { historyReplaceState } from "@/shared/lib/window/historyChangeState";
 import { WidgetHeader } from "@/widgets/WidgetHeader";
 import { WidgetSectionShare } from "@/widgets/WidgetSectionShare";
@@ -13,6 +15,7 @@ import { useEffect } from "react";
 import { WidgetSectionSettings } from "../WidgetSectionSettings";
 import { WidgetSectoinView } from "../WidgetSectionView";
 import { usePageIndexTabs } from "./hooks";
+import { Footer } from "./ui/Footer";
 
 const getDataBubblesDefaultValue = (): IData => {
   const url = new URL(window.location.href);
@@ -24,6 +27,10 @@ const getDataBubblesDefaultValue = (): IData => {
 };
 
 export const WidgetPageIndex = () => {
+  const matchMediaMobile = useMatchMedia(
+    `(max-width: ${CONFIG.breakpoints.tablet}px)`
+  );
+
   const { drawerRef, setCanvas, activeData, setData, getData } =
     useDataBubbles();
 
@@ -61,7 +68,9 @@ export const WidgetPageIndex = () => {
     <>
       <WidgetHeader
         childrenCenter={
-          <Tabs values={tabs} selected={selected} onSelect={select} />
+          !matchMediaMobile.matches && (
+            <Tabs values={tabs} selected={selected} onSelect={select} />
+          )
         }
       />
       <WidgetSectoinView
@@ -80,6 +89,18 @@ export const WidgetPageIndex = () => {
       )}
       {selected == "settings" && !!drawerRef.current && (
         <WidgetSectionSettings setData={setData} defaultData={getData()} />
+      )}
+      {matchMediaMobile.matches && (
+        <Footer
+          children={
+            <Tabs
+              values={tabs}
+              selected={selected}
+              onSelect={select}
+              linePosition="top"
+            />
+          }
+        />
       )}
     </>
   );
