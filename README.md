@@ -2,6 +2,10 @@
 
 ## DoD MVP
 
+- [ ] Mobile Version
+  - [x] Buttons
+  - [ ] Font Size
+  - [x] Header Menu
 - [x] Export to IMG
 
   - [x] Define data in bubbles
