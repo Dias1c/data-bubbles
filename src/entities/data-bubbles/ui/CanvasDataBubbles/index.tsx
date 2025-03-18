@@ -13,18 +13,17 @@ export const CanvasDataBubbles = ({
     const fitCanvasSize = () => {
       const rect = canvas.getBoundingClientRect();
       drawer.setCanvasSize({ width: rect.width, height: rect.height });
-    };
-    fitCanvasSize();
-
-    const onResize = () => {
-      fitCanvasSize();
       drawer.recalculateBubbleSizes();
       drawer.draw();
     };
+    fitCanvasSize();
 
-    window.addEventListener("resize", onResize);
+    const resizeObserver = new ResizeObserver(() => {
+      fitCanvasSize();
+    });
+    resizeObserver.observe(drawer.canvas);
     return () => {
-      window.removeEventListener("resize", onResize);
+      resizeObserver.unobserve(drawer.canvas);
     };
   }, []);
 
