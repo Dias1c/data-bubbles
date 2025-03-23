@@ -12,8 +12,8 @@ import { historyReplaceState } from "@/shared/lib/window/historyChangeState";
 import { WidgetHeader } from "@/widgets/WidgetHeader";
 import { WidgetSectionShare } from "@/widgets/WidgetSectionShare";
 import { useEffect } from "react";
+import { SectoinDataBubblesView } from "../../entities/data-bubbles/ui/SectoinDataBubblesView";
 import { WidgetSectionSettings } from "../WidgetSectionSettings";
-import { WidgetSectoinView } from "../WidgetSectionView";
 import { usePageIndexTabs } from "./hooks";
 import { Footer } from "./ui/Footer";
 
@@ -73,12 +73,13 @@ export const WidgetPageIndex = () => {
           )
         }
       />
-      <WidgetSectoinView
-        title={activeData.title}
-        subtitle={activeData.state?.title}
+      <SectoinDataBubblesView
         hidden={selected != "view"}
         drawerRef={drawerRef}
         setCanvas={setCanvas}
+        activeData={activeData}
+        getData={getData}
+        setData={setData}
       />
       {selected == "share" && !!drawerRef.current && (
         <WidgetSectionShare

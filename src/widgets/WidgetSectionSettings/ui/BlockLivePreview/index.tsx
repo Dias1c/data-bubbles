@@ -1,22 +1,15 @@
 import {
-  CanvasDataBubbles,
-  type useDrawerDataBubbles,
+  SectoinDataBubblesView,
+  useDataBubbles,
 } from "@/entities/data-bubbles";
-import { Subheader } from "@/shared/components/headers/Subheader";
 import { useEffect } from "react";
 import styles from "./styles.module.css";
 
-export const BlockLivePreview = ({
-  drawerRef,
-  setCanvas,
-  title,
-  subtitle,
-}: {
-  title?: string;
-  subtitle?: string;
-} & ReturnType<typeof useDrawerDataBubbles>) => {
+export const BlockLivePreview = (
+  dataBubbles: ReturnType<typeof useDataBubbles>
+) => {
   useEffect(() => {
-    const drawer = drawerRef.current;
+    const drawer = dataBubbles.drawerRef.current;
     if (!drawer) return;
     drawer.startAnimation();
     return () => {
@@ -26,8 +19,7 @@ export const BlockLivePreview = ({
 
   return (
     <section className={styles.section_canvas}>
-      <Subheader title={title} subtitle={subtitle} />
-      <CanvasDataBubbles drawerRef={drawerRef} setCanvas={setCanvas} />
+      <SectoinDataBubblesView {...dataBubbles} />
     </section>
   );
 };

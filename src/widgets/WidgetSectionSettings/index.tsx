@@ -1,8 +1,4 @@
-import {
-  DrawerDataBubbles,
-  useDataBubbles,
-  type IData,
-} from "@/entities/data-bubbles";
+import { useDataBubbles, type IData } from "@/entities/data-bubbles";
 import { BlockPartition } from "@/shared/components/blocks/BlockPartition";
 import { Button } from "@/shared/components/buttons/Button";
 import { FieldCheckbox } from "@/shared/components/input_fields/FieldCheckbox";
@@ -42,14 +38,7 @@ export const WidgetSectionSettings = ({
 
   return (
     <section className={styles.section}>
-      {view && (
-        <BlockLivePreview
-          title={dataBubbles.activeData.title}
-          subtitle={dataBubbles.activeData.state?.title}
-          setCanvas={dataBubbles.setCanvas}
-          drawerRef={dataBubbles.drawerRef}
-        />
-      )}
+      {view && <BlockLivePreview {...dataBubbles} />}
       <section
         className={styles.section_controllers}
         style={{

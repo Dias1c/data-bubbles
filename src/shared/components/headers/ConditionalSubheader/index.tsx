@@ -2,7 +2,7 @@ import { DividerVertical } from "@/shared/components/dividers/DividerVertical";
 import type { ReactNode } from "react";
 import styles from "./styles.module.css";
 
-export const Subheader = ({
+export const ConditionalSubheader = ({
   title,
   subtitle,
   childrenEnd,

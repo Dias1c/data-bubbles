@@ -1,34 +1,49 @@
-import { useEffect, useMemo, useState } from "react";
-import type { IData, IDataState } from "../../types";
+import { useMemo, useReducer } from "react";
+import type { IData } from "../../types";
+
+type TAction = {
+  type: "set";
+  value: IData;
+};
+
+const reducer = (state: IData, action: TAction): IData => {
+  if (action.type === "set") {
+    return action.value;
+  }
+
+  return state;
+};
 
 export const useDataBubblesValue = (props?: { defaultValue?: IData }) => {
   const { defaultValue } = props ?? {};
 
-  const [data, setData] = useState<IData>(defaultValue ?? {});
-  const [state, setState] = useState<IDataState>();
+  const [data, dispatch] = useReducer(reducer, defaultValue ?? {});
 
   const memo = useMemo(() => {
     let data = defaultValue ?? {};
     return {
       set: (v: IData) => {
         data = v;
-        setData(v);
-        setState(data?.states?.[0] ?? {});
+        dispatch({ type: "set", value: v });
       },
       get: () => data,
     };
   }, []);
 
-  useEffect(() => {
-    memo.set(defaultValue ?? {});
-  }, []);
-
   const activeData = useMemo(() => {
+    const stateIndex = data.state_index ?? 0;
+    const statePrev = data.states?.[stateIndex - 1] ?? {};
+    const stateCurrent = data.states?.[stateIndex] ?? {};
+    const stateLength = data.states?.length ?? 0;
+
     return {
       title: data?.title,
-      state: state,
+      statePrev,
+      stateCurrent,
+      stateIndex,
+      stateLength,
     };
-  }, [data, state]);
+  }, [data]);
 
   return { activeData, setData: memo.set, getData: memo.get };
 };

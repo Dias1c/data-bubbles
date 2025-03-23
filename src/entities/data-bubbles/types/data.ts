@@ -1,5 +1,6 @@
 export interface IData {
   title?: string;
+  state_index?: number;
   states?: IDataState[];
 }
 
