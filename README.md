@@ -2,8 +2,10 @@
 
 ## DoD MVP
 
+> Фотографии можно указывать только первых bubbles, если они повторяются, то не указывать.
+
 - [ ] Editor User Friendly
-  - [ ] Checkbox (mode) near title, by default
+  - [x] Checkbox (mode) near title, by default
   - [ ] Field for bubble (Title, src)
   - [ ] Add bubble by fields
   - [ ] Add existing bubble and edit

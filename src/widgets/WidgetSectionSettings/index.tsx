@@ -19,6 +19,9 @@ export const WidgetSectionSettings = ({
   const [value, setValue] = useState(
     JSON.stringify(defaultData, undefined, "  ")
   );
+
+  const [isEditModeManual, setIsEditModeManual] = useState(true);
+
   const [error, setError] = useState<string>();
   const [view, setView] = useStateMemorized({
     defaultValue: true,
@@ -63,44 +66,64 @@ export const WidgetSectionSettings = ({
             </ButtonImportJson>
           </div>
         </div>
-        <BlockPartition label="Settings" fullHeight>
-          <a href="https://github.com/Dias1c/data-bubbles" target="_blank">
-            📌 Documentation
-          </a>
-          <textarea
-            className={styles.textarea}
-            value={value}
-            onChange={(e) => {
-              const text = e?.target?.value ?? "";
-              setValue(text);
-              try {
-                const data = JSON.parse(text);
-                dataBubbles.setData(data);
-                setError("");
-              } catch (error) {
-                if (error instanceof Error) {
-                  setError(error?.message ?? "");
-                }
-              }
-            }}
-          ></textarea>
-          {!!error && (
-            <span className={styles.text_error} title={error}>
-              {error}
-            </span>
+        <BlockPartition
+          label="Settings"
+          fullHeight
+          childrenTitleEnd={
+            <FieldCheckbox
+              label="Manual"
+              checked={isEditModeManual}
+              onChange={(e) => setIsEditModeManual(e.target.checked)}
+            />
+          }
+        >
+          {!isEditModeManual && (
+            <p>
+              Working on UI/UX, please use{" "}
+              <span style={{ color: "red" }}>Manual mode</span>
+            </p>
           )}
-          <div>
-            <Button
-              disabled={!!error}
-              onClick={() => {
-                setValue((v) => {
-                  return JSON.stringify(JSON.parse(v), undefined, "  ");
-                });
-              }}
-            >
-              👌 Format
-            </Button>
-          </div>
+          {isEditModeManual && (
+            <>
+              <a href="https://github.com/Dias1c/data-bubbles" target="_blank">
+                📌 Documentation
+              </a>
+              <textarea
+                className={styles.textarea}
+                value={value}
+                onChange={(e) => {
+                  const text = e?.target?.value ?? "";
+                  setValue(text);
+                  try {
+                    const data = JSON.parse(text);
+                    dataBubbles.setData(data);
+                    setError("");
+                  } catch (error) {
+                    if (error instanceof Error) {
+                      setError(error?.message ?? "");
+                    }
+                  }
+                }}
+              ></textarea>
+              {!!error && (
+                <span className={styles.text_error} title={error}>
+                  {error}
+                </span>
+              )}
+              <div>
+                <Button
+                  disabled={!!error}
+                  onClick={() => {
+                    setValue((v) => {
+                      return JSON.stringify(JSON.parse(v), undefined, "  ");
+                    });
+                  }}
+                >
+                  👌 Format
+                </Button>
+              </div>
+            </>
+          )}
         </BlockPartition>
       </section>
     </section>

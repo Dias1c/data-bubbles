@@ -11,3 +11,9 @@
   height: 100%;
   overflow: auto;
 }
+
+.block__label__block {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
