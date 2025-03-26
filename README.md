@@ -1,25 +1,14 @@
 # Data Bubbles
 
-## DoD MVP
+📊🫧 Bubble chart for data visualization, like in [cryptobubbles.net](https://cryptobubbles.net/)
 
-> Фотографии можно указывать только первых bubbles, если они повторяются, то не указывать.
+## TODO
 
-- [ ] Editor User Friendly
-  - [x] Checkbox (mode) near title, by default
-  - [ ] Field for bubble (Title, src)
-  - [ ] Add bubble by fields
-  - [ ] Add existing bubble and edit
-- [ ] Settings (Bugger)
-
-- [ ] Mobile Version
-  - [ ] Font Size
-- [ ] Timeline of bubbles
-
-- [ ] Data Bubbles
-- [ ] Bubble Sizes calculation
-  - [ ] Min, Max
-  - [ ] Calculate on WindowSize
-- [ ] Reserve Bubbles images
-
-- [ ] WIKI (Documentation)
-  - [ ] How to add own bubbles
+- [ ] Settings, edit bubbles by UI
+- [ ] Bubbles Preview
+  - [ ] Setting bubbles
+  - [ ] Sizes calculation (Max squares in the box algorighm)
+  - [ ] Min size of bubbles
+  - [ ] Image size calculation
+  - [ ] Cache image, from 1st data
+- [ ] Wiki (Documentation)
