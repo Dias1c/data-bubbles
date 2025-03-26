@@ -2,6 +2,8 @@
 
 📊🫧 Bubble chart for data visualization, like in [cryptobubbles.net](https://cryptobubbles.net/)
 
+Demo is here: [https://dias1c.github.io/data-bubbles/](https://dias1c.github.io/data-bubbles/)
+
 ## TODO
 
 - [ ] Settings, edit bubbles by UI
