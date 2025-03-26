@@ -5,9 +5,8 @@ import {
 } from "@/entities/data-bubbles";
 import { PageIndexShare } from "@/features/page-index-share";
 import { Tabs } from "@/shared/components/tabs/Tabs";
-import { CONFIG } from "@/shared/config";
 import { useHandleUrlHistoryNavigation } from "@/shared/hooks/useHandleUrlHistoryNavigation";
-import { useMatchMedia } from "@/shared/hooks/useMatchMedia";
+import { useIsTablet } from "@/shared/hooks/useIsTablet";
 import { historyReplaceState } from "@/shared/lib/window/historyChangeState";
 import { WidgetHeader } from "@/widgets/WidgetHeader";
 import { WidgetSectionShare } from "@/widgets/WidgetSectionShare";
@@ -27,9 +26,7 @@ const getDataBubblesDefaultValue = (): IData => {
 };
 
 export const WidgetPageIndex = () => {
-  const matchMediaMobile = useMatchMedia(
-    `(max-width: ${CONFIG.breakpoints.tablet}px)`
-  );
+  const isTablet = useIsTablet();
 
   const { drawerRef, setCanvas, activeData, setData, getData } =
     useDataBubbles();
@@ -68,7 +65,7 @@ export const WidgetPageIndex = () => {
     <>
       <WidgetHeader
         childrenCenter={
-          !matchMediaMobile.matches && (
+          !isTablet && (
             <Tabs values={tabs} selected={selected} onSelect={select} />
           )
         }
@@ -91,7 +88,7 @@ export const WidgetPageIndex = () => {
       {selected == "settings" && !!drawerRef.current && (
         <WidgetSectionSettings setData={setData} defaultData={getData()} />
       )}
-      {matchMediaMobile.matches && (
+      {isTablet && (
         <Footer
           children={
             <Tabs
