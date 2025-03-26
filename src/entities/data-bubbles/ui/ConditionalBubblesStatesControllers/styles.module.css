@@ -1,0 +1,10 @@
+.section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 8px 16px;
+  width: 100%;
+
+  border-top: 1px solid var(--color-divider);
+}

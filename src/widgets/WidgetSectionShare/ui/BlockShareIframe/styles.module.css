@@ -1,0 +1,22 @@
+.section_iframe {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.section_iframe__pre {
+  flex: 1;
+  padding: 8px;
+  border-radius: 4px;
+  overflow: auto;
+  border: none;
+  resize: none;
+  background-color: var(--color-bg-placeholder);
+  color: var(--color-fg-default);
+  margin: 0;
+}
+
+.section_iframe__buttons {
+  display: flex;
+  gap: 4px;
+}

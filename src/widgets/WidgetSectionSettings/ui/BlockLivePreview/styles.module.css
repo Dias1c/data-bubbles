@@ -1,0 +1,11 @@
+.section_canvas {
+  flex: 1;
+  height: 100%;
+  overflow: auto;
+
+  display: flex;
+  flex-direction: column;
+
+  border: 1px solid var(--color-divider);
+  border-radius: 4px;
+}

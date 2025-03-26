@@ -1,0 +1,36 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+
+  min-height: 40px;
+  border-bottom: 1px solid var(--color-divider);
+
+  min-width: 0;
+  overflow: auto;
+}
+
+.header__logo_block {
+  display: flex;
+  align-items: center;
+
+  padding: 0 16px;
+}
+
+.header__logo_text {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 24px;
+
+  min-width: 0;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.header__social {
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+
+  gap: 4px;
+}
