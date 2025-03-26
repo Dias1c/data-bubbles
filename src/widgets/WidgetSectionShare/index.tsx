@@ -4,6 +4,7 @@ import { Button } from "@/shared/components/buttons/Button";
 import { FieldCheckbox } from "@/shared/components/input_fields/FieldCheckbox";
 import { type ITabsElement } from "@/shared/components/tabs/Tabs";
 import { Typography } from "@/shared/components/typography/Typography";
+import { useIsTablet } from "@/shared/hooks/useIsTablet";
 import { download } from "@/shared/lib/files/download";
 import { useMemo } from "react";
 import { useAppShareUrl } from "./hooks/useAppShareUrl";
@@ -24,6 +25,8 @@ export const WidgetSectionShare = ({
   getData: () => IData;
   tabs: ITabsElement<string>[];
 }) => {
+  const isTablet = useIsTablet();
+
   const { setHiddenTabs, hiddenTabs, href } = useAppShareUrl({
     data: getData(),
     tabs,
@@ -36,7 +39,9 @@ export const WidgetSectionShare = ({
   return (
     <section className={styles.section}>
       <BlockPartition label="Download Image" maxWidth={maxWidth}>
-        <BoxDrawerImageDownload drawer={drawer} mimeType={"image/png"} />
+        {!isTablet && (
+          <BoxDrawerImageDownload drawer={drawer} mimeType={"image/png"} />
+        )}
         <div>
           <Button
             onClick={() => {
