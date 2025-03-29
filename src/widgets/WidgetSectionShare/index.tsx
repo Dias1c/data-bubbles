@@ -1,6 +1,7 @@
 import type { DrawerDataBubbles, IData } from "@/entities/data-bubbles";
 import { BlockPartition } from "@/shared/components/blocks/BlockPartition";
 import { Button } from "@/shared/components/buttons/Button";
+import { ErrorBoundary } from "@/shared/components/error/ErrorBoundary";
 import { FieldCheckbox } from "@/shared/components/input_fields/FieldCheckbox";
 import { type ITabsElement } from "@/shared/components/tabs/Tabs";
 import { Typography } from "@/shared/components/typography/Typography";
@@ -56,7 +57,11 @@ export const WidgetSectionShare = ({
 
       <BlockPartition label="Share" maxWidth={maxWidth}>
         <BlockShareLink value={href} />
-        <BlockShareQrCode value={href} />
+        <ErrorBoundary
+          renderOnError={() => <Typography disabled>QR unavailable</Typography>}
+        >
+          <BlockShareQrCode value={href} />
+        </ErrorBoundary>
         <BlockShareIframe value={href} />
       </BlockPartition>
 
