@@ -4,7 +4,6 @@ import { getCirclesScaleFactorByValues } from "./getCirclesScaleFactorByValues";
 import { getFunctionGetColorByDelta } from "./getFunctionGetColorByDelta";
 
 type TDrawingData = {
-  prevData?: IDataStateBubble;
   currentData?: IDataStateBubble;
   directionX: number;
   directionY: number;
@@ -12,8 +11,14 @@ type TDrawingData = {
   drawer: DrawableDataBubble;
 };
 
-// TODO: Optimization
+const createImage = (src: string) => {
+  let image = new Image();
+  image.setAttribute("crossorigin", "anonymous");
+  image.src = src;
+  return image;
+};
 
+// TODO: Optimization
 export class DrawerDataBubbles {
   minDelayPerFrameMs: number = 1000 / 60;
 
@@ -51,37 +56,37 @@ export class DrawerDataBubbles {
   public get data(): IDataStateBubble[] {
     return this._data;
   }
-  public set data(v: IDataStateBubble[]) {
+
+  setData(v: IDataStateBubble[], prev?: IDataStateBubble[]) {
     this._data = v;
-    this.dataValuesSum = v.reduce((p, c) => {
-      return p + c.value;
-    }, 0);
+    const { bublesMap, canvas } = this;
 
-    const { bublesMap, canvas, dataValuesSum } = this;
-
-    for (const [, value] of bublesMap) {
-      value.prevData = value.currentData;
-      value.currentData = undefined;
+    let prevMap: Map<string, IDataStateBubble> | undefined;
+    if (!!prev?.length) {
+      prevMap = new Map();
+      for (const data of prev) {
+        prevMap.set(data.name, data);
+      }
     }
 
-    const maxSize = Math.min(canvas.width, canvas.height);
+    for (const [, value] of bublesMap) {
+      value.currentData = undefined;
+      value.targetR = 0;
+    }
 
-    v.forEach((data) => {
-      // Calculate Radius
-      const radius = maxSize * 0.5 * (data.value / dataValuesSum);
-
-      let image: HTMLImageElement | undefined;
-      if (data.img_src) {
-        image = new Image();
-        image.setAttribute("crossorigin", "anonymous");
-        image.src = data.img_src;
-      }
-
+    for (const data of v) {
       let bubble = bublesMap.get(data.name);
+
+      // TODO: Отдельная функция
       if (!bubble) {
+        let image: HTMLImageElement | undefined;
+        if (data.img_src) {
+          image = createImage(data.img_src);
+        }
+
         const drawer = new DrawableDataBubble({
-          x: Math.random() * (canvas.width - radius * 2) + radius,
-          y: Math.random() * (canvas.height - radius * 2) + radius,
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
           r: 0,
           image: image,
           label: data.name,
@@ -93,43 +98,44 @@ export class DrawerDataBubbles {
         });
 
         bubble = {
-          directionX: Math.random() * 2 - 1,
-          directionY: Math.random() * 2 - 1,
-          targetR: radius,
+          directionX: 0,
+          directionY: 0,
+          targetR: 0,
           currentData: data,
           drawer,
         };
-      } else {
-        bubble.currentData = data;
 
-        // Calculate Delta
-        const prevVal = bubble.prevData?.value ?? 0;
+        bublesMap.set(data.name, bubble);
+        continue;
+      }
+
+      // TODO: Отдельная функция
+      bubble.currentData = data;
+      bubble.drawer.value = data.display_value ?? `${data.value}`;
+      if (bubble.drawer.image?.src != data.img_src) {
+        let image: HTMLImageElement | undefined;
+        if (data.img_src) {
+          image = createImage(data.img_src);
+        }
+        bubble.drawer.image = image;
+      }
+
+      // TODO: Отдельная функция
+      let delta = 1;
+      const prevVal = prevMap?.get(data.name)?.value ?? 0;
+      if (prevVal) {
         const curVal = bubble.currentData?.value ?? 0;
-        let delta = ((curVal / prevVal) * 100 - 100) / 100;
-        // console.log(curVal, prevVal, delta);
+        delta = ((curVal / prevVal) * 100 - 100) / 100;
         if (!Number.isFinite(delta)) {
           delta = -1;
         }
-        bubble.drawer.value = `${data.value}`;
-        bubble.drawer.getColor = getFunctionGetColorByDelta({
-          delta: delta,
-        });
-
-        // Set Target
-        bubble.targetR = radius;
       }
-
-      bublesMap.set(data.name, bubble);
-    });
-
-    for (const [, value] of bublesMap) {
-      if (value.currentData) {
-        continue;
-      }
-      value.targetR = 0;
+      bubble.drawer.getColor = getFunctionGetColorByDelta({
+        delta: delta,
+      });
     }
 
-    this.recalculateBubbleSizes();
+    this.calculateAndSetBubblesTargetRadius();
   }
 
   constructor({ canvas, scale }: { canvas: HTMLCanvasElement; scale: number }) {
@@ -155,34 +161,56 @@ export class DrawerDataBubbles {
     return { valuesSum, values };
   }
 
-  recalculateBubbleSizes() {
+  _calculateAndSetBubblesTargetRadiusAbortController:
+    | AbortController
+    | undefined;
+  calculateAndSetBubblesTargetRadius() {
+    this._calculateAndSetBubblesTargetRadiusAbortController?.abort();
+    this._calculateAndSetBubblesTargetRadiusAbortController =
+      new AbortController();
+    const abortController =
+      this._calculateAndSetBubblesTargetRadiusAbortController;
+
     const { canvas, bublesMap } = this;
     const canvasS = canvas.width * canvas.height;
 
-    const { values, valuesSum } = this.getCurrentBubblesStats();
+    const calculateAndSetRadiuses = (scaleFactor: number = 1) => {
+      const { valuesSum } = this.getCurrentBubblesStats();
+      for (const [, value] of bublesMap) {
+        const { currentData } = value;
 
-    const scalseFactor = getCirclesScaleFactorByValues(
-      canvas.width,
-      canvas.height,
-      values
-    );
+        const currentValue = currentData?.value ?? 0;
+        const s = (currentValue / valuesSum) * canvasS;
+        const r = Math.sqrt(s) / 2;
 
-    for (const [, value] of bublesMap) {
-      const { drawer, currentData } = value;
+        if (currentValue == 0) {
+          continue;
+        }
 
-      const currentValue = currentData?.value ?? 0;
-      const s = (currentValue / valuesSum) * canvasS;
-      const r = Math.sqrt(s) / 2;
-
-      if (drawer.r > r) {
-        drawer.r = r;
+        value.targetR = r * scaleFactor;
       }
-      if (currentValue == 0) {
-        continue;
-      }
+    };
 
-      value.targetR = r * scalseFactor;
-    }
+    new Promise(async (resolve) => {
+      abortController.signal.addEventListener("abort", () =>
+        resolve(undefined)
+      );
+
+      const { values } = this.getCurrentBubblesStats();
+
+      try {
+        const scaleFactor = await getCirclesScaleFactorByValues({
+          width: canvas.width,
+          height: canvas.height,
+          circleValues: values,
+          signal: abortController.signal,
+        });
+        calculateAndSetRadiuses(scaleFactor);
+      } finally {
+      }
+    });
+
+    calculateAndSetRadiuses();
   }
 
   simulateFrame() {
@@ -195,14 +223,15 @@ export class DrawerDataBubbles {
         continue;
       }
 
-      // Calculate on Time
       let deltaR = bubble.targetR - drawer.r;
-      if (deltaR > 0) {
-        deltaR = deltaR / 10;
-      } else if (deltaR < 0) {
+      if (deltaR > 0 || deltaR < 0) {
         deltaR = deltaR / 10;
       }
       drawer.r += deltaR;
+
+      if (drawer.r < 1 && bubble.targetR == 0) {
+        drawer.r = 0;
+      }
 
       // Collisions
       for (const [key2, bubble2] of bublesMap) {
@@ -224,21 +253,14 @@ export class DrawerDataBubbles {
           bubble2.directionX += (Math.cos(angle) * (overlap / 2)) / 10;
           bubble2.directionY += (Math.sin(angle) * (overlap / 2)) / 10;
         }
-
-        // if (distance < minDistance) {
-        //   bubble.directionX -= Math.cos(angle) * (overlap / 2);
-        //   bubble.directionY -= Math.sin(angle) * (overlap / 2);
-        //   bubble2.directionX += Math.cos(angle) * (overlap / 2);
-        //   bubble2.directionY += Math.sin(angle) * (overlap / 2);
-        // }
       }
 
-      if (Math.abs(bubble.directionX) > 100) {
-        bubble.directionX = bubble.directionX > 0 ? 100 : -100;
-      }
-      if (Math.abs(bubble.directionY) > 100) {
-        bubble.directionY = bubble.directionY > 0 ? 100 : -100;
-      }
+      // if (Math.abs(bubble.directionX) > 100) {
+      //   bubble.directionX = bubble.directionX > 0 ? 100 : -100;
+      // }
+      // if (Math.abs(bubble.directionY) > 100) {
+      //   bubble.directionY = bubble.directionY > 0 ? 100 : -100;
+      // }
 
       if (bubble.directionX < 0.1 && bubble.directionY < 0.1) {
         bubble.directionX += (Math.random() - 0.5) / 10;
@@ -251,10 +273,10 @@ export class DrawerDataBubbles {
       // Calculate Coordinates
       if (drawer.x - drawer.r < 0) {
         drawer.x = drawer.r;
-        bubble.directionX /= 10;
+        bubble.directionX /= 2;
       } else if (canvas.width < drawer.x + drawer.r) {
         drawer.x = canvas.width - drawer.r;
-        bubble.directionX /= 10;
+        bubble.directionX /= 2;
       }
 
       if (drawer.y - drawer.r < 0) {

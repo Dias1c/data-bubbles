@@ -7,15 +7,14 @@ export const useDataBubbles = (props?: { defaultValue?: IData }) => {
   const dbv = useDataBubblesValue(props);
   const ddb = useDrawerDataBubbles();
 
-  const {
-    activeData: { stateCurrent },
-  } = dbv;
+  const { activeData } = dbv;
 
   useEffect(() => {
     const drawer = ddb.drawerRef.current;
     if (!drawer) return;
-    drawer.data = stateCurrent?.bubbles ?? [];
-  }, [stateCurrent]);
+    const { stateCurrent, statePrev } = activeData;
+    drawer.setData(stateCurrent?.bubbles ?? [], statePrev.bubbles ?? []);
+  }, [activeData]);
 
   return { ...ddb, ...dbv };
 };

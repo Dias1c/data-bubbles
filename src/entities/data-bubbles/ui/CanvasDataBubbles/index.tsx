@@ -13,7 +13,7 @@ export const CanvasDataBubbles = ({
     const fitCanvasSize = () => {
       const rect = canvas.getBoundingClientRect();
       drawer.setCanvasSize({ width: rect.width, height: rect.height });
-      drawer.recalculateBubbleSizes();
+      drawer.calculateAndSetBubblesTargetRadius();
       drawer.draw();
     };
     fitCanvasSize();
