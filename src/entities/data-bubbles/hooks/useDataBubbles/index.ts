@@ -3,9 +3,13 @@ import { type IData } from "../../types";
 import { useDataBubblesValue } from "../useDataBubblesValue";
 import { useDrawerDataBubbles } from "../useDrawerDataBubbles";
 
-export const useDataBubbles = (props?: { defaultValue?: IData }) => {
+export const useDataBubbles = (props?: {
+  defaultValue?: IData;
+  defaultColorBackground?: string;
+  defaultColorText?: string;
+}) => {
   const dbv = useDataBubblesValue(props);
-  const ddb = useDrawerDataBubbles();
+  const ddb = useDrawerDataBubbles(props);
 
   const { activeData } = dbv;
 

@@ -41,4 +41,41 @@ export class PageIndexShare {
     }
     sp.set(this.nameHiddenTabs, JSON.stringify(value));
   }
+
+  static nameColorBackground = "colorBackground";
+
+  static setColorBackground = (
+    sp: URLSearchParams,
+    value: string | undefined
+  ) => {
+    if (!value) {
+      sp.delete(this.nameColorBackground);
+      return;
+    }
+    sp.set(this.nameColorBackground, JSON.stringify(value));
+  };
+
+  static getColorBackground(sp: URLSearchParams): string | undefined {
+    const value = sp.get(this.nameColorBackground);
+    if (value) {
+      return JSON.parse(value);
+    }
+  }
+
+  static nameColorText = "colorText";
+
+  static setColorText = (sp: URLSearchParams, value: string | undefined) => {
+    if (!value) {
+      sp.delete(this.nameColorText);
+      return;
+    }
+    sp.set(this.nameColorText, JSON.stringify(value));
+  };
+
+  static getColorText(sp: URLSearchParams): string | undefined {
+    const value = sp.get(this.nameColorText);
+    if (value) {
+      return JSON.parse(value);
+    }
+  }
 }

@@ -17,6 +17,7 @@ export class DrawableDataBubble {
   label: string;
   value: string;
   fontFamily?: string;
+  colorText: string;
 
   constructor({
     x,
@@ -27,6 +28,7 @@ export class DrawableDataBubble {
     label,
     fontFamily,
     value,
+    colorText,
   }: {
     x: number;
     y: number;
@@ -36,6 +38,7 @@ export class DrawableDataBubble {
     label: string;
     fontFamily?: string;
     value: string;
+    colorText: string;
   }) {
     this.x = x;
     this.y = y;
@@ -45,6 +48,7 @@ export class DrawableDataBubble {
     this.label = label;
     this.fontFamily = fontFamily;
     this.value = value;
+    this.colorText = colorText;
   }
 
   draw({
@@ -111,7 +115,7 @@ export class DrawableDataBubble {
     const fontSize = r / 3;
 
     ctx.font = `${fontSize}px ${fontFamily ?? "Serif"}`;
-    ctx.fillStyle = "white";
+    ctx.fillStyle = this.colorText;
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
     const maxWidth = r * 2;
@@ -133,7 +137,7 @@ export class DrawableDataBubble {
 
     const fontSize = r / 3;
     ctx.font = `${fontSize}px ${fontFamily ?? "Serif"}`;
-    ctx.fillStyle = "white";
+    ctx.fillStyle = this.colorText;
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
     const dx = x;

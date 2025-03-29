@@ -1,6 +1,5 @@
 import type { IDataStateBubble } from "../../types";
 import { DrawableDataBubble } from "./DrawableDataBubble";
-import { getCirclesScaleFactorByValues } from "./getCirclesScaleFactorByValues";
 import { getFunctionGetColorByDelta } from "./getFunctionGetColorByDelta";
 
 type TDrawingData = {
@@ -52,6 +51,21 @@ export class DrawerDataBubbles {
 
   bublesMap: Map<string, TDrawingData> = new Map();
 
+  private colorBackground: string;
+  setColorBackground(color: string) {
+    this.colorBackground = color;
+  }
+
+  private colorText: string;
+  setColorText(color: string) {
+    this.colorText = color;
+
+    const { bublesMap } = this;
+    for (const [, bubble] of bublesMap) {
+      bubble.drawer.colorText = color;
+    }
+  }
+
   private _data: IDataStateBubble[] = [];
   public get data(): IDataStateBubble[] {
     return this._data;
@@ -95,6 +109,7 @@ export class DrawerDataBubbles {
           getColor: getFunctionGetColorByDelta({
             delta: 1,
           }),
+          colorText: this.colorText,
         });
 
         bubble = {
@@ -138,9 +153,21 @@ export class DrawerDataBubbles {
     this.calculateAndSetBubblesTargetRadius();
   }
 
-  constructor({ canvas, scale }: { canvas: HTMLCanvasElement; scale: number }) {
+  constructor({
+    canvas,
+    scale,
+    colorBackground,
+    colorText,
+  }: {
+    canvas: HTMLCanvasElement;
+    scale: number;
+    colorBackground: string;
+    colorText: string;
+  }) {
     this.scale = scale;
     this.canvas = canvas;
+    this.colorBackground = colorBackground;
+    this.colorText = colorText;
   }
 
   setCanvasSize({ width, height }: { width: number; height: number }) {
@@ -191,24 +218,25 @@ export class DrawerDataBubbles {
       }
     };
 
-    new Promise(async (resolve) => {
-      abortController.signal.addEventListener("abort", () =>
-        resolve(undefined)
-      );
+    // TODO: Optimize or DELETE
+    // new Promise(async (resolve) => {
+    //   abortController.signal.addEventListener("abort", () =>
+    //     resolve(undefined)
+    //   );
 
-      const { values } = this.getCurrentBubblesStats();
+    //   const { values } = this.getCurrentBubblesStats();
 
-      try {
-        const scaleFactor = await getCirclesScaleFactorByValues({
-          width: canvas.width,
-          height: canvas.height,
-          circleValues: values,
-          signal: abortController.signal,
-        });
-        calculateAndSetRadiuses(scaleFactor);
-      } finally {
-      }
-    });
+    //   try {
+    //     const scaleFactor = await getCirclesScaleFactorByValues({
+    //       width: canvas.width,
+    //       height: canvas.height,
+    //       circleValues: values,
+    //       signal: abortController.signal,
+    //     });
+    //     calculateAndSetRadiuses(scaleFactor);
+    //   } finally {
+    //   }
+    // });
 
     calculateAndSetRadiuses();
   }
@@ -296,7 +324,8 @@ export class DrawerDataBubbles {
     const { ctx, canvas, bublesMap } = this;
 
     ctx.beginPath();
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = this.colorBackground;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.fill();
 
     for (const [, bubble] of bublesMap) {
