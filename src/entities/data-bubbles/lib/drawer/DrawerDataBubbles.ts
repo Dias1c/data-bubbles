@@ -1,5 +1,6 @@
 import type { IDataStateBubble } from "../../types";
 import { DrawableDataBubble } from "./DrawableDataBubble";
+import { getCirclesScaleFactorByValues } from "./getCirclesScaleFactorByValues";
 import { getFunctionGetColorByDelta } from "./getFunctionGetColorByDelta";
 
 type TDrawingData = {
@@ -11,7 +12,6 @@ type TDrawingData = {
   drawer: DrawableDataBubble;
 };
 
-// TODO: Calculate Sizing
 // TODO: Optimization
 
 export class DrawerDataBubbles {
@@ -125,6 +125,8 @@ export class DrawerDataBubbles {
       }
       value.targetR = 0;
     }
+
+    this.recalculateBubbleSizes();
   }
 
   constructor({ canvas, scale }: { canvas: HTMLCanvasElement; scale: number }) {
@@ -137,27 +139,51 @@ export class DrawerDataBubbles {
     this.canvas.height = height * this.scale;
   }
 
+  getCurrentBubblesStats() {
+    const { bublesMap } = this;
+    const values: number[] = [];
+    let valuesSum = 0;
+    for (const [, value] of bublesMap) {
+      const cur = value.currentData;
+      if (!cur) continue;
+      valuesSum += cur.value;
+      values.push(cur.value);
+    }
+    return { valuesSum, values };
+  }
+
   recalculateBubbleSizes() {
-    const { canvas, bublesMap, dataValuesSum } = this;
-    const maxSize = Math.min(canvas.width, canvas.height);
+    const { canvas, bublesMap } = this;
+    const canvasS = canvas.width * canvas.height;
+
+    const { values, valuesSum } = this.getCurrentBubblesStats();
+
+    const scalseFactor = getCirclesScaleFactorByValues(
+      canvas.width,
+      canvas.height,
+      values
+    );
 
     for (const [, value] of bublesMap) {
       const { drawer, currentData } = value;
-      const currentDataValue = currentData?.value ?? 0;
-      const radius = maxSize * 0.5 * (currentDataValue / dataValuesSum);
-      if (drawer.r > radius) {
-        drawer.r = radius;
+
+      const currentValue = currentData?.value ?? 0;
+      const s = (currentValue / valuesSum) * canvasS;
+      const r = Math.sqrt(s) / 2;
+
+      if (drawer.r > r) {
+        drawer.r = r;
       }
-      if (currentDataValue == 0) {
+      if (currentValue == 0) {
         continue;
       }
 
-      value.targetR = radius;
+      value.targetR = r * scalseFactor;
     }
   }
 
   draw() {
-    const { ctx, canvas, _data, dataValuesSum, bublesMap } = this;
+    const { ctx, canvas, bublesMap } = this;
 
     ctx.beginPath();
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -194,31 +220,52 @@ export class DrawerDataBubbles {
         let overlap = minDistance - distance;
 
         if (distance < minDistance) {
-          bubble.directionX -= (Math.cos(angle) * (overlap / 2)) / 1000;
-          bubble.directionY -= (Math.sin(angle) * (overlap / 2)) / 1000;
-          bubble2.directionX += (Math.cos(angle) * (overlap / 2)) / 1000;
-          bubble2.directionY += (Math.sin(angle) * (overlap / 2)) / 1000;
+          bubble.directionX -= (Math.cos(angle) * (overlap / 2)) / 10;
+          bubble.directionY -= (Math.sin(angle) * (overlap / 2)) / 10;
+          bubble2.directionX += (Math.cos(angle) * (overlap / 2)) / 10;
+          bubble2.directionY += (Math.sin(angle) * (overlap / 2)) / 10;
         }
+
+        // if (distance < minDistance) {
+        //   bubble.directionX -= Math.cos(angle) * (overlap / 2);
+        //   bubble.directionY -= Math.sin(angle) * (overlap / 2);
+        //   bubble2.directionX += Math.cos(angle) * (overlap / 2);
+        //   bubble2.directionY += Math.sin(angle) * (overlap / 2);
+        // }
       }
 
-      bubble.directionX -= bubble.directionX * 0.001;
-      bubble.directionY -= bubble.directionY * 0.001;
+      if (Math.abs(bubble.directionX) > 100) {
+        bubble.directionX = bubble.directionX > 0 ? 100 : -100;
+      }
+      if (Math.abs(bubble.directionY) > 100) {
+        bubble.directionY = bubble.directionY > 0 ? 100 : -100;
+      }
+
+      if (bubble.directionX < 0.1 && bubble.directionY < 0.1) {
+        bubble.directionX += (Math.random() - 0.5) / 10;
+        bubble.directionY += (Math.random() - 0.5) / 10;
+      }
+
+      bubble.directionX -= bubble.directionX * 0.01;
+      bubble.directionY -= bubble.directionY * 0.01;
 
       // Calculate Coordinates
       if (drawer.x - drawer.r < 0) {
         drawer.x = drawer.r;
-        bubble.directionX *= -1;
+        bubble.directionX /= 10;
       } else if (canvas.width < drawer.x + drawer.r) {
         drawer.x = canvas.width - drawer.r;
-        bubble.directionX *= -1;
+        bubble.directionX /= 10;
       }
+
       if (drawer.y - drawer.r < 0) {
         drawer.y = drawer.r;
-        bubble.directionY *= -1;
+        bubble.directionY = 0;
       } else if (canvas.height < drawer.y + drawer.r) {
         drawer.y = canvas.height - drawer.r;
-        bubble.directionY *= -1;
+        bubble.directionY = 0;
       }
+
       drawer.x += bubble.directionX;
       drawer.y += bubble.directionY;
 
