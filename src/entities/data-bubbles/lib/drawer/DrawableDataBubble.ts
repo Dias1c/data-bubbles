@@ -1,7 +1,12 @@
 import { drawBuble } from "./drawBuble";
 import type { TFuncGetColor } from "./getFunctionGetColorByDelta";
 
-const isDebug = false;
+const isDebug = true;
+
+/**
+ * Value is related on radius
+ */
+const IMAGE_SIZE_RATIO = 0.75;
 
 export class DrawableDataBubble {
   x: number;
@@ -65,17 +70,31 @@ export class DrawableDataBubble {
 
   private drawImage({ ctx }: { ctx: CanvasRenderingContext2D }) {
     const { image, x, y, r } = this;
-    if (!image || r <= 0) {
+    if (!image || !image.width || !image.height || r <= 0) {
       return;
     }
 
-    const ratio = 0.75;
-    const size = r * ratio;
-    const dx = x - size / 2;
-    const dy = y - r + (r * (1 - ratio)) / 3;
-    ctx.drawImage(image, dx, dy, size, size);
+    const size = r * IMAGE_SIZE_RATIO;
+    let dw = size;
+    let dh = size;
+
+    if (image.width != image.height) {
+      const delta = image.width / image.height;
+      if (delta < 1) {
+        dw = size * delta;
+      } else if (delta > 1) {
+        dh = size / delta;
+      }
+    }
+
+    const dx = x - dw / 2;
+    const dy = y - r + (r * (1 - IMAGE_SIZE_RATIO)) / 3 + (size - dh) / 2;
+
+    ctx.drawImage(image, dx, dy, dw, dh);
 
     if (isDebug) {
+      const dx = x - size / 2;
+      const dy = y - r + (r * (1 - IMAGE_SIZE_RATIO)) / 3;
       ctx.beginPath();
       ctx.strokeStyle = "white";
       ctx.strokeRect(dx, dy, size, size);
