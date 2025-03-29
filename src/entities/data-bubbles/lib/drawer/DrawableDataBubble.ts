@@ -1,7 +1,7 @@
 import { drawBuble } from "./drawBuble";
 import type { TFuncGetColor } from "./getFunctionGetColorByDelta";
 
-const isDebug = true;
+const isDebug = false;
 
 /**
  * Value is related on radius
