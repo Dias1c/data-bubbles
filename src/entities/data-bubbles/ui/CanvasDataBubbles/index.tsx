@@ -19,6 +19,11 @@ export const CanvasDataBubbles = ({
     fitCanvasSize();
 
     const resizeObserver = new ResizeObserver(() => {
+      const isVisible = canvas.checkVisibility({
+        checkOpacity: true,
+        opacityProperty: true,
+      });
+      if (!isVisible) return;
       fitCanvasSize();
     });
     resizeObserver.observe(drawer.canvas);
