@@ -31,7 +31,7 @@ export const WidgetPageIndex = () => {
   const { drawerRef, setCanvas, activeData, setData, getData } =
     useDataBubbles();
 
-  const { select, selected, tabs } = usePageIndexTabs({
+  const { select, selected, tabs, visibleTabs } = usePageIndexTabs({
     actionSelect: {
       onSuccess: ({ value }) => {
         drawerRef.current?.stopAnimation();
@@ -61,11 +61,14 @@ export const WidgetPageIndex = () => {
     });
   }, [JSON.stringify(getData())]);
 
+  const isTabsVisible = visibleTabs.length > 1;
+
   return (
     <>
       <WidgetHeader
         childrenCenter={
-          !isTablet && (
+          !isTablet &&
+          isTabsVisible && (
             <Tabs values={tabs} selected={selected} onSelect={select} />
           )
         }
@@ -88,7 +91,7 @@ export const WidgetPageIndex = () => {
       {selected == "settings" && !!drawerRef.current && (
         <WidgetSectionSettings setData={setData} defaultData={getData()} />
       )}
-      {isTablet && (
+      {isTablet && isTabsVisible && (
         <Footer
           children={
             <Tabs

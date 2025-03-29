@@ -49,5 +49,9 @@ export const usePageIndexTabs = ({
     ];
   }, []);
 
-  return { select, selected, tabs };
+  const visibleTabs = useMemo(() => {
+    return tabs.filter((v) => !v.hidden);
+  }, [tabs]);
+
+  return { select, selected, tabs, visibleTabs };
 };
