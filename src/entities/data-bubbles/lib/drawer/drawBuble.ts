@@ -25,6 +25,7 @@ export function drawBuble({
   r,
   getColor,
   selected,
+  scale,
 }: {
   ctx: CanvasRenderingContext2D;
   x: number;
@@ -32,6 +33,7 @@ export function drawBuble({
   r: number;
   getColor: TFuncGetColor;
   selected?: boolean;
+  scale?: number;
 }): Error | void {
   if (r <= 0) {
     return;
@@ -42,6 +44,9 @@ export function drawBuble({
   ctx.arc(x, y, r, 0, Math.PI * 2);
   ctx.fill();
   ctx.strokeStyle = getColor({ opacity: 1 });
+  if (scale != undefined) {
+    ctx.lineWidth = 1 * scale;
+  }
   ctx.stroke();
   ctx.closePath();
 

@@ -44,9 +44,11 @@ export class DrawableDataBubble {
 
   draw({
     ctx,
+    scale,
     selected,
   }: {
     ctx: CanvasRenderingContext2D;
+    scale?: number;
     selected?: boolean;
   }) {
     const { x, y, r, getColor } = this;
@@ -54,7 +56,7 @@ export class DrawableDataBubble {
       return;
     }
 
-    drawBuble({ ctx, selected, x, y, r, getColor });
+    drawBuble({ ctx, selected, x, y, r, getColor, scale });
 
     this.drawImage({ ctx });
     this.drawLabel({ ctx });
