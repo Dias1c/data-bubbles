@@ -15,6 +15,8 @@ type TDrawingData = {
 // TODO: Optimization
 
 export class DrawerDataBubbles {
+  minDelayPerFrameMs: number = 1000 / 60;
+
   private _canvas!: HTMLCanvasElement;
   public get canvas() {
     return this._canvas;
@@ -32,13 +34,14 @@ export class DrawerDataBubbles {
     this._ctx = ctx;
   }
 
+  private requestAnimationFrameId: number | undefined;
+
   private _ctx!: CanvasRenderingContext2D;
   public get ctx() {
     return this._ctx;
   }
 
   scale: number;
-  private animationInterval: number | undefined;
 
   dataValuesSum: number = 0;
 
@@ -182,12 +185,8 @@ export class DrawerDataBubbles {
     }
   }
 
-  draw() {
-    const { ctx, canvas, bublesMap } = this;
-
-    ctx.beginPath();
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fill();
+  simulateFrame() {
+    const { canvas, bublesMap } = this;
 
     for (const [key, bubble] of bublesMap) {
       const { currentData, drawer } = bubble;
@@ -268,20 +267,48 @@ export class DrawerDataBubbles {
 
       drawer.x += bubble.directionX;
       drawer.y += bubble.directionY;
+    }
+  }
 
+  draw() {
+    const { ctx, canvas, bublesMap } = this;
+
+    ctx.beginPath();
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fill();
+
+    for (const [, bubble] of bublesMap) {
       bubble.drawer.draw({ ctx });
     }
   }
 
-  /**
-   * @todo Оптимизация, requestFrameAnimation
-   */
   startAnimation() {
-    this.stopAnimation();
-    this.animationInterval = setInterval(() => this.draw(), 1000 / 60);
+    if (this.requestAnimationFrameId) {
+      cancelAnimationFrame(this.requestAnimationFrameId);
+    }
+
+    let prevTime: number | null = null;
+    const animateCallback: FrameRequestCallback = (t) => {
+      const stepMs = t - (prevTime ?? 0);
+      if (prevTime && stepMs < this.minDelayPerFrameMs) {
+        this.requestAnimationFrameId = requestAnimationFrame(animateCallback);
+        return;
+      }
+      prevTime = t;
+
+      this.simulateFrame();
+      this.draw();
+      this.requestAnimationFrameId = requestAnimationFrame(animateCallback);
+    };
+
+    this.requestAnimationFrameId = requestAnimationFrame(animateCallback);
   }
 
   stopAnimation() {
-    clearInterval(this.animationInterval);
+    if (!this.requestAnimationFrameId) {
+      return;
+    }
+
+    cancelAnimationFrame(this.requestAnimationFrameId);
   }
 }
