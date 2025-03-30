@@ -55,27 +55,46 @@ export class DrawableDataBubble {
     ctx,
     scale,
     selected,
+    optimizated,
   }: {
     ctx: CanvasRenderingContext2D;
     scale?: number;
     selected?: boolean;
+    optimizated?: boolean;
   }) {
-    const { x, y, r, getColor } = this;
+    let { x, y, r, getColor } = this;
     if (r <= 0) {
       return;
+    }
+    if (optimizated) {
+      x = Math.round(x);
+      y = Math.round(y);
+      r = Math.round(r);
     }
 
     drawBuble({ ctx, selected, x, y, r, getColor, scale });
 
-    this.drawImage({ ctx });
-    this.drawLabel({ ctx });
-    this.drawValue({ ctx });
+    this.drawImage({ ctx, optimizated });
+    this.drawLabel({ ctx, optimizated });
+    this.drawValue({ ctx, optimizated });
   }
 
-  private drawImage({ ctx }: { ctx: CanvasRenderingContext2D }) {
-    const { image, x, y, r } = this;
+  private drawImage({
+    ctx,
+    optimizated,
+  }: {
+    ctx: CanvasRenderingContext2D;
+    optimizated?: boolean;
+  }) {
+    let { image, x, y, r } = this;
     if (!image || !image.width || !image.height || r <= 0) {
       return;
+    }
+
+    if (optimizated) {
+      x = Math.round(x);
+      y = Math.round(y);
+      r = Math.round(r);
     }
 
     const size = r * IMAGE_SIZE_RATIO;
@@ -106,13 +125,26 @@ export class DrawableDataBubble {
     }
   }
 
-  private drawLabel({ ctx }: { ctx: CanvasRenderingContext2D }) {
-    const { label, fontFamily, x, y, r } = this;
+  private drawLabel({
+    ctx,
+    optimizated,
+  }: {
+    ctx: CanvasRenderingContext2D;
+    optimizated?: boolean;
+  }) {
+    let { label, fontFamily, x, y, r } = this;
     if (!label || r <= 0) {
       return;
     }
 
-    const fontSize = r / 3;
+    let fontSize = r / 3;
+
+    if (optimizated) {
+      x = Math.round(x);
+      y = Math.round(y);
+      r = Math.round(r);
+      fontSize = Math.round(fontSize);
+    }
 
     ctx.font = `${fontSize}px ${fontFamily ?? "Serif"}`;
     ctx.fillStyle = this.colorText;
@@ -129,13 +161,26 @@ export class DrawableDataBubble {
     }
   }
 
-  private drawValue({ ctx }: { ctx: CanvasRenderingContext2D }) {
-    const { value, fontFamily, x, y, r } = this;
+  private drawValue({
+    ctx,
+    optimizated,
+  }: {
+    ctx: CanvasRenderingContext2D;
+    optimizated?: boolean;
+  }) {
+    let { value, fontFamily, x, y, r } = this;
     if (!value || r <= 0) {
       return;
     }
 
-    const fontSize = r / 3;
+    let fontSize = r / 3;
+    if (optimizated) {
+      x = Math.round(x);
+      y = Math.round(y);
+      r = Math.round(r);
+      fontSize = Math.round(fontSize);
+    }
+
     ctx.font = `${fontSize}px ${fontFamily ?? "Serif"}`;
     ctx.fillStyle = this.colorText;
     ctx.textAlign = "center";

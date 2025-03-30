@@ -105,7 +105,7 @@ export class DrawerDataBubbles {
           image: image,
           label: data.name,
           value: data.display_value ?? `${data.value}`,
-          fontFamily: "Arial",
+          fontFamily: "Inter",
           getColor: getFunctionGetColorByDelta({
             delta: 1,
           }),
@@ -200,6 +200,7 @@ export class DrawerDataBubbles {
 
     const { canvas, bublesMap } = this;
     const canvasS = canvas.width * canvas.height;
+    const maxRadius = Math.min(canvas.width, canvas.height) / 2;
 
     const calculateAndSetRadiuses = (scaleFactor: number = 1) => {
       const { valuesSum } = this.getCurrentBubblesStats();
@@ -208,8 +209,14 @@ export class DrawerDataBubbles {
 
         const currentValue = currentData?.value ?? 0;
         const s = (currentValue / valuesSum) * canvasS;
-        const r = Math.sqrt(s) / 2;
+        let r = Math.sqrt(s) / 2;
+        if (r > maxRadius) {
+          r = maxRadius;
+        }
 
+        if (value.drawer.r > maxRadius) {
+          value.drawer.r = maxRadius;
+        }
         if (currentValue == 0) {
           continue;
         }
@@ -298,11 +305,15 @@ export class DrawerDataBubbles {
       bubble.directionX -= bubble.directionX * 0.01;
       bubble.directionY -= bubble.directionY * 0.01;
 
+      drawer.x += bubble.directionX;
+      drawer.y += bubble.directionY;
+
       // Calculate Coordinates
       if (drawer.x - drawer.r < 0) {
         drawer.x = drawer.r;
         bubble.directionX /= 2;
-      } else if (canvas.width < drawer.x + drawer.r) {
+      }
+      if (canvas.width < drawer.x + drawer.r) {
         drawer.x = canvas.width - drawer.r;
         bubble.directionX /= 2;
       }
@@ -310,13 +321,11 @@ export class DrawerDataBubbles {
       if (drawer.y - drawer.r < 0) {
         drawer.y = drawer.r;
         bubble.directionY = 0;
-      } else if (canvas.height < drawer.y + drawer.r) {
+      }
+      if (canvas.height < drawer.y + drawer.r) {
         drawer.y = canvas.height - drawer.r;
         bubble.directionY = 0;
       }
-
-      drawer.x += bubble.directionX;
-      drawer.y += bubble.directionY;
     }
   }
 
@@ -329,7 +338,7 @@ export class DrawerDataBubbles {
     ctx.fill();
 
     for (const [, bubble] of bublesMap) {
-      bubble.drawer.draw({ ctx });
+      bubble.drawer.draw({ ctx, optimizated: true });
     }
   }
 
