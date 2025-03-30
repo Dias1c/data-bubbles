@@ -1,58 +1,30 @@
-import { useMemo, useRef } from "react";
+import { useRef } from "react";
 import { DrawerDataBubbles } from "../../lib";
+import { useDrawerDataBubblesColors } from "../useDrawerDataBubblesColors";
 
 export const useDrawerDataBubbles = (props?: {
   defaultColorBackground?: string;
-  defaultColorText?: string;
+  defaultColorBubbleText?: string;
 }) => {
-  const { defaultColorBackground, defaultColorText } = props ?? {};
+  const { defaultColorBackground, defaultColorBubbleText } = props ?? {};
   const drawerRef = useRef<DrawerDataBubbles | null>(null);
 
-  const colorBackground = useMemo(() => {
-    let value = getComputedStyle(document.body).getPropertyValue(
-      "--color-bg-default"
-    );
-
-    if (defaultColorBackground) {
-      value = defaultColorBackground;
-    }
-
-    return {
-      getValue: () => value,
-      setValue: (v: string) => {
-        value = v;
-        drawerRef.current?.setColorBackground(v);
-      },
-    };
-  }, []);
-
-  const colorText = useMemo(() => {
-    let value = getComputedStyle(document.body).getPropertyValue(
-      "--color-fg-deafult"
-    );
-
-    if (defaultColorText) {
-      value = defaultColorText;
-    }
-
-    return {
-      getValue: () => value,
-      setValue: (v: string) => {
-        value = v;
-        drawerRef.current?.setColorText(v);
-      },
-    };
-  }, []);
+  const colors = useDrawerDataBubblesColors({
+    drawerRef,
+    defaultColorBackground,
+    defaultColorBubbleText,
+  });
 
   const setCanvas = (canvas: HTMLCanvasElement) => {
     if (!drawerRef.current) {
       const scale = window?.devicePixelRatio ?? 1;
 
+      const { colorBackground, colorBubbleText } = colors;
       drawerRef.current = new DrawerDataBubbles({
         canvas,
         scale,
         colorBackground: colorBackground.getValue(),
-        colorText: colorText.getValue(),
+        colorText: colorBubbleText.getValue(),
       });
       return;
     }
@@ -60,5 +32,5 @@ export const useDrawerDataBubbles = (props?: {
     drawerRef.current.canvas = canvas;
   };
 
-  return { setCanvas, drawerRef, colorBackground, colorText };
+  return { setCanvas, drawerRef, colors };
 };

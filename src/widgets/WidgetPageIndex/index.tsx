@@ -28,8 +28,8 @@ const getDataBubblesDefaultValue = (): IData => {
 export const WidgetPageIndex = () => {
   const isTablet = useIsTablet();
 
-  const { drawerRef, setCanvas, activeData, setData, getData } =
-    useDataBubbles();
+  const dataBubbles = useDataBubbles();
+  const { drawerRef, setData, getData } = dataBubbles;
 
   const { select, selected, tabs, visibleTabs } = usePageIndexTabs({
     actionSelect: {
@@ -73,14 +73,7 @@ export const WidgetPageIndex = () => {
           )
         }
       />
-      <SectoinDataBubblesView
-        hidden={selected != "view"}
-        drawerRef={drawerRef}
-        setCanvas={setCanvas}
-        activeData={activeData}
-        getData={getData}
-        setData={setData}
-      />
+      <SectoinDataBubblesView hidden={selected != "view"} {...dataBubbles} />
       {selected == "share" && !!drawerRef.current && (
         <WidgetSectionShare
           drawer={drawerRef.current}
@@ -89,7 +82,11 @@ export const WidgetPageIndex = () => {
         />
       )}
       {selected == "settings" && !!drawerRef.current && (
-        <WidgetSectionSettings setData={setData} defaultData={getData()} />
+        <WidgetSectionSettings
+          setData={setData}
+          defaultData={getData()}
+          colors={dataBubbles.colors}
+        />
       )}
       {isTablet && isTabsVisible && (
         <Footer

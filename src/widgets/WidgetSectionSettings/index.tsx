@@ -1,10 +1,15 @@
-import { useDataBubbles, type IData } from "@/entities/data-bubbles";
+import {
+  useDataBubbles,
+  useDrawerDataBubbles,
+  type IData,
+} from "@/entities/data-bubbles";
 import { BlockPartition } from "@/shared/components/blocks/BlockPartition";
 import { Button } from "@/shared/components/buttons/Button";
 import { FieldCheckbox } from "@/shared/components/input_fields/FieldCheckbox";
 import { useStateMemorized } from "@/shared/hooks/useStateMemorized";
 import { useEffect, useState } from "react";
 import styles from "./styles.module.css";
+import { BlockDisplaySettings } from "./ui/BlockDisplaySettings";
 import { BlockLivePreview } from "./ui/BlockLivePreview";
 import { ButtonExportJson } from "./ui/ButtonExportJson";
 import { ButtonImportJson } from "./ui/ButtonImportJson";
@@ -12,17 +17,19 @@ import { ButtonImportJson } from "./ui/ButtonImportJson";
 export const WidgetSectionSettings = ({
   setData,
   defaultData,
+  colors,
 }: {
   setData: (value: IData) => void;
   defaultData: IData;
+  colors: ReturnType<typeof useDrawerDataBubbles>["colors"];
 }) => {
+  const [isEditModeManual, setIsEditModeManual] = useState(true);
+
+  const [error, setError] = useState<string>();
   const [value, setValue] = useState(
     JSON.stringify(defaultData, undefined, "  ")
   );
 
-  const [isEditModeManual, setIsEditModeManual] = useState(true);
-
-  const [error, setError] = useState<string>();
   const [view, setView] = useStateMemorized({
     defaultValue: true,
     name: "tabs:settings:preview",
@@ -31,11 +38,26 @@ export const WidgetSectionSettings = ({
 
   const dataBubbles = useDataBubbles({
     defaultValue: defaultData,
+    defaultColorBackground: colors.colorBackground.getValue(),
+    defaultColorText: colors.colorBubbleText.getValue(),
   });
 
   useEffect(() => {
     return () => {
       setData(dataBubbles.getData());
+
+      Object.keys(colors).map((key) => {
+        const name = key as keyof typeof colors;
+        const prevColor = colors[name]?.getValue?.();
+        const newColor = dataBubbles.colors[name]?.getValue?.();
+        if (!newColor) return;
+        if (prevColor == newColor) return;
+        colors[name]?.setValue?.(newColor);
+      });
+
+      colors.colorBackground.setValue(
+        dataBubbles.colors.colorBackground.getValue()
+      );
     };
   }, []);
 
@@ -46,6 +68,9 @@ export const WidgetSectionSettings = ({
         className={styles.section_controllers}
         style={{
           width: view ? undefined : "100%",
+          flex: 1,
+          overflow: "auto",
+          height: "100%",
         }}
       >
         <div className={styles.section_controllers_system}>
@@ -54,6 +79,18 @@ export const WidgetSectionSettings = ({
             checked={view}
             onChange={(e) => setView(e.target.checked)}
           />
+        </div>
+        <BlockDisplaySettings colors={dataBubbles.colors} />
+        <BlockPartition
+          label="Data Settings"
+          childrenTitleEnd={
+            <FieldCheckbox
+              label="Manual"
+              checked={isEditModeManual}
+              onChange={(e) => setIsEditModeManual(e.target.checked)}
+            />
+          }
+        >
           <div className={styles.section_controllers_system_buttons}>
             <ButtonExportJson
               data={dataBubbles.getData()}
@@ -65,18 +102,6 @@ export const WidgetSectionSettings = ({
               📥 Import JSON
             </ButtonImportJson>
           </div>
-        </div>
-        <BlockPartition
-          label="Settings"
-          fullHeight
-          childrenTitleEnd={
-            <FieldCheckbox
-              label="Manual"
-              checked={isEditModeManual}
-              onChange={(e) => setIsEditModeManual(e.target.checked)}
-            />
-          }
-        >
           {!isEditModeManual && (
             <p>
               Working on UI/UX, please use{" "}

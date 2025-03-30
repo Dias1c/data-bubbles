@@ -8,6 +8,7 @@ type TDrawingData = {
   directionY: number;
   targetR: number;
   drawer: DrawableDataBubble;
+  delta: number;
 };
 
 const createImage = (src: string) => {
@@ -56,9 +57,9 @@ export class DrawerDataBubbles {
     this.colorBackground = color;
   }
 
-  private colorText: string;
-  setColorText(color: string) {
-    this.colorText = color;
+  private colorBubbleText: string;
+  setColorBubbleText(color: string) {
+    this.colorBubbleText = color;
 
     const { bublesMap } = this;
     for (const [, bubble] of bublesMap) {
@@ -109,7 +110,7 @@ export class DrawerDataBubbles {
           getColor: getFunctionGetColorByDelta({
             delta: 1,
           }),
-          colorText: this.colorText,
+          colorText: this.colorBubbleText,
         });
 
         bubble = {
@@ -118,6 +119,7 @@ export class DrawerDataBubbles {
           targetR: 0,
           currentData: data,
           drawer,
+          delta: 1,
         };
 
         bublesMap.set(data.name, bubble);
@@ -145,6 +147,8 @@ export class DrawerDataBubbles {
           delta = -1;
         }
       }
+      bubble.delta = delta;
+
       bubble.drawer.getColor = getFunctionGetColorByDelta({
         delta: delta,
       });
@@ -167,7 +171,7 @@ export class DrawerDataBubbles {
     this.scale = scale;
     this.canvas = canvas;
     this.colorBackground = colorBackground;
-    this.colorText = colorText;
+    this.colorBubbleText = colorText;
   }
 
   setCanvasSize({ width, height }: { width: number; height: number }) {

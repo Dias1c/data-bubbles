@@ -1,7 +1,7 @@
 import { ConditionalSubheader } from "@/shared/components/headers/ConditionalSubheader";
 import type { useDataBubbles } from "../../hooks";
-import { ConditionalBubblesStatesControllers } from "../ConditionalBubblesStatesControllers";
 import { CanvasDataBubbles } from "../CanvasDataBubbles";
+import { ConditionalBubblesStatesControllers } from "../ConditionalBubblesStatesControllers";
 import styles from "./styles.module.css";
 
 export const SectoinDataBubblesView = ({
@@ -11,6 +11,7 @@ export const SectoinDataBubblesView = ({
   hidden,
   drawerRef,
   setCanvas,
+  colors,
 }: { hidden?: boolean } & ReturnType<typeof useDataBubbles>) => {
   return (
     <section
@@ -20,7 +21,11 @@ export const SectoinDataBubblesView = ({
         title={activeData.title}
         subtitle={activeData.stateCurrent.title}
       />
-      <CanvasDataBubbles drawerRef={drawerRef} setCanvas={setCanvas} />
+      <CanvasDataBubbles
+        drawerRef={drawerRef}
+        setCanvas={setCanvas}
+        colors={colors}
+      />
       <ConditionalBubblesStatesControllers
         activeData={activeData}
         getData={getData}
