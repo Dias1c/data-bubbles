@@ -4,7 +4,7 @@
   --color-bg-default: #0D1116;
   --color-bg-contrast: #010409;
   --color-bg-placeholder: #151B23;
-  --color-fg-deafult: #F0F6FC;
+  --color-fg-default: #F0F6FC;
   --color-divider: #3D444D;
   --color-primary: #1F6FEB;
 
@@ -25,7 +25,7 @@ body {
   font-family: Inter, Roboto, "Helvetica Neue", "Arial Nova", "Nimbus Sans",
     Arial, sans-serif;
   background-color: var(--color-bg-default);
-  color: var(--color-fg-deafult);
+  color: var(--color-fg-default);
 
   display: flex;
   flex-direction: column;
