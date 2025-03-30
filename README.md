@@ -19,5 +19,6 @@ Demo is here: [https://dias1c.github.io/data-bubbles/](https://dias1c.github.io/
   - [ ] Clickable bubbles
 - [ ] Use default bubbles json from network
 - [ ] Recomendations in Share (URI not supporting large string)
+- [ ] Requests to DataBubbles
 - [ ] postMessage (Support IFrame)
 - [ ] Wiki (Documentation)
