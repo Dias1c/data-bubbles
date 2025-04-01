@@ -391,20 +391,20 @@ export class DrawerDataBubbles {
       // Calculate Coordinates
       if (drawer.x - drawer.r < 0) {
         drawer.x = drawer.r;
-        bubble.directionX /= 2;
+        bubble.directionX /= -2;
       }
       if (canvas.width < drawer.x + drawer.r) {
         drawer.x = canvas.width - drawer.r;
-        bubble.directionX /= 2;
+        bubble.directionX /= -2;
       }
 
       if (drawer.y - drawer.r < 0) {
         drawer.y = drawer.r;
-        bubble.directionY = 0;
+        bubble.directionY /= -2;
       }
       if (canvas.height < drawer.y + drawer.r) {
         drawer.y = canvas.height - drawer.r;
-        bubble.directionY = 0;
+        bubble.directionY /= -2;
       }
     }
   }
