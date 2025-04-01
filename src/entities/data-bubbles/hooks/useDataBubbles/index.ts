@@ -1,12 +1,12 @@
 import { useEffect } from "react";
+import type { IDrawerDataBubblesColors } from "../../lib";
 import { type IData } from "../../types";
 import { useDataBubblesValue } from "../useDataBubblesValue";
 import { useDrawerDataBubbles } from "../useDrawerDataBubbles";
 
 export const useDataBubbles = (props?: {
   defaultValue?: IData;
-  defaultColorBackground?: string;
-  defaultColorText?: string;
+  defaultColors?: IDrawerDataBubblesColors;
 }) => {
   const dbv = useDataBubblesValue(props);
   const ddb = useDrawerDataBubbles(props);

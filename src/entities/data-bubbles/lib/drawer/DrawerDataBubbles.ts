@@ -1,3 +1,5 @@
+import { getRGBfromColorString } from "@/shared/lib/colors/getRGBfromColorString";
+import type { IRGB } from "@/shared/lib/colors/rgb";
 import type { IDataStateBubble } from "../../types";
 import { DrawableDataBubble } from "./DrawableDataBubble";
 import { getFunctionGetColorByDelta } from "./getFunctionGetColorByDelta";
@@ -16,6 +18,24 @@ const createImage = (src: string) => {
   image.setAttribute("crossorigin", "anonymous");
   image.src = src;
   return image;
+};
+
+export interface IDrawerDataBubblesColors {
+  background?: string;
+  bubbleText?: string;
+  bubbleOnNoChanges?: string;
+  bubbleOnValueUp?: string;
+  bubbleOnValueDown?: string;
+}
+
+const updateDrawerDataBubbleColor = ({
+  drawer,
+  colorProps,
+}: {
+  drawer: DrawableDataBubble;
+  colorProps: Parameters<typeof getFunctionGetColorByDelta>[0];
+}) => {
+  drawer.getColor = getFunctionGetColorByDelta(colorProps);
 };
 
 // TODO: Optimization
@@ -52,12 +72,12 @@ export class DrawerDataBubbles {
 
   bublesMap: Map<string, TDrawingData> = new Map();
 
-  private colorBackground: string;
+  private colorBackground: string = "#0D1116";
   setColorBackground(color: string) {
     this.colorBackground = color;
   }
 
-  private colorBubbleText: string;
+  private colorBubbleText: string = "#F0F6FC";
   setColorBubbleText(color: string) {
     this.colorBubbleText = color;
 
@@ -65,6 +85,36 @@ export class DrawerDataBubbles {
     for (const [, bubble] of bublesMap) {
       bubble.drawer.colorText = color;
     }
+  }
+
+  resetBubbleColors() {
+    const { bublesMap } = this;
+    for (const [, bubble] of bublesMap) {
+      bubble.drawer.getColor = getFunctionGetColorByDelta({
+        delta: bubble.delta,
+        rgbOnZero: this.colorBubbleOnZeroRGB,
+        rgbOnNegative: this.colorBubbleOnNegativeRGB,
+        rgbOnPositive: this.colorBubbleOnPositiveRGB,
+      });
+    }
+  }
+
+  private colorBubbleOnZeroRGB?: IRGB;
+  setColorBubbleOnZeroRGB(rgb?: IRGB) {
+    this.colorBubbleOnZeroRGB = rgb;
+    this.resetBubbleColors();
+  }
+
+  private colorBubbleOnNegativeRGB?: IRGB;
+  setColorBubbleOnNegativeRGB(rgb?: IRGB) {
+    this.colorBubbleOnNegativeRGB = rgb;
+    this.resetBubbleColors();
+  }
+
+  private colorBubbleOnPositiveRGB?: IRGB;
+  setColorBubbleOnPositiveRGB(rgb?: IRGB) {
+    this.colorBubbleOnPositiveRGB = rgb;
+    this.resetBubbleColors();
   }
 
   private _data: IDataStateBubble[] = [];
@@ -107,10 +157,17 @@ export class DrawerDataBubbles {
           label: data.name,
           value: data.display_value ?? `${data.value}`,
           fontFamily: "Inter",
-          getColor: getFunctionGetColorByDelta({
-            delta: 1,
-          }),
           colorText: this.colorBubbleText,
+        });
+
+        updateDrawerDataBubbleColor({
+          drawer,
+          colorProps: {
+            delta: 1,
+            rgbOnZero: this.colorBubbleOnZeroRGB,
+            rgbOnNegative: this.colorBubbleOnNegativeRGB,
+            rgbOnPositive: this.colorBubbleOnPositiveRGB,
+          },
         });
 
         bubble = {
@@ -149,8 +206,14 @@ export class DrawerDataBubbles {
       }
       bubble.delta = delta;
 
-      bubble.drawer.getColor = getFunctionGetColorByDelta({
-        delta: delta,
+      updateDrawerDataBubbleColor({
+        drawer: bubble.drawer,
+        colorProps: {
+          delta: bubble.delta,
+          rgbOnZero: this.colorBubbleOnZeroRGB,
+          rgbOnNegative: this.colorBubbleOnNegativeRGB,
+          rgbOnPositive: this.colorBubbleOnPositiveRGB,
+        },
       });
     }
 
@@ -160,18 +223,31 @@ export class DrawerDataBubbles {
   constructor({
     canvas,
     scale,
-    colorBackground,
-    colorText,
+    colors,
   }: {
     canvas: HTMLCanvasElement;
     scale: number;
-    colorBackground: string;
-    colorText: string;
+    colors?: IDrawerDataBubblesColors;
   }) {
     this.scale = scale;
     this.canvas = canvas;
-    this.colorBackground = colorBackground;
-    this.colorBubbleText = colorText;
+
+    if (colors) {
+      this.colorBackground = colors.background ?? this.colorBackground;
+      this.colorBubbleText = colors.bubbleText ?? this.colorBubbleText;
+      if (colors.bubbleOnNoChanges) {
+        const v = getRGBfromColorString(colors.bubbleOnNoChanges);
+        if (v) this.colorBubbleOnZeroRGB = v;
+      }
+      if (colors.bubbleOnValueDown) {
+        const v = getRGBfromColorString(colors.bubbleOnValueDown);
+        if (v) this.colorBubbleOnNegativeRGB = v;
+      }
+      if (colors.bubbleOnValueUp) {
+        const v = getRGBfromColorString(colors.bubbleOnValueUp);
+        if (v) this.colorBubbleOnPositiveRGB = v;
+      }
+    }
   }
 
   setCanvasSize({ width, height }: { width: number; height: number }) {

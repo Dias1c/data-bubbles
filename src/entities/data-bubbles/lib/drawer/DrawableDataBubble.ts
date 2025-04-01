@@ -1,5 +1,8 @@
 import { drawBuble } from "./drawBuble";
-import type { TFuncGetColor } from "./getFunctionGetColorByDelta";
+import {
+  getFunctionGetColorByDelta,
+  type TFuncGetColor,
+} from "./getFunctionGetColorByDelta";
 
 const isDebug = false;
 
@@ -12,7 +15,9 @@ export class DrawableDataBubble {
   x: number;
   y: number;
   r: number;
-  getColor: TFuncGetColor;
+  getColor: TFuncGetColor = getFunctionGetColorByDelta({
+    delta: 0,
+  });
   image?: HTMLImageElement;
   label: string;
   value: string;
@@ -33,7 +38,7 @@ export class DrawableDataBubble {
     x: number;
     y: number;
     r: number;
-    getColor: TFuncGetColor;
+    getColor?: TFuncGetColor;
     image?: HTMLImageElement;
     label: string;
     fontFamily?: string;

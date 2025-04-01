@@ -1,8 +1,4 @@
-import {
-  exampleDataBubblesValue,
-  useDataBubbles,
-  type IData,
-} from "@/entities/data-bubbles";
+import { exampleDataBubblesValue, type IData } from "@/entities/data-bubbles";
 import { PageIndexShare } from "@/features/page-index-share";
 import { Tabs } from "@/shared/components/tabs/Tabs";
 import { useHandleUrlHistoryNavigation } from "@/shared/hooks/useHandleUrlHistoryNavigation";
@@ -13,7 +9,7 @@ import { WidgetSectionShare } from "@/widgets/WidgetSectionShare";
 import { useEffect } from "react";
 import { SectoinDataBubblesView } from "../../entities/data-bubbles/ui/SectoinDataBubblesView";
 import { WidgetSectionSettings } from "../WidgetSectionSettings";
-import { usePageIndexTabs } from "./hooks";
+import { usePageIndexDataBubbles, usePageIndexTabs } from "./hooks";
 import { Footer } from "./ui/Footer";
 
 const getDataBubblesDefaultValue = (): IData => {
@@ -28,7 +24,7 @@ const getDataBubblesDefaultValue = (): IData => {
 export const WidgetPageIndex = () => {
   const isTablet = useIsTablet();
 
-  const dataBubbles = useDataBubbles();
+  const dataBubbles = usePageIndexDataBubbles();
   const { drawerRef, setData, getData } = dataBubbles;
 
   const { select, selected, tabs, visibleTabs } = usePageIndexTabs({

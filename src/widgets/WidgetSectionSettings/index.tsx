@@ -3,6 +3,7 @@ import {
   useDrawerDataBubbles,
   type IData,
 } from "@/entities/data-bubbles";
+import { CUserStore } from "@/features/user-store";
 import { BlockPartition } from "@/shared/components/blocks/BlockPartition";
 import { Button } from "@/shared/components/buttons/Button";
 import { FieldCheckbox } from "@/shared/components/input_fields/FieldCheckbox";
@@ -38,26 +39,27 @@ export const WidgetSectionSettings = ({
 
   const dataBubbles = useDataBubbles({
     defaultValue: defaultData,
-    defaultColorBackground: colors.colorBackground.getValue(),
-    defaultColorText: colors.colorBubbleText.getValue(),
+    defaultColors: colors.getValues(),
   });
 
   useEffect(() => {
     return () => {
       setData(dataBubbles.getData());
 
-      Object.keys(colors).map((key) => {
-        const name = key as keyof typeof colors;
-        const prevColor = colors[name]?.getValue?.();
-        const newColor = dataBubbles.colors[name]?.getValue?.();
+      const oldColors = colors.getValues();
+      const newColors = dataBubbles.colors.getValues();
+
+      Object.keys(oldColors).forEach((key) => {
+        const name = key as keyof ReturnType<typeof colors.getValues>;
+        const prevColor = oldColors[name];
+        const newColor = newColors[name];
+
         if (!newColor) return;
         if (prevColor == newColor) return;
-        colors[name]?.setValue?.(newColor);
+        colors?.[name]?.setValue?.(newColor);
       });
 
-      colors.colorBackground.setValue(
-        dataBubbles.colors.colorBackground.getValue()
-      );
+      CUserStore.drawerColors.set(colors.getValues());
     };
   }, []);
 

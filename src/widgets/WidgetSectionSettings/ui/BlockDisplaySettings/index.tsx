@@ -1,5 +1,6 @@
 import {
   getDrawerDataBubblesDefaultColors,
+  type IDrawerDataBubblesColors,
   type useDrawerDataBubbles,
 } from "@/entities/data-bubbles";
 import { BlockPartition } from "@/shared/components/blocks/BlockPartition";
@@ -10,14 +11,6 @@ import { InputText } from "@/shared/components/inputs/InputText";
 import { Typography } from "@/shared/components/typography/Typography";
 import { useStateMemorized } from "@/shared/hooks/useStateMemorized";
 import { useCallback, useState } from "react";
-
-interface IColors {
-  background?: string;
-  bubbleText?: string;
-  bubbleNoChanges?: string;
-  bubbleOnValueUp?: string;
-  bubbleOnValueDown?: string;
-}
 
 export const BlockDisplaySettings = ({
   colors,
@@ -69,30 +62,18 @@ const BlockColors = ({
 }: {
   colors: ReturnType<typeof useDrawerDataBubbles>["colors"];
 }) => {
-  const [colorsValues, setColorsValues] = useState<IColors>({
-    background: colors.colorBackground.getValue(),
-    bubbleText: colors.colorBubbleText.getValue(),
-  });
+  const [colorsValues, setColorsValues] = useState<IDrawerDataBubblesColors>(
+    colors.getValues()
+  );
 
   const setColorValue = useCallback(
-    (name: keyof IColors, value?: string) => {
+    (name: keyof IDrawerDataBubblesColors, value?: string) => {
       setColorsValues((prev) => ({
         ...prev,
         [name]: value,
       }));
 
-      const variant: Record<
-        keyof IColors,
-        typeof colors.colorBackground | undefined
-      > = {
-        background: colors.colorBackground,
-        bubbleText: colors.colorBubbleText,
-        bubbleNoChanges: undefined,
-        bubbleOnValueDown: undefined,
-        bubbleOnValueUp: undefined,
-      };
-
-      const modifier = variant[name];
+      const modifier = colors[name];
       if (!modifier) return;
 
       if (value) {
@@ -107,8 +88,10 @@ const BlockColors = ({
   const onClickReset = useCallback(() => {
     const defaultColors = getDrawerDataBubblesDefaultColors();
 
-    setColorValue("background", defaultColors.background);
-    setColorValue("bubbleText", defaultColors.bubbleText);
+    for (const [key, value] of Object.entries(defaultColors)) {
+      const name = key as keyof IDrawerDataBubblesColors;
+      setColorValue(name, value);
+    }
   }, [setColorValue]);
 
   return (
@@ -136,7 +119,7 @@ const BlockColors = ({
         }}
         value={colorsValues?.bubbleText ?? ""}
       />
-      {/*
+
       <Typography>Bubble onValueUp</Typography>
       <InputText
         onChange={(e) => {
@@ -151,14 +134,13 @@ const BlockColors = ({
         }}
         value={colorsValues?.bubbleOnValueDown ?? ""}
       />
-      <Typography>Bubble noChanges</Typography>
+      <Typography>Bubble onNoChanges</Typography>
       <InputText
         onChange={(e) => {
-          setColorValue("bubbleNoChanges", e.target.value || undefined);
+          setColorValue("bubbleOnNoChanges", e.target.value || undefined);
         }}
-        value={colorsValues?.bubbleNoChanges ?? ""}
+        value={colorsValues?.bubbleOnNoChanges ?? ""}
       />
-          */}
     </>
   );
 };
