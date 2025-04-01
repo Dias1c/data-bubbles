@@ -363,10 +363,10 @@ export class DrawerDataBubbles {
         let overlap = minDistance - distance;
 
         if (distance < minDistance) {
-          bubble.directionX -= (Math.cos(angle) * (overlap / 2)) / 10;
-          bubble.directionY -= (Math.sin(angle) * (overlap / 2)) / 10;
-          bubble2.directionX += (Math.cos(angle) * (overlap / 2)) / 10;
-          bubble2.directionY += (Math.sin(angle) * (overlap / 2)) / 10;
+          bubble.directionX -= (Math.cos(angle) * (overlap / 2)) / 100;
+          bubble.directionY -= (Math.sin(angle) * (overlap / 2)) / 100;
+          bubble2.directionX += (Math.cos(angle) * (overlap / 2)) / 100;
+          bubble2.directionY += (Math.sin(angle) * (overlap / 2)) / 100;
         }
       }
 
