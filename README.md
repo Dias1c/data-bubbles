@@ -8,7 +8,6 @@ Demo is here: [https://dias1c.github.io/data-bubbles/](https://dias1c.github.io/
 
 - [x] Hide tab if there is only one tab
 - [x] BUG with gap on "download image" after tab switching between "Settings" and "Share"
-- [ ] Generate async Share image button
 - [ ] Optimiztion Commit Drawing
 - [ ] Settings, edit bubbles by UI
 - [ ] Bubbles Preview
@@ -29,6 +28,7 @@ Demo is here: [https://dias1c.github.io/data-bubbles/](https://dias1c.github.io/
 
 Physics
 
+- [ ] Async QRCode Generation
 - [ ] Mass must be included for all bubbles
 - [ ] FPS + time realtion to render
 
