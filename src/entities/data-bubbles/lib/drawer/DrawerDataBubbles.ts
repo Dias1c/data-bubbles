@@ -418,7 +418,7 @@ export class DrawerDataBubbles {
     ctx.fill();
 
     for (const [, bubble] of bublesMap) {
-      bubble.drawer.draw({ ctx, optimizated: true });
+      bubble.drawer.draw({ ctx, optimizated: true, scale: this.scale });
     }
   }
 
