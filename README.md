@@ -25,7 +25,17 @@ Demo is here: [https://dias1c.github.io/data-bubbles/](https://dias1c.github.io/
 - [ ] postMessage (Support IFrame)
 - [ ] Wiki (Documentation)
 
+## Bugs
+
+Physics
+
+- [ ] Mass must be included for all bubbles
+- [ ] FPS + time realtion to render
+
+- [ ] Disabled Live Preview will not work closed live preview
+
 ## Ideas
 
+- [ ] Add Color Picker button [https://www.google.com/search?q=color+picker]
 - [ ] Add Description about editing styles in share
 - [ ] Set Scale on Share / Settings
