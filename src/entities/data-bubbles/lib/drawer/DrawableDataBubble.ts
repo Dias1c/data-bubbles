@@ -48,7 +48,9 @@ export class DrawableDataBubble {
     this.x = x;
     this.y = y;
     this.r = r;
-    this.getColor = getColor;
+    if (getColor) {
+      this.getColor = getColor;
+    }
     this.image = image;
     this.label = label;
     this.fontFamily = fontFamily;
