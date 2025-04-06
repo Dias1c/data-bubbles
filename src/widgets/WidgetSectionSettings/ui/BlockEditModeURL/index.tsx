@@ -94,7 +94,10 @@ export const BlockEditModeURL = ({
         />
       )}
       <FragmentUrlLists
-        urls={["/examples/data/dogs_top_speed.json"]}
+        urls={[
+          "/examples/data/2025-(07-14)_weather_astana.json",
+          "/examples/data/dogs_top_speed.json",
+        ]}
         title="Recommendations"
         onClickLoad={({ url }) => {
           setUrl(url);
