@@ -1,0 +1,26 @@
+.section_controllers_system_buttons {
+  display: flex;
+  gap: 4px;
+}
+
+.textarea {
+  flex: 1;
+  padding: 4px;
+  border-radius: 4px;
+  border: none;
+  resize: none;
+  background-color: var(--color-bg-placeholder);
+  min-height: 380px;
+  color: var(--color-fg-default);
+}
+
+.text_error {
+  color: red;
+  font-size: 12px;
+}
+
+@media (min-width: 761px) {
+  .text_error {
+    max-width: 380px;
+  }
+}
