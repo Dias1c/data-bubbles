@@ -13,10 +13,8 @@ import { useStateMemorized } from "@/shared/hooks/useStateMemorized";
 type TMode = "UI" | "JSON" | "URL";
 
 export const BlockDataSettings = ({
-  defaultData,
   dataBubbles,
 }: {
-  defaultData: IData;
   dataBubbles: ReturnType<typeof useDataBubbles>;
 }) => {
   const [editMode, setEditMode] = useState<TMode>("JSON");
@@ -52,13 +50,8 @@ export const BlockDataSettings = ({
         />
       </div>
       {editMode == "UI" && <BlockEditModeUI />}
-      {editMode == "JSON" && (
-        <BlockEditModeJSON
-          defaultData={defaultData}
-          dataBubbles={dataBubbles}
-        />
-      )}
-      {editMode == "URL" && <BlockEditModeURL />}
+      {editMode == "JSON" && <BlockEditModeJSON dataBubbles={dataBubbles} />}
+      {editMode == "URL" && <BlockEditModeURL dataBubbles={dataBubbles} />}
     </BlockPartition>
   );
 };

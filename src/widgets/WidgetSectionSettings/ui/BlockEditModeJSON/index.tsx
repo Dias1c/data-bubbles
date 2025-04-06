@@ -6,16 +6,14 @@ import { ButtonImportJson } from "../ButtonImportJson";
 import styles from "./styles.module.css";
 
 export const BlockEditModeJSON = ({
-  defaultData,
   dataBubbles,
 }: {
-  defaultData: IData;
   dataBubbles: ReturnType<typeof useDataBubbles>;
 }) => {
   const [error, setError] = useState<string>();
 
   const [value, setValue] = useState(
-    JSON.stringify(defaultData, undefined, "  ")
+    JSON.stringify(dataBubbles.getData(), undefined, "  ")
   );
 
   return (
