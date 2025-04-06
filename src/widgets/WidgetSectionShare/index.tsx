@@ -56,6 +56,17 @@ export const WidgetSectionShare = ({
       </BlockPartition>
 
       <BlockPartition label="Share" maxWidth={maxWidth}>
+        {href.length > 4096 && (
+          <span
+            style={{
+              fontSize: "14px",
+              color: "orange",
+            }}
+          >
+            Caution: Most likely the links will not work, since most browsers
+            have a limit on the URL
+          </span>
+        )}
         <BlockShareLink value={href} />
         <ErrorBoundary
           renderOnError={() => <Typography disabled>QR unavailable</Typography>}
