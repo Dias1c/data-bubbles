@@ -73,10 +73,7 @@ export const WidgetSectionSettings = ({
           />
         </div>
         <BlockDisplaySettings colors={dataBubbles.colors} />
-        <BlockDataSettings
-          dataBubbles={dataBubbles}
-          defaultData={defaultData}
-        />
+        <BlockDataSettings dataBubbles={dataBubbles} />
       </section>
     </section>
   );
