@@ -6,14 +6,11 @@ Demo is here: [https://dias1c.github.io/data-bubbles/](https://dias1c.github.io/
 
 ## TODO
 
-- [x] Hide tab if there is only one tab
-- [x] BUG with gap on "download image" after tab switching between "Settings" and "Share"
-- [ ] Optimiztion Commit Drawing
 - [ ] Settings, edit bubbles by UI
-- [ ] Bubbles Preview
+- [ ] ? Bubbles Preview
 
-  - [ ] Setting bubbles
   - [ ] Cache image, from 1st data
+  - [ ] Setting bubbles
   - [~] Sizes calculation (Max squares in the box algorighm)
   - [ ] Min size of bubbles
   - [x] Image size calculation
@@ -22,7 +19,6 @@ Demo is here: [https://dias1c.github.io/data-bubbles/](https://dias1c.github.io/
 
 - [ ] Share data-bubbles loaded from URL
 
-- [ ] Recomendations in Share (URI not supporting large string)
 - [ ] Requests to DataBubbles
 - [ ] postMessage (Support IFrame)
 - [ ] Wiki (Documentation)
@@ -31,14 +27,16 @@ Demo is here: [https://dias1c.github.io/data-bubbles/](https://dias1c.github.io/
 
 Physics
 
-- [ ] Async QRCode Generation
-- [ ] Mass must be included for all bubbles
-- [ ] FPS + time realtion to render
-
+- [ ] Colors switching on switching stageIndex
 - [ ] Disabled Live Preview will not work closed live preview
+- [ ] Mass must be included for all bubbles
 
 ## Ideas
 
 - [ ] Add Color Picker button [https://www.google.com/search?q=color+picker]
 - [ ] Add Description about editing styles in share
 - [ ] Set Scale on Share / Settings
+
+- [ ] New color Props for bubbles
+  - Color Bubble
+  - Color Text
