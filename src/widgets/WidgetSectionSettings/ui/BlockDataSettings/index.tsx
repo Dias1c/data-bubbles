@@ -1,14 +1,10 @@
-import type { IData, useDataBubbles } from "@/entities/data-bubbles";
+import type { useDataBubbles } from "@/entities/data-bubbles";
 import { BlockPartition } from "@/shared/components/blocks/BlockPartition";
-import { FieldCheckbox } from "@/shared/components/input_fields/FieldCheckbox";
-import { Typography } from "@/shared/components/typography/Typography";
+import { Tabs } from "@/shared/components/tabs/Tabs";
 import { useState } from "react";
 import { BlockEditModeJSON } from "../BlockEditModeJSON";
-import { Tabs } from "@/shared/components/tabs/Tabs";
 import { BlockEditModeUI } from "../BlockEditModeUI";
 import { BlockEditModeURL } from "../BlockEditModeURL";
-import { Checkbox } from "@/shared/components/inputs/Checkbox";
-import { useStateMemorized } from "@/shared/hooks/useStateMemorized";
 
 type TMode = "UI" | "JSON" | "URL";
 
