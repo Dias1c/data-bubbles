@@ -32,6 +32,7 @@ export const BlockDataSettings = ({
             {
               label: "UI",
               value: "UI",
+              disabled: true,
             },
             {
               label: "JSON",
