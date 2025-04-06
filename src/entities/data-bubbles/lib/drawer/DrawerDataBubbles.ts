@@ -39,6 +39,7 @@ const updateDrawerDataBubbleColor = ({
 };
 
 // TODO: Optimization
+// TODO: Refactor Code
 export class DrawerDataBubbles {
   minDelayPerFrameMs: number = 1000 / 60;
 
@@ -268,16 +269,7 @@ export class DrawerDataBubbles {
     return { valuesSum, values };
   }
 
-  _calculateAndSetBubblesTargetRadiusAbortController:
-    | AbortController
-    | undefined;
   calculateAndSetBubblesTargetRadius() {
-    this._calculateAndSetBubblesTargetRadiusAbortController?.abort();
-    this._calculateAndSetBubblesTargetRadiusAbortController =
-      new AbortController();
-    const abortController =
-      this._calculateAndSetBubblesTargetRadiusAbortController;
-
     const { canvas, bublesMap } = this;
     const canvasS = canvas.width * canvas.height;
     const maxRadius = Math.min(canvas.width, canvas.height) / 2;
@@ -363,10 +355,19 @@ export class DrawerDataBubbles {
         let overlap = minDistance - distance;
 
         if (distance < minDistance) {
-          bubble.directionX -= (Math.cos(angle) * (overlap / 2)) / 100;
-          bubble.directionY -= (Math.sin(angle) * (overlap / 2)) / 100;
-          bubble2.directionX += (Math.cos(angle) * (overlap / 2)) / 100;
-          bubble2.directionY += (Math.sin(angle) * (overlap / 2)) / 100;
+          let res = 1;
+          if (
+            bubble.drawer.r == bubble.targetR &&
+            bubble2.drawer.r == bubble2.targetR &&
+            bubble2.drawer.r != 0
+          ) {
+            res = bubble.drawer.r / bubble2.drawer.r;
+          }
+
+          bubble.directionX -= (Math.cos(angle) * (overlap / 2)) / res / 100;
+          bubble.directionY -= (Math.sin(angle) * (overlap / 2)) / res / 100;
+          bubble2.directionX += (Math.cos(angle) * (overlap / 2) * res) / 100;
+          bubble2.directionY += (Math.sin(angle) * (overlap / 2) * res) / 100;
         }
       }
 
