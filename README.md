@@ -11,6 +11,7 @@ Demo is here: [https://dias1c.github.io/data-bubbles/](https://dias1c.github.io/
 - [ ] Optimiztion Commit Drawing
 - [ ] Settings, edit bubbles by UI
 - [ ] Bubbles Preview
+
   - [ ] Setting bubbles
   - [ ] Cache image, from 1st data
   - [~] Sizes calculation (Max squares in the box algorighm)
@@ -18,7 +19,9 @@ Demo is here: [https://dias1c.github.io/data-bubbles/](https://dias1c.github.io/
   - [x] Image size calculation
   - [ ] Clickable bubbles
   - [ ] Scale must be using in calcuation for simulation
-- [ ] Use default bubbles json from network
+
+- [ ] Share data-bubbles loaded from URL
+
 - [ ] Recomendations in Share (URI not supporting large string)
 - [ ] Requests to DataBubbles
 - [ ] postMessage (Support IFrame)
