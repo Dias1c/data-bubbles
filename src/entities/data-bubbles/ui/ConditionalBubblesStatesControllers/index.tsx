@@ -29,7 +29,7 @@ export const ConditionalBubblesStatesControllers = ({
       if (isNaN(v) || v < min || v > max) return;
       setValue(v);
     },
-    [setValue]
+    [setValue, min, max]
   );
 
   const onClickPrev = useCallback(() => {
