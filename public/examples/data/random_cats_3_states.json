@@ -3,7 +3,7 @@
   "state_index": 1,
   "states": [
     {
-      "title": "0",
+      "title": "Initial Cats",
       "bubbles": [
         {
           "name": "Felix",
@@ -50,7 +50,7 @@
       ]
     },
     {
-      "title": "1",
+      "title": "Initial Cats +2",
       "bubbles": [
         {
           "name": "Felix",
@@ -109,7 +109,7 @@
       ]
     },
     {
-      "title": "2",
+      "title": "A lot of Cats!!!",
       "bubbles": [
         {
           "name": "Felix",
