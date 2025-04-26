@@ -6,7 +6,7 @@ import {
 import { BlockPartition } from "@/shared/components/blocks/BlockPartition";
 import { Button } from "@/shared/components/buttons/Button";
 import { FieldCheckbox } from "@/shared/components/input_fields/FieldCheckbox";
-import { Checkbox } from "@/shared/components/inputs/Checkbox";
+import { InputCheckbox } from "@/shared/components/inputs/InputCheckbox";
 import { InputText } from "@/shared/components/inputs/InputText";
 import { Typography } from "@/shared/components/typography/Typography";
 import { useStateMemorized } from "@/shared/hooks/useStateMemorized";
@@ -32,7 +32,7 @@ export const BlockDisplaySettings = ({
           display: "flex",
         }}
       >
-        <Checkbox
+        <InputCheckbox
           checked={!hidden}
           onChange={(v) => setHidden(!v.target.checked)}
         />

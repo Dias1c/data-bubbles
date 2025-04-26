@@ -1,4 +1,4 @@
-export const Checkbox = (
+export const InputCheckbox = (
   props: Omit<
     React.DetailedHTMLProps<
       React.InputHTMLAttributes<HTMLInputElement>,

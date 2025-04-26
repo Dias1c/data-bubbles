@@ -1,5 +1,5 @@
 import type { ComponentProps } from "react";
-import { Checkbox } from "../../inputs/Checkbox";
+import { InputCheckbox } from "../../inputs/InputCheckbox";
 import { Typography } from "../../typography/Typography";
 import styles from "./styles.module.css";
 
@@ -10,12 +10,12 @@ export const FieldCheckbox = ({
   name,
   onChange,
 }: { label: string } & Pick<
-  ComponentProps<typeof Checkbox>,
+  ComponentProps<typeof InputCheckbox>,
   "onChange" | "checked" | "disabled" | "name"
 >) => {
   return (
     <label className={styles.block}>
-      <Checkbox
+      <InputCheckbox
         disabled={disabled}
         checked={checked}
         name={name}
