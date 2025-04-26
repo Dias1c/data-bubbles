@@ -27,9 +27,7 @@ Demo is here: [https://dias1c.github.io/data-bubbles/](https://dias1c.github.io/
 
 Physics
 
-- [ ] Colors switching on switching stageIndex
 - [ ] Disabled Live Preview will not work closed live preview
-- [ ] Mass must be included for all bubbles
 
 ## Ideas
 
