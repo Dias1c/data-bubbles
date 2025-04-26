@@ -290,12 +290,7 @@ export class DrawerDataBubbles {
         }
 
         value.targetR = r * scaleFactor;
-        console.log("value.targetR", value.targetR);
       }
-      console.log(
-        "bublesMap",
-        [...bublesMap.values()].map((v) => v.targetR)
-      );
     };
 
     // TODO: Optimize or DELETE
