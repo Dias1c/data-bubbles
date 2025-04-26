@@ -181,7 +181,7 @@ export class DrawerDataBubbles {
         };
 
         bublesMap.set(data.name, bubble);
-        continue;
+        if (!prevMap?.get(data.name)) continue;
       }
 
       // TODO: Отдельная функция
