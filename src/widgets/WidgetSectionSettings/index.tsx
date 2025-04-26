@@ -24,7 +24,7 @@ export const WidgetSectionSettings = ({
   const [view, setView] = useStateMemorized({
     defaultValue: true,
     name: "tabs:settings:preview",
-    expiration: { days: 30 },
+    expiration: { months: 3 },
   });
 
   const dataBubbles = useDataBubbles({

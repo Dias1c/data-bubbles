@@ -20,9 +20,7 @@ export const BlockDisplaySettings = ({
   const [hidden, setHidden] = useStateMemorized({
     name: "tabs:settings:hide_display_settings",
     defaultValue: false,
-    expiration: {
-      months: 3,
-    },
+    expiration: { months: 3 },
   });
 
   if (hidden) {

@@ -1,4 +1,4 @@
-import type { IData, useDataBubbles } from "@/entities/data-bubbles";
+import type { useDataBubbles } from "@/entities/data-bubbles";
 import { Button } from "@/shared/components/buttons/Button";
 import { useState } from "react";
 import { ButtonExportJson } from "../ButtonExportJson";
