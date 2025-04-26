@@ -93,9 +93,10 @@ export const BlockEditModeLink = ({
       )}
       <FragmentUrlLists
         urls={[
+          `./examples/data/solar_system_planets_and_moons_diameters.json`,
           `./examples/data/random_cats_3_states.json`,
-          `./examples/data/2025-(07-14)_weather_astana.json`,
           `./examples/data/dogs_top_speed.json`,
+          `./examples/data/2025-(07-14)_weather_astana.json`,
         ]}
         title="Recommendations"
         onClickLoad={({ url }) => {
