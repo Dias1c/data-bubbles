@@ -45,6 +45,11 @@ export const WidgetPageIndex = () => {
   });
 
   useEffect(() => {
+    const data = getData();
+    if (Object.keys(data).length) {
+      return;
+    }
+
     setData(getDataBubblesDefaultValue());
     drawerRef.current?.startAnimation();
   }, []);
