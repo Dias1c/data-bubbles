@@ -1,9 +1,9 @@
 {
-  "title": "Generated Cats",
-  "state_index": 0,
+  "title": "Random Cats",
+  "state_index": 1,
   "states": [
     {
-      "title": "State Index 0",
+      "title": "0",
       "bubbles": [
         {
           "name": "Felix",
@@ -50,7 +50,7 @@
       ]
     },
     {
-      "title": "State Index 1",
+      "title": "1",
       "bubbles": [
         {
           "name": "Felix",
@@ -101,7 +101,7 @@
           "img_src": "https://cataas.com/cat?width=107"
         },
         {
-          "name": "Tomas",
+          "name": "Thomas",
           "value": 9217,
           "display_value": "9217",
           "img_src": "https://cataas.com/cat?width=108"
@@ -109,7 +109,7 @@
       ]
     },
     {
-      "title": "State Index 2",
+      "title": "2",
       "bubbles": [
         {
           "name": "Felix",
@@ -160,7 +160,7 @@
           "img_src": "https://cataas.com/cat?width=107"
         },
         {
-          "name": "Tomas",
+          "name": "Thomas",
           "value": 6075,
           "display_value": "6075",
           "img_src": "https://cataas.com/cat?width=108"
