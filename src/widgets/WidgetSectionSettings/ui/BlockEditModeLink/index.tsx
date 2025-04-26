@@ -93,15 +93,9 @@ export const BlockEditModeLink = ({
       )}
       <FragmentUrlLists
         urls={[
-          `${
-            import.meta?.env?.BASE_URL ?? ""
-          }/examples/random_cats_3_states.json`,
-          `${
-            import.meta?.env?.BASE_URL ?? ""
-          }/examples/data/2025-(07-14)_weather_astana.json`,
-          `${
-            import.meta?.env?.BASE_URL ?? ""
-          }/examples/data/dogs_top_speed.json`,
+          `./examples/random_cats_3_states.json`,
+          `./examples/data/2025-(07-14)_weather_astana.json`,
+          `./examples/data/dogs_top_speed.json`,
         ]}
         title="Recommendations"
         onClickLoad={({ url }) => {
