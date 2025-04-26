@@ -25,8 +25,6 @@ Demo is here: [https://dias1c.github.io/data-bubbles/](https://dias1c.github.io/
 
 ## Bugs
 
-Physics
-
 - [ ] Disabled Live Preview will not work closed live preview
 
 ## Ideas
