@@ -135,6 +135,7 @@ export class DrawerDataBubbles {
       }
     }
 
+    // Обнуляем targetR для всех чтобы расчитать targetR только для тех кто будет оставаться в списке
     for (const [, value] of bublesMap) {
       value.currentData = undefined;
       value.targetR = 0;
@@ -159,16 +160,6 @@ export class DrawerDataBubbles {
           value: data.display_value ?? `${data.value}`,
           fontFamily: "Inter",
           colorText: this.colorBubbleText,
-        });
-
-        updateDrawerDataBubbleColor({
-          drawer,
-          colorProps: {
-            delta: 1,
-            rgbOnZero: this.colorBubbleOnZeroRGB,
-            rgbOnNegative: this.colorBubbleOnNegativeRGB,
-            rgbOnPositive: this.colorBubbleOnPositiveRGB,
-          },
         });
 
         bubble = {
@@ -205,8 +196,14 @@ export class DrawerDataBubbles {
           delta = -1;
         }
       }
-      bubble.delta = delta;
 
+      bubble.delta = delta;
+    }
+
+    this.calculateAndSetBubblesTargetRadius();
+
+    // Указать цвета
+    for (const [, bubble] of bublesMap) {
       updateDrawerDataBubbleColor({
         drawer: bubble.drawer,
         colorProps: {
@@ -217,8 +214,6 @@ export class DrawerDataBubbles {
         },
       });
     }
-
-    this.calculateAndSetBubblesTargetRadius();
   }
 
   constructor({
@@ -290,11 +285,17 @@ export class DrawerDataBubbles {
           value.drawer.r = maxRadius;
         }
         if (currentValue == 0) {
+          value.delta = -1;
           continue;
         }
 
         value.targetR = r * scaleFactor;
+        console.log("value.targetR", value.targetR);
       }
+      console.log(
+        "bublesMap",
+        [...bublesMap.values()].map((v) => v.targetR)
+      );
     };
 
     // TODO: Optimize or DELETE
