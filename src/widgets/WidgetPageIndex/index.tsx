@@ -3,7 +3,6 @@ import { PageIndexShare } from "@/features/page-index-share";
 import { Tabs } from "@/shared/components/tabs/Tabs";
 import { useHandleUrlHistoryNavigation } from "@/shared/hooks/useHandleUrlHistoryNavigation";
 import { useIsTablet } from "@/shared/hooks/useIsTablet";
-import { historyReplaceState } from "@/shared/lib/window/historyChangeState";
 import { WidgetHeader } from "@/widgets/WidgetHeader";
 import { WidgetSectionShare } from "@/widgets/WidgetSectionShare";
 import { useEffect } from "react";
@@ -42,20 +41,13 @@ export const WidgetPageIndex = () => {
   useHandleUrlHistoryNavigation(({ url }) => {
     const data = PageIndexShare.getData(url.searchParams);
     if (data) setData(data);
+    PageIndexShare.setData(url.searchParams, undefined);
   });
 
   useEffect(() => {
     setData(getDataBubblesDefaultValue());
     drawerRef.current?.startAnimation();
   }, []);
-
-  useEffect(() => {
-    historyReplaceState({
-      update: ({ url }) => {
-        PageIndexShare.setData(url.searchParams, getData());
-      },
-    });
-  }, [JSON.stringify(getData())]);
 
   const isTabsVisible = visibleTabs.length > 1;
 
