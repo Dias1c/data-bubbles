@@ -81,4 +81,5 @@ textarea {
   border-radius: 4px;
   padding: 4px;
   background-color: var(--color-bg-placeholder);
+  font-size: 14px;
 }
