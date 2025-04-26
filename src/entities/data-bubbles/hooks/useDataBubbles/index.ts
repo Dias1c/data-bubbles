@@ -17,7 +17,7 @@ export const useDataBubbles = (props?: {
     const drawer = ddb.drawerRef.current;
     if (!drawer) return;
     const { stateCurrent, statePrev } = activeData;
-    drawer.setData(stateCurrent?.bubbles ?? [], statePrev.bubbles ?? []);
+    drawer.setData(stateCurrent?.bubbles ?? [], statePrev?.bubbles ?? []);
   }, [activeData]);
 
   return { ...ddb, ...dbv };
