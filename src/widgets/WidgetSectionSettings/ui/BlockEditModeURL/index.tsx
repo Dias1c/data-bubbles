@@ -16,9 +16,7 @@ export const BlockEditModeURL = ({
   const [urlsHistory, setUrlsHistory] = useStateMemorized<string[]>({
     defaultValue: [],
     name: "tabs:settings:data_settings:url:urls_history",
-    expiration: {
-      months: 3,
-    },
+    expiration: { months: 3 },
   });
   const [url, setUrl] = useState<string>("");
   const [error, setError] = useState("");
