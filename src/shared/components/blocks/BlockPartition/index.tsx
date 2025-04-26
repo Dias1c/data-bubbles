@@ -9,19 +9,21 @@ export const BlockPartition = ({
   maxWidth,
   fullHeight,
   childrenTitleEnd,
+  style,
 }: {
   label: string;
   children: ReactNode;
   maxWidth?: string;
   fullHeight?: boolean;
   childrenTitleEnd?: ReactNode;
+  style?: React.CSSProperties;
 }) => {
   return (
     <section
       className={`${styles.block} ${
         !!fullHeight ? styles.block_fullheight : ""
       }`}
-      style={{ maxWidth: maxWidth }}
+      style={{ maxWidth: maxWidth, ...style }}
     >
       <div className={styles.block__label__block}>
         <Typography variant="h3">{label}</Typography>
