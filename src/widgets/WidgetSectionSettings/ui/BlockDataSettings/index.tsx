@@ -5,10 +5,10 @@ import { Tabs } from "@/shared/components/tabs/Tabs";
 import { useState } from "react";
 import { BlockEditModeGenerate } from "../BlockEditModeGenerate";
 import { BlockEditModeJSON } from "../BlockEditModeJSON";
+import { BlockEditModeLink } from "../BlockEditModeLink";
 import { BlockEditModeUI } from "../BlockEditModeUI";
-import { BlockEditModeURL } from "../BlockEditModeURL";
 
-type TMode = "UI" | "JSON" | "URL" | "GENERATE";
+type TMode = "UI" | "JSON" | "LINK" | "GENERATE";
 
 export const BlockDataSettings = ({
   dataBubbles,
@@ -18,30 +18,38 @@ export const BlockDataSettings = ({
   const [editMode, setEditMode] = useState<TMode>("JSON");
 
   return (
-    <BlockPartition label="Data Settings">
+    <BlockPartition
+      label="Data Settings By:"
+      style={{
+        paddingBottom: "40px",
+      }}
+    >
       <div
         style={{
           display: "flex",
           flexDirection: "column",
+          position: "sticky",
+          top: 0,
+          backgroundColor: "var(--color-bg-default)",
         }}
       >
         <Tabs
           values={[
             {
-              label: "UI",
+              label: "🎛️ UI",
               value: "UI",
               disabled: true,
             },
             {
-              label: "JSON",
+              label: "📝 JSON",
               value: "JSON",
             },
             {
-              label: "URL",
-              value: "URL",
+              label: "🔗 Link",
+              value: "LINK",
             },
             {
-              label: "Generate",
+              label: "🎲 Generate",
               value: "GENERATE",
             },
           ]}
@@ -51,10 +59,11 @@ export const BlockDataSettings = ({
           linePosition="bottom"
           selected={editMode}
         />
+        <DividerHorizontal />
       </div>
       {editMode == "UI" && <BlockEditModeUI />}
       {editMode == "JSON" && <BlockEditModeJSON dataBubbles={dataBubbles} />}
-      {editMode == "URL" && <BlockEditModeURL dataBubbles={dataBubbles} />}
+      {editMode == "LINK" && <BlockEditModeLink dataBubbles={dataBubbles} />}
       {editMode == "GENERATE" && (
         <BlockEditModeGenerate dataBubbles={dataBubbles} />
       )}

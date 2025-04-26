@@ -6,7 +6,7 @@ import { Typography } from "@/shared/components/typography/Typography";
 import { useStateMemorized } from "@/shared/hooks/useStateMemorized";
 import { useState } from "react";
 
-export const BlockEditModeURL = ({
+export const BlockEditModeLink = ({
   dataBubbles,
   onSuccess,
 }: {
