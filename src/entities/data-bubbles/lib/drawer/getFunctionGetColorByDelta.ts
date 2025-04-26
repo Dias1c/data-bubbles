@@ -21,13 +21,14 @@ export function getFunctionGetColorByDelta({
 }): TFuncGetColor {
   let d = delta ?? 0;
 
-  let rgbZero: IRGB = rgbOnZero ?? {
+  let rgbZero: IRGB = {
     b: 255,
     g: 255,
     r: 255,
+    ...rgbOnZero,
   };
-  let rgbNegative: IRGB = rgbOnNegative ?? { b: 0, g: 0, r: 255 };
-  let rgbPositive: IRGB = rgbOnPositive ?? { b: 0, g: 255, r: 0 };
+  let rgbNegative: IRGB = { b: 0, g: 0, r: 255, ...rgbOnNegative };
+  let rgbPositive: IRGB = { b: 0, g: 255, r: 0, ...rgbOnPositive };
 
   if (!d || d === 0) {
     return ({ opacity = 1 }) =>
