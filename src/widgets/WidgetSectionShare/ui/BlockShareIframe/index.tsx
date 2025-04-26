@@ -1,9 +1,9 @@
 import { Button } from "@/shared/components/buttons/Button";
 import { ButtonCopy } from "@/shared/components/buttons/ButtonCopy";
+import { DividerVertical } from "@/shared/components/dividers/DividerVertical";
 import { Typography } from "@/shared/components/typography/Typography";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import styles from "./styles.module.css";
-import { DividerVertical } from "@/shared/components/dividers/DividerVertical";
 
 const sizes = {
   width: 500,

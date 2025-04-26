@@ -72,3 +72,13 @@ a {
 .disabled {
   opacity: 0.4;
 }
+
+input[type='text'],
+input[type='number'],
+textarea {
+  border: 1px solid var(--color-divider);
+  color: var(--color-fg-default);
+  border-radius: 4px;
+  padding: 4px;
+  background-color: var(--color-bg-placeholder);
+}

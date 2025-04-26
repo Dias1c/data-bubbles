@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ButtonExportJson } from "../ButtonExportJson";
 import { ButtonImportJson } from "../ButtonImportJson";
 import styles from "./styles.module.css";
+import { InputTextArea } from "@/shared/components/inputs/InputTextArea";
 
 export const BlockEditModeJSON = ({
   dataBubbles,
@@ -32,8 +33,11 @@ export const BlockEditModeJSON = ({
       <a href="https://github.com/Dias1c/data-bubbles" target="_blank">
         📌 Documentation
       </a>
-      <textarea
-        className={styles.textarea}
+      <InputTextArea
+        style={{
+          minHeight: "380px",
+          resize: "none",
+        }}
         value={value}
         onChange={(e) => {
           const text = e?.target?.value ?? "";
@@ -48,7 +52,7 @@ export const BlockEditModeJSON = ({
             }
           }
         }}
-      ></textarea>
+      />
       {!!error && (
         <span className={styles.text_error} title={error}>
           {error}
