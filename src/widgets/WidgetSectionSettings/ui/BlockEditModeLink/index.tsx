@@ -93,7 +93,7 @@ export const BlockEditModeLink = ({
       )}
       <FragmentUrlLists
         urls={[
-          `./examples/random_cats_3_states.json`,
+          `./examples/data/random_cats_3_states.json`,
           `./examples/data/2025-(07-14)_weather_astana.json`,
           `./examples/data/dogs_top_speed.json`,
         ]}
