@@ -88,7 +88,7 @@
       ]
     },
     {
-      "title": "Major Moons by Planets",
+      "title": "Major Moons and Planets",
       "bubbles": [
         {
           "name": "Mercury",
@@ -155,6 +155,81 @@
           "value": 1430,
           "img_src": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Makemake_and_its_moon.jpg/256px-Makemake_and_its_moon.jpg"
         },
+        {
+          "name": "Earth - Moon",
+          "value": 3474,
+          "img_src": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/FullMoon2010.jpg/256px-FullMoon2010.jpg"
+        },
+        {
+          "name": "Mars - Phobos",
+          "value": 22,
+          "img_src": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Phobos_colour_2008.jpg/256px-Phobos_colour_2008.jpg"
+        },
+        {
+          "name": "Mars - Deimos",
+          "value": 12,
+          "img_src": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/NASA-Deimos-MarsMoon-20090221.jpg/256px-NASA-Deimos-MarsMoon-20090221.jpg"
+        },
+        {
+          "name": "Jupiter - Io",
+          "value": 3643,
+          "img_src": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Io_highest_resolution_true_color.jpg/256px-Io_highest_resolution_true_color.jpg"
+        },
+        {
+          "name": "Jupiter - Europa",
+          "value": 3122,
+          "img_src": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Europa_in_natural_color.png/256px-Europa_in_natural_color.png"
+        },
+        {
+          "name": "Jupiter - Ganymede",
+          "value": 5268,
+          "img_src": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Ganymede_-_Perijove_34_Composite.png/256px-Ganymede_-_Perijove_34_Composite.png"
+        },
+        {
+          "name": "Jupiter - Callisto",
+          "value": 4821,
+          "img_src": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Callisto.jpg/256px-Callisto.jpg"
+        },
+        {
+          "name": "Saturn - Titan",
+          "value": 5150,
+          "img_src": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Titan_in_true_color_by_Kevin_M._Gill.jpg/256px-Titan_in_true_color_by_Kevin_M._Gill.jpg"
+        },
+        {
+          "name": "Saturn - Enceladus",
+          "value": 504,
+          "img_src": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/PIA17202_-_Approaching_Enceladus.jpg/256px-PIA17202_-_Approaching_Enceladus.jpg"
+        },
+        {
+          "name": "Saturn - Mimas",
+          "value": 396,
+          "img_src": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Mimas_Cassini.jpg/256px-Mimas_Cassini.jpg"
+        },
+        {
+          "name": "Uranus - Titania",
+          "value": 1578,
+          "img_src": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Titania_%28moon%29_color%2C_cropped.jpg/256px-Titania_%28moon%29_color%2C_cropped.jpg"
+        },
+        {
+          "name": "Uranus - Miranda",
+          "value": 472,
+          "img_src": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Miranda_-_January_24_1986_%2830906319004%29.jpg/256px-Miranda_-_January_24_1986_%2830906319004%29.jpg"
+        },
+        {
+          "name": "Neptune - Triton",
+          "value": 2707,
+          "img_src": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Triton-usgs23-with-frame.jpg/256px-Triton-usgs23-with-frame.jpg"
+        },
+        {
+          "name": "Pluto - Charon",
+          "value": 1212,
+          "img_src": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Charon_in_True_Color_-_High-Res.jpg/256px-Charon_in_True_Color_-_High-Res.jpg"
+        }
+      ]
+    },
+    {
+      "title": "Major Moons",
+      "bubbles": [
         {
           "name": "Earth - Moon",
           "value": 3474,
