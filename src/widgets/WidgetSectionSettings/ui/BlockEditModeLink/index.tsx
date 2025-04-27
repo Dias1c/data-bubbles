@@ -79,37 +79,45 @@ export const BlockEditModeLink = ({
           {error}
         </span>
       )}
-      {!!urlsHistory?.length && (
-        <FragmentUrlLists
-          urls={urlsHistory}
-          title="History"
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "16px",
+        }}
+      >
+        {!!urlsHistory?.length && (
+          <BlockUrlLists
+            title="📜 History"
+            urls={urlsHistory}
+            onClickLoad={({ url }) => {
+              setUrl(url);
+              run({ url });
+            }}
+            clear={() => setUrlsHistory([])}
+            disabled={loading}
+          />
+        )}
+        <BlockUrlLists
+          title="📖 Recommendations"
+          urls={[
+            `./examples/data/solar_system_planets_and_moons_diameters.json`,
+            `./examples/data/random_cats_3_states.json`,
+            `./examples/data/dogs_top_speed.json`,
+            `./examples/data/2025-(07-14)_weather_astana.json`,
+          ]}
           onClickLoad={({ url }) => {
             setUrl(url);
             run({ url });
           }}
-          clear={() => setUrlsHistory([])}
           disabled={loading}
         />
-      )}
-      <FragmentUrlLists
-        urls={[
-          `./examples/data/solar_system_planets_and_moons_diameters.json`,
-          `./examples/data/random_cats_3_states.json`,
-          `./examples/data/dogs_top_speed.json`,
-          `./examples/data/2025-(07-14)_weather_astana.json`,
-        ]}
-        title="Recommendations"
-        onClickLoad={({ url }) => {
-          setUrl(url);
-          run({ url });
-        }}
-        disabled={loading}
-      />
+      </div>
     </>
   );
 };
 
-const FragmentUrlLists = ({
+const BlockUrlLists = ({
   urls,
   clear,
   disabled,
@@ -123,7 +131,13 @@ const FragmentUrlLists = ({
   onClickLoad: (props: { url: string }) => void;
 }) => {
   return (
-    <>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "4px",
+      }}
+    >
       <div
         style={{
           display: "flex",
@@ -152,16 +166,31 @@ const FragmentUrlLists = ({
                 justifyContent: "space-between",
               }}
             >
-              <p style={{ textWrap: "wrap", lineBreak: "anywhere" }}>{url}</p>
+              <p
+                style={{
+                  textWrap: "wrap",
+                  lineBreak: "anywhere",
+                  fontSize: "14px",
+                }}
+              >
+                {url}
+              </p>
 
-              <Button disabled={disabled} onClick={() => onClickLoad({ url })}>
+              <Button
+                disabled={disabled}
+                onClick={() => onClickLoad({ url })}
+                style={{
+                  whiteSpace: "nowrap",
+                  height: "fit-content",
+                }}
+              >
                 📥 load
               </Button>
             </div>
           </div>
         );
       })}
-    </>
+    </div>
   );
 };
 
