@@ -6,14 +6,12 @@ import styles from "./styles.module.css";
 export const BlockPartition = ({
   label,
   children,
-  maxWidth,
   fullHeight,
   childrenTitleEnd,
   style,
 }: {
   label: string;
   children: ReactNode;
-  maxWidth?: string;
   fullHeight?: boolean;
   childrenTitleEnd?: ReactNode;
   style?: React.CSSProperties;
@@ -23,7 +21,7 @@ export const BlockPartition = ({
       className={`${styles.block} ${
         !!fullHeight ? styles.block_fullheight : ""
       }`}
-      style={{ maxWidth: maxWidth, ...style }}
+      style={style}
     >
       <div className={styles.block__label__block}>
         <Typography variant="h3">{label}</Typography>

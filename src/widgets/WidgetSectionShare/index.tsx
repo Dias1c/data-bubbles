@@ -39,7 +39,14 @@ export const WidgetSectionShare = ({
 
   return (
     <section className={styles.section}>
-      <BlockPartition label="Download Image" maxWidth={maxWidth}>
+      <BlockPartition
+        label="Download Image"
+        style={{
+          flex: 1,
+          flexBasis: "180px",
+          maxWidth,
+        }}
+      >
         {!isTablet && (
           <BoxDrawerImageDownload drawer={drawer} mimeType={"image/png"} />
         )}
@@ -55,7 +62,14 @@ export const WidgetSectionShare = ({
         </div>
       </BlockPartition>
 
-      <BlockPartition label="Share" maxWidth={maxWidth}>
+      <BlockPartition
+        label="Share"
+        style={{
+          flex: 1,
+          flexBasis: "200px",
+          maxWidth,
+        }}
+      >
         {href.length > 4096 && (
           <span
             style={{
@@ -77,7 +91,14 @@ export const WidgetSectionShare = ({
       </BlockPartition>
 
       {!!visibleTabs.length && (
-        <BlockPartition label="Settings" maxWidth={maxWidth}>
+        <BlockPartition
+          label="Settings"
+          style={{
+            flex: 1,
+            flexBasis: "120px",
+            maxWidth,
+          }}
+        >
           <Typography>Available Tabs</Typography>
           {visibleTabs.map((t) => {
             return (
