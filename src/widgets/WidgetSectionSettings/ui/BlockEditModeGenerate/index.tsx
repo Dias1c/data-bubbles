@@ -313,7 +313,6 @@ const generateRandomBubbleData = ({
       const bubble: IDataStateBubble = {
         name: name,
         value,
-        display_value: `${value}`,
       };
 
       if (imageSources.length > 0) {
