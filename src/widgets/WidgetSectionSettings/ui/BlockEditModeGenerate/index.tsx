@@ -139,10 +139,21 @@ export const BlockEditModeGenerate = ({
       <InputTextArea
         value={state.imageSourcesStr}
         onChange={handleImageSourcesChange}
+        style={{
+          minHeight: "70px",
+          resize: "vertical",
+        }}
       />
 
       <Typography>Names List</Typography>
-      <InputTextArea value={state.namesStr} onChange={handleNamesChange} />
+      <InputTextArea
+        value={state.namesStr}
+        onChange={handleNamesChange}
+        style={{
+          minHeight: "70px",
+          resize: "vertical",
+        }}
+      />
 
       <Typography>Min Value</Typography>
       <InputNumber value={state.min} onChange={handleMinValueChange} />

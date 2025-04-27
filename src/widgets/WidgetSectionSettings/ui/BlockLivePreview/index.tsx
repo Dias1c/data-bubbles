@@ -11,6 +11,8 @@ export const BlockLivePreview = (
   useEffect(() => {
     const drawer = dataBubbles.drawerRef.current;
     if (!drawer) return;
+    const { stateCurrent, statePrev } = dataBubbles.activeData;
+    drawer.setData(stateCurrent.bubbles ?? [], statePrev.bubbles ?? []);
     drawer.startAnimation();
     return () => {
       drawer.stopAnimation();
