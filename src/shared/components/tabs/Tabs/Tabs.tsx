@@ -10,12 +10,14 @@ export const Tab = ({
   selected,
   onClick,
   linePosition,
+  buttonStyle,
 }: {
   label: string;
   disabled?: boolean;
   selected?: boolean;
   onClick?: ComponentProps<typeof Button>["onClick"];
   linePosition?: TTabLinePosition;
+  buttonStyle?: ComponentProps<typeof Button>["style"];
 }) => {
   const className = useMemo(() => {
     let result = styles.tab;
@@ -31,7 +33,12 @@ export const Tab = ({
 
   return (
     <div className={className}>
-      <Button disabled={disabled} onClick={onClick} variant="text">
+      <Button
+        disabled={disabled}
+        onClick={onClick}
+        variant="text"
+        style={buttonStyle}
+      >
         {label}
       </Button>
     </div>
@@ -50,11 +57,13 @@ export const Tabs = <T extends string>({
   selected,
   onSelect,
   linePosition,
+  tabButtonStyle,
 }: {
   values: ITabsElement<T>[];
   selected?: T;
   onSelect?: (props: { value: T }) => Promise<void> | void;
   linePosition?: TTabLinePosition;
+  tabButtonStyle?: ComponentProps<typeof Tab>["buttonStyle"];
 }) => {
   return (
     <section className={styles.tabs}>
@@ -68,6 +77,7 @@ export const Tabs = <T extends string>({
             selected={selected == v.value}
             onClick={() => onSelect?.({ value: v.value })}
             linePosition={linePosition}
+            buttonStyle={tabButtonStyle}
           />
         );
       })}
