@@ -89,6 +89,10 @@ export const WidgetPageIndex = () => {
               selected={selected}
               onSelect={select}
               linePosition="top"
+              tabButtonStyle={{
+                fontSize: "16px",
+                padding: "12px",
+              }}
             />
           }
         />
