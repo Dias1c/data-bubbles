@@ -17,6 +17,7 @@ export const Button = ({
   onClick,
   loading,
   ref,
+  style,
 }: {
   variant?: TButtonVariant;
   disabled?: boolean;
@@ -24,6 +25,7 @@ export const Button = ({
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   loading?: boolean;
   ref?: React.Ref<HTMLButtonElement>;
+  style?: React.CSSProperties;
 }) => {
   return (
     <button
@@ -31,6 +33,7 @@ export const Button = ({
       className={variantClassNames[variant]}
       disabled={disabled || loading}
       onClick={onClick}
+      style={style}
     >
       {loading && <LoadingCircleSvg size={14} />}
       {children}
