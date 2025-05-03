@@ -9,7 +9,6 @@ Demo is here: [https://dias1c.github.io/data-bubbles/](https://dias1c.github.io/
 - [ ] Settings, edit bubbles by UI
 - [ ] ? Bubbles Preview
 
-  - [ ] Cache images (key is name, value: img_src)
   - [ ] Setting bubbles
   - [~] Sizes calculation (Max squares in the box algorighm)
   - [ ] Min size of bubbles
@@ -22,10 +21,6 @@ Demo is here: [https://dias1c.github.io/data-bubbles/](https://dias1c.github.io/
 - [ ] Requests to DataBubbles
 - [ ] postMessage (Support IFrame)
 - [ ] Wiki (Documentation)
-
-## Bugs
-
-- [ ] change value 1 -> 0 -> 1 hide bubbles
 
 ## Ideas
 
