@@ -15,9 +15,9 @@ export function getFunctionGetColorByDelta({
   rgbOnPositive,
 }: {
   delta?: number;
-  rgbOnZero?: IRGB;
-  rgbOnNegative?: IRGB;
-  rgbOnPositive?: IRGB;
+  rgbOnZero?: IRGB | null;
+  rgbOnNegative?: IRGB | null;
+  rgbOnPositive?: IRGB | null;
 }): TFuncGetColor {
   let d = delta ?? 0;
 

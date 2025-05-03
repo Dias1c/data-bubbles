@@ -28,16 +28,6 @@ export interface IDrawerDataBubblesColors {
   bubbleOnValueDown?: string;
 }
 
-const updateDrawerDataBubbleColor = ({
-  drawer,
-  colorProps,
-}: {
-  drawer: DrawableDataBubble;
-  colorProps: Parameters<typeof getFunctionGetColorByDelta>[0];
-}) => {
-  drawer.getColor = getFunctionGetColorByDelta(colorProps);
-};
-
 // TODO: Optimization
 // TODO: Refactor Code
 export class DrawerDataBubbles {
@@ -91,12 +81,41 @@ export class DrawerDataBubbles {
   resetBubbleColors() {
     const { bublesMap } = this;
     for (const [, bubble] of bublesMap) {
+      let rgbOnZero: IRGB | undefined | null = this.colorBubbleOnZeroRGB;
+      const colorBubbleNoChanges =
+        bubble.currentData?.color?.bubble ??
+        bubble.currentData?.color?.bubble_on_no_change;
+      if (colorBubbleNoChanges) {
+        rgbOnZero = getRGBfromColorString(colorBubbleNoChanges);
+      }
+
+      let rgbOnNegative: IRGB | undefined | null =
+        this.colorBubbleOnNegativeRGB;
+      const colorBubbleOnValueDown =
+        bubble.currentData?.color?.bubble ??
+        bubble.currentData?.color?.bubble_on_decrease;
+      if (colorBubbleOnValueDown) {
+        rgbOnNegative = getRGBfromColorString(colorBubbleOnValueDown);
+      }
+
+      let rgbOnPositive: IRGB | undefined | null =
+        this.colorBubbleOnPositiveRGB;
+      const colorBubbleOnValueUp =
+        bubble.currentData?.color?.bubble ??
+        bubble.currentData?.color?.bubble_on_increase;
+      if (colorBubbleOnValueUp) {
+        rgbOnPositive = getRGBfromColorString(colorBubbleOnValueUp);
+      }
+
       bubble.drawer.getColor = getFunctionGetColorByDelta({
         delta: bubble.delta,
-        rgbOnZero: this.colorBubbleOnZeroRGB,
-        rgbOnNegative: this.colorBubbleOnNegativeRGB,
-        rgbOnPositive: this.colorBubbleOnPositiveRGB,
+        rgbOnZero,
+        rgbOnNegative,
+        rgbOnPositive,
       });
+
+      bubble.drawer.colorText =
+        bubble.currentData?.color?.text ?? this.colorBubbleText;
     }
   }
 
@@ -201,19 +220,7 @@ export class DrawerDataBubbles {
     }
 
     this.calculateAndSetBubblesTargetRadius();
-
-    // Указать цвета
-    for (const [, bubble] of bublesMap) {
-      updateDrawerDataBubbleColor({
-        drawer: bubble.drawer,
-        colorProps: {
-          delta: bubble.delta,
-          rgbOnZero: this.colorBubbleOnZeroRGB,
-          rgbOnNegative: this.colorBubbleOnNegativeRGB,
-          rgbOnPositive: this.colorBubbleOnPositiveRGB,
-        },
-      });
-    }
+    this.resetBubbleColors();
   }
 
   constructor({

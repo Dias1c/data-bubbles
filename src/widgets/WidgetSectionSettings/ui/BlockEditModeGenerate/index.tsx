@@ -1,8 +1,4 @@
-import type {
-  IData,
-  IDataStateBubble,
-  useDataBubbles,
-} from "@/entities/data-bubbles";
+import type { IData, useDataBubbles } from "@/entities/data-bubbles";
 import { Button } from "@/shared/components/buttons/Button";
 import { DividerHorizontal } from "@/shared/components/dividers/DividerHorizontal";
 import { InputNumber } from "@/shared/components/inputs/InputNumber";
@@ -294,11 +290,12 @@ const generateRandomBubbleData = ({
     title: title,
     state_index: 0,
     states: [],
+    definitions: {},
   };
 
   for (let i = 0; i < statesCount; i++) {
     const stateTitle = `State Index ${i}`;
-    const bubbles: IDataStateBubble[] = [];
+    const bubbles: Record<string, number> = {};
 
     const usedNames = new Set<string>();
 
@@ -309,18 +306,16 @@ const generateRandomBubbleData = ({
       }
       usedNames.add(name);
       const value = Math.floor(Math.random() * max - min) + min;
-
-      const bubble: IDataStateBubble = {
-        name: name,
-        value,
-      };
+      bubbles[name] = value;
 
       if (imageSources.length > 0) {
         const imageIndex = j % imageSources.length;
-        bubble.img_src = imageSources[imageIndex];
-      }
+        const src = imageSources[imageIndex];
 
-      bubbles.push(bubble);
+        data.definitions![name] = {
+          img_src: src,
+        };
+      }
     }
 
     data.states?.push({

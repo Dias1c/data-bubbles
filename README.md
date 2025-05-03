@@ -23,8 +23,13 @@ Demo is here: [https://dias1c.github.io/data-bubbles/](https://dias1c.github.io/
 - [ ] postMessage (Support IFrame)
 - [ ] Wiki (Documentation)
 
+## Bugs
+
+- [ ] change value 1 -> 0 -> 1 hide bubbles
+
 ## Ideas
 
+- [ ] Individual bubble colors
 - [ ] Add Color Picker button [https://www.google.com/search?q=color+picker]
 - [ ] Add Description about editing styles in share
 - [ ] Set Scale on Share / Settings
