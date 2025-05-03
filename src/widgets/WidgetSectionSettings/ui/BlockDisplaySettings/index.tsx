@@ -118,26 +118,26 @@ const BlockColors = ({
         value={colorsValues?.bubbleText ?? ""}
       />
 
-      <Typography>Bubble onValueUp</Typography>
+      <Typography>Bubble onIncrease</Typography>
       <InputText
         onChange={(e) => {
-          setColorValue("bubbleOnValueUp", e.target.value || undefined);
+          setColorValue("bubbleOnIncrease", e.target.value || undefined);
         }}
-        value={colorsValues?.bubbleOnValueUp ?? ""}
+        value={colorsValues?.bubbleOnIncrease ?? ""}
       />
-      <Typography>Bubble onValueDown</Typography>
+      <Typography>Bubble onDecrease</Typography>
       <InputText
         onChange={(e) => {
-          setColorValue("bubbleOnValueDown", e.target.value || undefined);
+          setColorValue("bubbleOnDecrease", e.target.value || undefined);
         }}
-        value={colorsValues?.bubbleOnValueDown ?? ""}
+        value={colorsValues?.bubbleOnDecrease ?? ""}
       />
-      <Typography>Bubble onNoChanges</Typography>
+      <Typography>Bubble onNoChange</Typography>
       <InputText
         onChange={(e) => {
-          setColorValue("bubbleOnNoChanges", e.target.value || undefined);
+          setColorValue("bubbleOnNoChange", e.target.value || undefined);
         }}
-        value={colorsValues?.bubbleOnNoChanges ?? ""}
+        value={colorsValues?.bubbleOnNoChange ?? ""}
       />
     </>
   );

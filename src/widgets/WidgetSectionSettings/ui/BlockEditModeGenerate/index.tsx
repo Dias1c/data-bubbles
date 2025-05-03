@@ -313,7 +313,7 @@ const generateRandomBubbleData = ({
         const src = imageSources[imageIndex];
 
         data.definitions![name] = {
-          img_src: src,
+          imgSrc: src,
         };
       }
     }

@@ -81,91 +81,91 @@
   ],
   "definitions": {
     "Sun": {
-      "img_src": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/The_Sun_in_white_light.jpg/256px-The_Sun_in_white_light.jpg",
+      "imgSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/The_Sun_in_white_light.jpg/256px-The_Sun_in_white_light.jpg",
       "color": {
         "bubble": "#A020F0"
       }
     },
     "Mercury": {
-      "img_src": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Mercury_in_color_-_Prockter07_centered.jpg/256px-Mercury_in_color_-_Prockter07_centered.jpg"
+      "imgSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Mercury_in_color_-_Prockter07_centered.jpg/256px-Mercury_in_color_-_Prockter07_centered.jpg"
     },
     "Venus": {
-      "img_src": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Venus_from_Mariner_10.jpg/256px-Venus_from_Mariner_10.jpg"
+      "imgSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Venus_from_Mariner_10.jpg/256px-Venus_from_Mariner_10.jpg"
     },
     "Earth": {
-      "img_src": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/The_Earth_seen_from_Apollo_17.jpg/256px-The_Earth_seen_from_Apollo_17.jpg"
+      "imgSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/The_Earth_seen_from_Apollo_17.jpg/256px-The_Earth_seen_from_Apollo_17.jpg"
     },
     "Mars": {
-      "img_src": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Mars_-_August_30_2021_-_Flickr_-_Kevin_M._Gill.png/256px-Mars_-_August_30_2021_-_Flickr_-_Kevin_M._Gill.png"
+      "imgSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Mars_-_August_30_2021_-_Flickr_-_Kevin_M._Gill.png/256px-Mars_-_August_30_2021_-_Flickr_-_Kevin_M._Gill.png"
     },
     "Jupiter": {
-      "img_src": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Jupiter%2C_image_taken_by_NASA%27s_Hubble_Space_Telescope%2C_June_2019_-_Edited.jpg/256px-Jupiter%2C_image_taken_by_NASA%27s_Hubble_Space_Telescope%2C_June_2019_-_Edited.jpg"
+      "imgSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Jupiter%2C_image_taken_by_NASA%27s_Hubble_Space_Telescope%2C_June_2019_-_Edited.jpg/256px-Jupiter%2C_image_taken_by_NASA%27s_Hubble_Space_Telescope%2C_June_2019_-_Edited.jpg"
     },
     "Saturn": {
-      "img_src": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Saturn_-_April_25_2016_%2837612580000%29.png/256px-Saturn_-_April_25_2016_%2837612580000%29.png"
+      "imgSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Saturn_-_April_25_2016_%2837612580000%29.png/256px-Saturn_-_April_25_2016_%2837612580000%29.png"
     },
     "Uranus": {
-      "img_src": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Uranus_Voyager2_color_calibrated.png/256px-Uranus_Voyager2_color_calibrated.png"
+      "imgSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Uranus_Voyager2_color_calibrated.png/256px-Uranus_Voyager2_color_calibrated.png"
     },
     "Neptune": {
-      "img_src": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Neptune_Voyager2_color_calibrated.png/256px-Neptune_Voyager2_color_calibrated.png"
+      "imgSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Neptune_Voyager2_color_calibrated.png/256px-Neptune_Voyager2_color_calibrated.png"
     },
     "Pluto (Dwarf)": {
-      "img_src": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Pluto_in_True_Color_-_High-Res.jpg/256px-Pluto_in_True_Color_-_High-Res.jpg"
+      "imgSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Pluto_in_True_Color_-_High-Res.jpg/256px-Pluto_in_True_Color_-_High-Res.jpg"
     },
     "Ceres (Dwarf)": {
-      "img_src": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Ceres_-_RC3_-_Haulani_Crater_%2822381131691%29_%28cropped%29.jpg/256px-Ceres_-_RC3_-_Haulani_Crater_%2822381131691%29_%28cropped%29.jpg"
+      "imgSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Ceres_-_RC3_-_Haulani_Crater_%2822381131691%29_%28cropped%29.jpg/256px-Ceres_-_RC3_-_Haulani_Crater_%2822381131691%29_%28cropped%29.jpg"
     },
     "Eris (Dwarf)": {
-      "img_src": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Hubble_Dysnomia_orbit_overlay.jpg/256px-Hubble_Dysnomia_orbit_overlay.jpg"
+      "imgSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Hubble_Dysnomia_orbit_overlay.jpg/256px-Hubble_Dysnomia_orbit_overlay.jpg"
     },
     "Haumea (Dwarf)": {
-      "img_src": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Haumea_Hubble.png/256px-Haumea_Hubble.png"
+      "imgSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Haumea_Hubble.png/256px-Haumea_Hubble.png"
     },
     "Makemake (Dwarf)": {
-      "img_src": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Makemake_and_its_moon.jpg/256px-Makemake_and_its_moon.jpg"
+      "imgSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Makemake_and_its_moon.jpg/256px-Makemake_and_its_moon.jpg"
     },
     "Earth - Moon": {
-      "img_src": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/FullMoon2010.jpg/256px-FullMoon2010.jpg"
+      "imgSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/FullMoon2010.jpg/256px-FullMoon2010.jpg"
     },
     "Mars - Phobos": {
-      "img_src": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Phobos_colour_2008.jpg/256px-Phobos_colour_2008.jpg"
+      "imgSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Phobos_colour_2008.jpg/256px-Phobos_colour_2008.jpg"
     },
     "Mars - Deimos": {
-      "img_src": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/NASA-Deimos-MarsMoon-20090221.jpg/256px-NASA-Deimos-MarsMoon-20090221.jpg"
+      "imgSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/NASA-Deimos-MarsMoon-20090221.jpg/256px-NASA-Deimos-MarsMoon-20090221.jpg"
     },
     "Jupiter - Io": {
-      "img_src": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Io_highest_resolution_true_color.jpg/256px-Io_highest_resolution_true_color.jpg"
+      "imgSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Io_highest_resolution_true_color.jpg/256px-Io_highest_resolution_true_color.jpg"
     },
     "Jupiter - Europa": {
-      "img_src": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Europa_in_natural_color.png/256px-Europa_in_natural_color.png"
+      "imgSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Europa_in_natural_color.png/256px-Europa_in_natural_color.png"
     },
     "Jupiter - Ganymede": {
-      "img_src": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Ganymede_-_Perijove_34_Composite.png/256px-Ganymede_-_Perijove_34_Composite.png"
+      "imgSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Ganymede_-_Perijove_34_Composite.png/256px-Ganymede_-_Perijove_34_Composite.png"
     },
     "Jupiter - Callisto": {
-      "img_src": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Callisto.jpg/256px-Callisto.jpg"
+      "imgSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Callisto.jpg/256px-Callisto.jpg"
     },
     "Saturn - Titan": {
-      "img_src": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Titan_in_true_color_by_Kevin_M._Gill.jpg/256px-Titan_in_true_color_by_Kevin_M._Gill.jpg"
+      "imgSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Titan_in_true_color_by_Kevin_M._Gill.jpg/256px-Titan_in_true_color_by_Kevin_M._Gill.jpg"
     },
     "Saturn - Enceladus": {
-      "img_src": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/PIA17202_-_Approaching_Enceladus.jpg/256px-PIA17202_-_Approaching_Enceladus.jpg"
+      "imgSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/PIA17202_-_Approaching_Enceladus.jpg/256px-PIA17202_-_Approaching_Enceladus.jpg"
     },
     "Saturn - Mimas": {
-      "img_src": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Mimas_Cassini.jpg/256px-Mimas_Cassini.jpg"
+      "imgSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Mimas_Cassini.jpg/256px-Mimas_Cassini.jpg"
     },
     "Uranus - Titania": {
-      "img_src": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Titania_%28moon%29_color%2C_cropped.jpg/256px-Titania_%28moon%29_color%2C_cropped.jpg"
+      "imgSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Titania_%28moon%29_color%2C_cropped.jpg/256px-Titania_%28moon%29_color%2C_cropped.jpg"
     },
     "Uranus - Miranda": {
-      "img_src": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Miranda_-_January_24_1986_%2830906319004%29.jpg/256px-Miranda_-_January_24_1986_%2830906319004%29.jpg"
+      "imgSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Miranda_-_January_24_1986_%2830906319004%29.jpg/256px-Miranda_-_January_24_1986_%2830906319004%29.jpg"
     },
     "Neptune - Triton": {
-      "img_src": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Triton-usgs23-with-frame.jpg/256px-Triton-usgs23-with-frame.jpg"
+      "imgSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Triton-usgs23-with-frame.jpg/256px-Triton-usgs23-with-frame.jpg"
     },
     "Pluto - Charon": {
-      "img_src": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Charon_in_True_Color_-_High-Res.jpg/256px-Charon_in_True_Color_-_High-Res.jpg"
+      "imgSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Charon_in_True_Color_-_High-Res.jpg/256px-Charon_in_True_Color_-_High-Res.jpg"
     }
   }
 }

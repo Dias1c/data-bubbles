@@ -1,18 +1,18 @@
 export interface IDataStateBubble {
   name: string;
-  img_src?: string;
+  imgSrc?: string;
   value: number;
-  display_value?: string;
+  displayValue?: string;
   color?: {
     text?: string;
     bubble?: string;
-    bubble_on_increase?: string;
-    bubble_on_decrease?: string;
-    bubble_on_no_change?: string;
+    bubbleOnIncrease?: string;
+    bubbleOnDecrease?: string;
+    bubbleOnNoChange?: string;
   };
 }
 
-export type TBubbleDefinition = Pick<IDataStateBubble, "img_src">;
+export type TBubbleDefinition = Pick<IDataStateBubble, "imgSrc">;
 
 export interface IData {
   title?: string;

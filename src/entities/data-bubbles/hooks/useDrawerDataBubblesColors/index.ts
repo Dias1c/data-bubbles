@@ -27,9 +27,9 @@ export const useDrawerDataBubblesColors = ({
     onSetValue: (v) => drawerRef.current?.setColorBubbleText(v),
   });
 
-  const bubbleOnValueDown = useMemoColor({
+  const bubbleOnDecrease = useMemoColor({
     defaultValue:
-      defaultColors?.bubbleOnValueDown ?? colorsFromStore.bubbleOnValueDown,
+      defaultColors?.bubbleOnDecrease ?? colorsFromStore.bubbleOnDecrease,
     onSetValue: (v) => {
       drawerRef.current?.setColorBubbleOnNegativeRGB(
         getRGBfromColorString(v) ?? undefined
@@ -37,9 +37,9 @@ export const useDrawerDataBubblesColors = ({
     },
   });
 
-  const bubbleOnValueUp = useMemoColor({
+  const bubbleOnIncrease = useMemoColor({
     defaultValue:
-      defaultColors?.bubbleOnValueUp ?? colorsFromStore.bubbleOnValueUp,
+      defaultColors?.bubbleOnIncrease ?? colorsFromStore.bubbleOnIncrease,
     onSetValue: (v) => {
       drawerRef.current?.setColorBubbleOnPositiveRGB(
         getRGBfromColorString(v) ?? undefined
@@ -47,9 +47,9 @@ export const useDrawerDataBubblesColors = ({
     },
   });
 
-  const bubbleOnNoChanges = useMemoColor({
+  const bubbleOnNoChange = useMemoColor({
     defaultValue:
-      defaultColors?.bubbleOnNoChanges ?? colorsFromStore.bubbleOnNoChanges,
+      defaultColors?.bubbleOnNoChange ?? colorsFromStore.bubbleOnNoChange,
     onSetValue: (v) => {
       drawerRef.current?.setColorBubbleOnZeroRGB(
         getRGBfromColorString(v) ?? undefined
@@ -65,15 +65,15 @@ export const useDrawerDataBubblesColors = ({
     const result: TResult = {
       background,
       bubbleText,
-      bubbleOnValueDown,
-      bubbleOnValueUp,
-      bubbleOnNoChanges,
+      bubbleOnDecrease,
+      bubbleOnIncrease,
+      bubbleOnNoChange,
       getValues: () => ({
         background: background.getValue(),
         bubbleText: bubbleText.getValue(),
-        bubbleOnValueDown: bubbleOnValueDown.getValue(),
-        bubbleOnValueUp: bubbleOnValueUp.getValue(),
-        bubbleOnNoChanges: bubbleOnNoChanges.getValue(),
+        bubbleOnDecrease: bubbleOnDecrease.getValue(),
+        bubbleOnIncrease: bubbleOnIncrease.getValue(),
+        bubbleOnNoChange: bubbleOnNoChange.getValue(),
       }),
     };
 
@@ -81,9 +81,9 @@ export const useDrawerDataBubblesColors = ({
   }, [
     background,
     bubbleText,
-    bubbleOnValueDown,
-    bubbleOnValueUp,
-    bubbleOnNoChanges,
+    bubbleOnDecrease,
+    bubbleOnIncrease,
+    bubbleOnNoChange,
   ]);
 
   return colors;

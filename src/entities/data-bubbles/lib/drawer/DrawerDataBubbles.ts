@@ -23,9 +23,9 @@ const createImage = (src: string) => {
 export interface IDrawerDataBubblesColors {
   background?: string;
   bubbleText?: string;
-  bubbleOnNoChanges?: string;
-  bubbleOnValueUp?: string;
-  bubbleOnValueDown?: string;
+  bubbleOnNoChange?: string;
+  bubbleOnIncrease?: string;
+  bubbleOnDecrease?: string;
 }
 
 // TODO: Optimization
@@ -82,29 +82,29 @@ export class DrawerDataBubbles {
     const { bublesMap } = this;
     for (const [, bubble] of bublesMap) {
       let rgbOnZero: IRGB | undefined | null = this.colorBubbleOnZeroRGB;
-      const colorBubbleNoChanges =
+      const colorBubbleNoChange =
         bubble.currentData?.color?.bubble ??
-        bubble.currentData?.color?.bubble_on_no_change;
-      if (colorBubbleNoChanges) {
-        rgbOnZero = getRGBfromColorString(colorBubbleNoChanges);
+        bubble.currentData?.color?.bubbleOnNoChange;
+      if (colorBubbleNoChange) {
+        rgbOnZero = getRGBfromColorString(colorBubbleNoChange);
       }
 
       let rgbOnNegative: IRGB | undefined | null =
         this.colorBubbleOnNegativeRGB;
-      const colorBubbleOnValueDown =
+      const colorBubbleOnDecrease =
         bubble.currentData?.color?.bubble ??
-        bubble.currentData?.color?.bubble_on_decrease;
-      if (colorBubbleOnValueDown) {
-        rgbOnNegative = getRGBfromColorString(colorBubbleOnValueDown);
+        bubble.currentData?.color?.bubbleOnDecrease;
+      if (colorBubbleOnDecrease) {
+        rgbOnNegative = getRGBfromColorString(colorBubbleOnDecrease);
       }
 
       let rgbOnPositive: IRGB | undefined | null =
         this.colorBubbleOnPositiveRGB;
-      const colorBubbleOnValueUp =
+      const colorBubbleOnIncrease =
         bubble.currentData?.color?.bubble ??
-        bubble.currentData?.color?.bubble_on_increase;
-      if (colorBubbleOnValueUp) {
-        rgbOnPositive = getRGBfromColorString(colorBubbleOnValueUp);
+        bubble.currentData?.color?.bubbleOnIncrease;
+      if (colorBubbleOnIncrease) {
+        rgbOnPositive = getRGBfromColorString(colorBubbleOnIncrease);
       }
 
       bubble.drawer.getColor = getFunctionGetColorByDelta({
@@ -166,8 +166,8 @@ export class DrawerDataBubbles {
       // TODO: Отдельная функция
       if (!bubble) {
         let image: HTMLImageElement | undefined;
-        if (data.img_src) {
-          image = createImage(data.img_src);
+        if (data.imgSrc) {
+          image = createImage(data.imgSrc);
         }
 
         const drawer = new DrawableDataBubble({
@@ -176,7 +176,7 @@ export class DrawerDataBubbles {
           r: 0,
           image: image,
           label: data.name,
-          value: data.display_value ?? `${data.value}`,
+          value: data.displayValue ?? `${data.value}`,
           fontFamily: "Inter",
           colorText: this.colorBubbleText,
         });
@@ -196,11 +196,11 @@ export class DrawerDataBubbles {
 
       // TODO: Отдельная функция
       bubble.currentData = data;
-      bubble.drawer.value = data.display_value ?? `${data.value}`;
-      if (bubble.drawer.image?.src != data.img_src) {
+      bubble.drawer.value = data.displayValue ?? `${data.value}`;
+      if (bubble.drawer.image?.src != data.imgSrc) {
         let image: HTMLImageElement | undefined;
-        if (data.img_src) {
-          image = createImage(data.img_src);
+        if (data.imgSrc) {
+          image = createImage(data.imgSrc);
         }
         bubble.drawer.image = image;
       }
@@ -238,16 +238,16 @@ export class DrawerDataBubbles {
     if (colors) {
       this.colorBackground = colors.background ?? this.colorBackground;
       this.colorBubbleText = colors.bubbleText ?? this.colorBubbleText;
-      if (colors.bubbleOnNoChanges) {
-        const v = getRGBfromColorString(colors.bubbleOnNoChanges);
+      if (colors.bubbleOnNoChange) {
+        const v = getRGBfromColorString(colors.bubbleOnNoChange);
         if (v) this.colorBubbleOnZeroRGB = v;
       }
-      if (colors.bubbleOnValueDown) {
-        const v = getRGBfromColorString(colors.bubbleOnValueDown);
+      if (colors.bubbleOnDecrease) {
+        const v = getRGBfromColorString(colors.bubbleOnDecrease);
         if (v) this.colorBubbleOnNegativeRGB = v;
       }
-      if (colors.bubbleOnValueUp) {
-        const v = getRGBfromColorString(colors.bubbleOnValueUp);
+      if (colors.bubbleOnIncrease) {
+        const v = getRGBfromColorString(colors.bubbleOnIncrease);
         if (v) this.colorBubbleOnPositiveRGB = v;
       }
     }
