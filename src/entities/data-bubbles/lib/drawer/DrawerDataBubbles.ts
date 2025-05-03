@@ -175,7 +175,7 @@ export class DrawerDataBubbles {
           y: Math.random() * canvas.height,
           r: 0,
           image: image,
-          label: data.name,
+          label: data.displayName ?? data.name,
           value: data.displayValue ?? `${data.value}`,
           fontFamily: "Inter",
           colorText: this.colorBubbleText,
@@ -197,6 +197,7 @@ export class DrawerDataBubbles {
       // TODO: Отдельная функция
       bubble.currentData = data;
       bubble.drawer.value = data.displayValue ?? `${data.value}`;
+      bubble.drawer.label = data.displayName ?? data.name;
       if (bubble.drawer.image?.src != data.imgSrc) {
         let image: HTMLImageElement | undefined;
         if (data.imgSrc) {

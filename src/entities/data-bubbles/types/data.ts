@@ -1,5 +1,6 @@
 export interface IDataStateBubble {
   name: string;
+  displayName?: string;
   imgSrc?: string;
   value: number;
   displayValue?: string;
