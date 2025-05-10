@@ -38,7 +38,6 @@ export const BlockDataSettings = ({
             {
               label: "🎛️ UI",
               value: "UI",
-              disabled: true,
             },
             {
               label: "📝 JSON",
@@ -61,7 +60,7 @@ export const BlockDataSettings = ({
         />
         <DividerHorizontal />
       </div>
-      {editMode == "UI" && <BlockEditModeUI />}
+      {editMode == "UI" && <BlockEditModeUI dataBubbles={dataBubbles} />}
       {editMode == "JSON" && <BlockEditModeJSON dataBubbles={dataBubbles} />}
       {editMode == "LINK" && <BlockEditModeLink dataBubbles={dataBubbles} />}
       {editMode == "GENERATE" && (
