@@ -3,11 +3,13 @@ export const InputText = ({
   value,
   onChange,
   placeholder,
+  style,
 }: {
   disabled?: boolean;
   value?: string;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   placeholder?: string;
+  style?: React.CSSProperties;
 }) => {
   return (
     <input
@@ -16,6 +18,7 @@ export const InputText = ({
       onChange={onChange}
       disabled={disabled}
       placeholder={placeholder}
+      style={style}
     />
   );
 };
