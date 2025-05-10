@@ -30,9 +30,9 @@ export const BlockEditModeJSON = ({
           📥 Import
         </ButtonImportJson>
       </div>
-      <a href="https://github.com/Dias1c/data-bubbles" target="_blank">
+      {/* <a href="https://github.com/Dias1c/data-bubbles" target="_blank">
         📌 Documentation
-      </a>
+      </a> */}
       <InputTextArea
         style={{
           minHeight: "380px",
